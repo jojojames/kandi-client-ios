@@ -7,9 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
+
+#import "FBLoginViewController.h"
+#import "ViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIView *view;
+
+@property (strong, nonatomic) NSString *databasePath;
+
+@property (strong, nonatomic) FBLoginViewController *fbLoginViewController;
+
+@property (strong, nonatomic) UIPageViewController *pageViewController;
+
 
 @end
