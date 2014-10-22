@@ -1,5 +1,5 @@
 //
-//  OWNERSHIP.h
+//  Ownership.h
 //  KandiTAG
 //
 //  Created by Jim Chen on 10/16/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface OWNERSHIP : NSObject
+@interface Ownership : NSObject
 
 @property (nonatomic, strong) NSString *uniqueIDownership;
 @property (nonatomic, strong) NSString *qrcode_id;

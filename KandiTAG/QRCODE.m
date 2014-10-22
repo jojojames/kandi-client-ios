@@ -1,14 +1,14 @@
 //
-//  QRCODE.m
+//  QRCode.m
 //  KandiTAG
 //
 //  Created by Jim Chen on 10/16/14.
 //  Copyright (c) 2014 Jim. All rights reserved.
 //
 
-#import "QRCODE.h"
+#import "QRCode.h"
 
-@implementation QRCODE
+@implementation QRCode
 
 @synthesize uniqueIDqrcode;
 @synthesize code;

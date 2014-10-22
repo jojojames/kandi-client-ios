@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		380334A719D9C15000D8A405 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 380334A619D9C15000D8A405 /* PageViewController.m */; };
-		3808CC2B19F35D6100D11FA5 /* QRDATACONTROLLER.m in Sources */ = {isa = PBXBuildFile; fileRef = 3808CC2A19F35D6100D11FA5 /* QRDATACONTROLLER.m */; };
-		3808CC2E19F35D6C00D11FA5 /* USERDATACONTROLLER.m in Sources */ = {isa = PBXBuildFile; fileRef = 3808CC2D19F35D6C00D11FA5 /* USERDATACONTROLLER.m */; };
+		3808CC2B19F35D6100D11FA5 /* QRDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3808CC2A19F35D6100D11FA5 /* QRDataController.m */; };
+		3808CC2E19F35D6C00D11FA5 /* UserDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3808CC2D19F35D6C00D11FA5 /* UserDataController.m */; };
 		381A8D1119C0348800AE4336 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 381A8D1019C0348800AE4336 /* FacebookSDK.framework */; };
 		382DAC2419F4653A00A077B8 /* ShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 382DAC2319F4653A00A077B8 /* ShapeView.m */; };
 		38392AE719BFE3A300D9D2CD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38392AE619BFE3A300D9D2CD /* AVFoundation.framework */; };
@@ -17,7 +17,7 @@
 		3864FA0119D8CCCE00AB72A7 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 3864FA0019D8CCCE00AB72A7 /* Tag.m */; };
 		3864FA0419D8CD2800AB72A7 /* Kandi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3864FA0319D8CD2800AB72A7 /* Kandi.m */; };
 		386EAC5019E4DD09008E7C88 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 386EAC4F19E4DD09008E7C88 /* libsqlite3.0.dylib */; };
-		3874071119F4BEDF003ED84D /* OWNERSHIPDATACONTROLLER.m in Sources */ = {isa = PBXBuildFile; fileRef = 3874071019F4BEDF003ED84D /* OWNERSHIPDATACONTROLLER.m */; };
+		3874071119F4BEDF003ED84D /* OwnershipDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3874071019F4BEDF003ED84D /* OwnershipDataController.m */; };
 		388BD25D19BEB98100ED1571 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 388BD25C19BEB98100ED1571 /* Foundation.framework */; };
 		388BD25F19BEB98100ED1571 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 388BD25E19BEB98100ED1571 /* CoreGraphics.framework */; };
 		388BD26119BEB98100ED1571 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 388BD26019BEB98100ED1571 /* UIKit.framework */; };
@@ -32,9 +32,9 @@
 		388BD27E19BEB98100ED1571 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 388BD26019BEB98100ED1571 /* UIKit.framework */; };
 		388BD28619BEB98100ED1571 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 388BD28419BEB98100ED1571 /* InfoPlist.strings */; };
 		388BD28819BEB98100ED1571 /* KandiTAGTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 388BD28719BEB98100ED1571 /* KandiTAGTests.m */; };
-		3892934F19F0ADCE005BEB8D /* USER.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892934E19F0ADCE005BEB8D /* USER.m */; };
-		3892935219F0B48F005BEB8D /* QRCODE.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892935119F0B48F005BEB8D /* QRCODE.m */; };
-		3892935519F0B4D6005BEB8D /* OWNERSHIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892935419F0B4D6005BEB8D /* OWNERSHIP.m */; };
+		3892934F19F0ADCE005BEB8D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892934E19F0ADCE005BEB8D /* User.m */; };
+		3892935219F0B48F005BEB8D /* QRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892935119F0B48F005BEB8D /* QRCode.m */; };
+		3892935519F0B4D6005BEB8D /* Ownership.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892935419F0B4D6005BEB8D /* Ownership.m */; };
 		38989F4F19F48D2D00E0D541 /* DetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 38989F4E19F48D2D00E0D541 /* DetailVC.m */; };
 		38B5903119C6AD7E00D27644 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B5903019C6AD7E00D27644 /* SettingsViewController.m */; };
 		38BD616519F50DF900299A51 /* KandiDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BD616419F50DF900299A51 /* KandiDataController.m */; };
@@ -55,10 +55,10 @@
 /* Begin PBXFileReference section */
 		380334A519D9C15000D8A405 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		380334A619D9C15000D8A405 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
-		3808CC2919F35D6100D11FA5 /* QRDATACONTROLLER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRDATACONTROLLER.h; sourceTree = "<group>"; };
-		3808CC2A19F35D6100D11FA5 /* QRDATACONTROLLER.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRDATACONTROLLER.m; sourceTree = "<group>"; };
-		3808CC2C19F35D6C00D11FA5 /* USERDATACONTROLLER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USERDATACONTROLLER.h; sourceTree = "<group>"; };
-		3808CC2D19F35D6C00D11FA5 /* USERDATACONTROLLER.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USERDATACONTROLLER.m; sourceTree = "<group>"; };
+		3808CC2919F35D6100D11FA5 /* QRDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRDataController.h; sourceTree = "<group>"; };
+		3808CC2A19F35D6100D11FA5 /* QRDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRDataController.m; sourceTree = "<group>"; };
+		3808CC2C19F35D6C00D11FA5 /* UserDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataController.h; sourceTree = "<group>"; };
+		3808CC2D19F35D6C00D11FA5 /* UserDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDataController.m; sourceTree = "<group>"; };
 		381A8D1019C0348800AE4336 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		382DAC2219F4653A00A077B8 /* ShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShapeView.h; sourceTree = "<group>"; };
 		382DAC2319F4653A00A077B8 /* ShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShapeView.m; sourceTree = "<group>"; };
@@ -68,8 +68,8 @@
 		3864FA0219D8CD2800AB72A7 /* Kandi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kandi.h; sourceTree = "<group>"; };
 		3864FA0319D8CD2800AB72A7 /* Kandi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kandi.m; sourceTree = "<group>"; };
 		386EAC4F19E4DD09008E7C88 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
-		3874070F19F4BEDF003ED84D /* OWNERSHIPDATACONTROLLER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWNERSHIPDATACONTROLLER.h; sourceTree = "<group>"; };
-		3874071019F4BEDF003ED84D /* OWNERSHIPDATACONTROLLER.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWNERSHIPDATACONTROLLER.m; sourceTree = "<group>"; };
+		3874070F19F4BEDF003ED84D /* OwnershipDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnershipDataController.h; sourceTree = "<group>"; };
+		3874071019F4BEDF003ED84D /* OwnershipDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnershipDataController.m; sourceTree = "<group>"; };
 		388BD25919BEB98100ED1571 /* KandiTAG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KandiTAG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		388BD25C19BEB98100ED1571 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		388BD25E19BEB98100ED1571 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -89,12 +89,12 @@
 		388BD28319BEB98100ED1571 /* KandiTAGTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KandiTAGTests-Info.plist"; sourceTree = "<group>"; };
 		388BD28519BEB98100ED1571 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		388BD28719BEB98100ED1571 /* KandiTAGTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KandiTAGTests.m; sourceTree = "<group>"; };
-		3892934D19F0ADCE005BEB8D /* USER.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USER.h; sourceTree = "<group>"; };
-		3892934E19F0ADCE005BEB8D /* USER.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USER.m; sourceTree = "<group>"; };
-		3892935019F0B48F005BEB8D /* QRCODE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCODE.h; sourceTree = "<group>"; };
-		3892935119F0B48F005BEB8D /* QRCODE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCODE.m; sourceTree = "<group>"; };
-		3892935319F0B4D6005BEB8D /* OWNERSHIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWNERSHIP.h; sourceTree = "<group>"; };
-		3892935419F0B4D6005BEB8D /* OWNERSHIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWNERSHIP.m; sourceTree = "<group>"; };
+		3892934D19F0ADCE005BEB8D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		3892934E19F0ADCE005BEB8D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		3892935019F0B48F005BEB8D /* QRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCode.h; sourceTree = "<group>"; };
+		3892935119F0B48F005BEB8D /* QRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCode.m; sourceTree = "<group>"; };
+		3892935319F0B4D6005BEB8D /* Ownership.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ownership.h; sourceTree = "<group>"; };
+		3892935419F0B4D6005BEB8D /* Ownership.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ownership.m; sourceTree = "<group>"; };
 		38989F4D19F48D2D00E0D541 /* DetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVC.h; sourceTree = "<group>"; };
 		38989F4E19F48D2D00E0D541 /* DetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailVC.m; sourceTree = "<group>"; };
 		38A72D5419E8780E00AC5BDE /* kandiDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = kandiDB.sqlite; sourceTree = "<group>"; };
@@ -276,18 +276,18 @@
 		38E0DD3A19C653C300A60BAF /* DataObjects */ = {
 			isa = PBXGroup;
 			children = (
-				3892934D19F0ADCE005BEB8D /* USER.h */,
-				3892934E19F0ADCE005BEB8D /* USER.m */,
-				3892935019F0B48F005BEB8D /* QRCODE.h */,
-				3892935119F0B48F005BEB8D /* QRCODE.m */,
-				3892935319F0B4D6005BEB8D /* OWNERSHIP.h */,
-				3892935419F0B4D6005BEB8D /* OWNERSHIP.m */,
-				3808CC2919F35D6100D11FA5 /* QRDATACONTROLLER.h */,
-				3808CC2A19F35D6100D11FA5 /* QRDATACONTROLLER.m */,
-				3808CC2C19F35D6C00D11FA5 /* USERDATACONTROLLER.h */,
-				3808CC2D19F35D6C00D11FA5 /* USERDATACONTROLLER.m */,
-				3874070F19F4BEDF003ED84D /* OWNERSHIPDATACONTROLLER.h */,
-				3874071019F4BEDF003ED84D /* OWNERSHIPDATACONTROLLER.m */,
+				3892934D19F0ADCE005BEB8D /* User.h */,
+				3892934E19F0ADCE005BEB8D /* User.m */,
+				3892935019F0B48F005BEB8D /* QRCode.h */,
+				3892935119F0B48F005BEB8D /* QRCode.m */,
+				3892935319F0B4D6005BEB8D /* Ownership.h */,
+				3892935419F0B4D6005BEB8D /* Ownership.m */,
+				3808CC2919F35D6100D11FA5 /* QRDataController.h */,
+				3808CC2A19F35D6100D11FA5 /* QRDataController.m */,
+				3808CC2C19F35D6C00D11FA5 /* UserDataController.h */,
+				3808CC2D19F35D6C00D11FA5 /* UserDataController.m */,
+				3874070F19F4BEDF003ED84D /* OwnershipDataController.h */,
+				3874071019F4BEDF003ED84D /* OwnershipDataController.m */,
 				38BD616319F50DF900299A51 /* KandiDataController.h */,
 				38BD616419F50DF900299A51 /* KandiDataController.m */,
 				38CC6BA619F5B553007D8983 /* OwnershipCountDC.h */,
@@ -425,21 +425,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				3864FA0419D8CD2800AB72A7 /* Kandi.m in Sources */,
-				3874071119F4BEDF003ED84D /* OWNERSHIPDATACONTROLLER.m in Sources */,
+				3874071119F4BEDF003ED84D /* OwnershipDataController.m in Sources */,
 				38CC6BA819F5B553007D8983 /* OwnershipCountDC.m in Sources */,
 				38BD616519F50DF900299A51 /* KandiDataController.m in Sources */,
-				3808CC2B19F35D6100D11FA5 /* QRDATACONTROLLER.m in Sources */,
-				3892935219F0B48F005BEB8D /* QRCODE.m in Sources */,
+				3808CC2B19F35D6100D11FA5 /* QRDataController.m in Sources */,
+				3892935219F0B48F005BEB8D /* QRCode.m in Sources */,
 				388BD27319BEB98100ED1571 /* ViewController.m in Sources */,
-				3892935519F0B4D6005BEB8D /* OWNERSHIP.m in Sources */,
-				3892934F19F0ADCE005BEB8D /* USER.m in Sources */,
+				3892935519F0B4D6005BEB8D /* Ownership.m in Sources */,
+				3892934F19F0ADCE005BEB8D /* User.m in Sources */,
 				38989F4F19F48D2D00E0D541 /* DetailVC.m in Sources */,
 				382DAC2419F4653A00A077B8 /* ShapeView.m in Sources */,
 				388BD26D19BEB98100ED1571 /* AppDelegate.m in Sources */,
 				380334A719D9C15000D8A405 /* PageViewController.m in Sources */,
 				38F9FA6019C0D3E800EDA64C /* FBLoginViewController.m in Sources */,
 				3864FA0119D8CCCE00AB72A7 /* Tag.m in Sources */,
-				3808CC2E19F35D6C00D11FA5 /* USERDATACONTROLLER.m in Sources */,
+				3808CC2E19F35D6C00D11FA5 /* UserDataController.m in Sources */,
 				38B5903119C6AD7E00D27644 /* SettingsViewController.m in Sources */,
 				388BD26919BEB98100ED1571 /* main.m in Sources */,
 			);

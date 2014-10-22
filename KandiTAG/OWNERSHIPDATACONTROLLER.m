@@ -1,14 +1,14 @@
 //
-//  OWNERSHIPDATACONTROLLER.m
+//  OwnershipDataController.m
 //  KandiTAG
 //
 //  Created by Jim Chen on 10/19/14.
 //  Copyright (c) 2014 Jim. All rights reserved.
 //
 
-#import "OWNERSHIPDATACONTROLLER.h"
+#import "OwnershipDataController.h"
 
-@implementation OWNERSHIPDATACONTROLLER
+@implementation OwnershipDataController
 
 @synthesize mutableData;
 @synthesize dataString;

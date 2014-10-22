@@ -1,5 +1,5 @@
 //
-//  QRDATACONTROLLER.h
+//  QRDataController.h
 //  KandiTAG
 //
 //  Created by Jim Chen on 10/18/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QRDATACONTROLLER : NSObject <NSURLConnectionDataDelegate>
+@interface QRDataController : NSObject <NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) NSString *usr;
 @property (nonatomic, strong) NSString *pw;

@@ -230,11 +230,11 @@
     
     if (_boundingBox.hidden) {
     
-        QRDATACONTROLLER *qrDataController = [QRDATACONTROLLER new];
+        QRDataController *qrDataController = [QRDataController new];
     
         [qrDataController checkQR];
         
-        OWNERSHIPDATACONTROLLER *ownershipDC = [OWNERSHIPDATACONTROLLER new];
+        OwnershipDataController *ownershipDC = [OwnershipDataController new];
         
         [ownershipDC checkOwnership];
         

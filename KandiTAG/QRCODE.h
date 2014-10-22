@@ -1,5 +1,5 @@
 //
-//  QRCODE.h
+//  QRCode.h
 //  KandiTAG
 //
 //  Created by Jim Chen on 10/16/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QRCODE : NSObject
+@interface QRCode : NSObject
 
 @property (nonatomic, strong) NSString *uniqueIDqrcode;
 @property (nonatomic, strong) NSString *code;

@@ -1,5 +1,5 @@
 //
-//  OWNERSHIPDATACONTROLLER.h
+//  OwnershipDataController.h
 //  KandiTAG
 //
 //  Created by Jim Chen on 10/19/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface OWNERSHIPDATACONTROLLER : NSObject <NSURLConnectionDataDelegate>
+@interface OwnershipDataController : NSObject <NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) NSString *usr;
 @property (nonatomic, strong) NSString *pw;

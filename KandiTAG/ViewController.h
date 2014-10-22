@@ -9,8 +9,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
-#import "QRDATACONTROLLER.h"
-#import "OWNERSHIPDATACONTROLLER.h"
+#import "QRDataController.h"
+#import "OwnershipDataController.h"
 #import "OwnershipCountDC.h"
 
 @interface ViewController : UIViewController <UIAlertViewDelegate>

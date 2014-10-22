@@ -66,7 +66,7 @@
     
     NSLog(@"current user: %@ - %@", userName, FBid);
     
-    USERDATACONTROLLER *userDataController = [USERDATACONTROLLER new];
+    UserDataController *userDataController = [UserDataController new];
     
     [userDataController checkUser];
     

@@ -1,14 +1,14 @@
 //
-//  QRDATACONTROLLER.m
+//  QRDataController.m
 //  KandiTAG
 //
 //  Created by Jim Chen on 10/18/14.
 //  Copyright (c) 2014 Jim. All rights reserved.
 //
 
-#import "QRDATACONTROLLER.h"
+#import "QRDataController.h"
 
-@implementation QRDATACONTROLLER
+@implementation QRDataController
 
 @synthesize mutableData;
 @synthesize dataString;

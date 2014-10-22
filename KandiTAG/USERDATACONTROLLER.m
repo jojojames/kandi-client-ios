@@ -1,14 +1,14 @@
 //
-//  USERDATACONTROLLER.m
+//  UserDataController.m
 //  KandiTAG
 //
 //  Created by Jim Chen on 10/18/14.
 //  Copyright (c) 2014 Jim. All rights reserved.
 //
 
-#import "USERDATACONTROLLER.h"
+#import "UserDataController.h"
 
-@implementation USERDATACONTROLLER
+@implementation UserDataController
 
 @synthesize mutableData;
 @synthesize dataString;
