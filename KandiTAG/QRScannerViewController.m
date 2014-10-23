@@ -45,6 +45,67 @@
 
 -(void)buttonPressed {
     NSLog(@"BUTTON PRESSED");
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    // on banner
+    UILabel *onBanner = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    UIImage *img = [UIImage imageNamed:@"OnBanner"];
+    CGSize imgSize = onBanner.frame.size;
+    UIGraphicsBeginImageContext(imgSize);
+    [img drawInRect:CGRectMake(0, 0, imgSize.width, imgSize.height)];
+    UIImage *newimg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    onBanner.backgroundColor = [UIColor colorWithPatternImage:newimg];
+    [self.view addSubview:onBanner];
+    
+    //off banner
+    UILabel *offBanner = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    UIImage *imgs = [UIImage imageNamed:@"OffBanner"];
+    CGSize imgsSize = offBanner.frame.size;
+    UIGraphicsBeginImageContext(imgSize);
+    [imgs drawInRect:CGRectMake(0, 0, imgsSize.width, imgsSize.height)];
+    UIImage *newsimg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    offBanner.backgroundColor = [UIColor colorWithPatternImage:newsimg];
+    
+    if (device != nil) {
+        if (!_onOff) {
+            
+            if ([device hasTorch] && [device hasFlash]) {
+                
+                [device lockForConfiguration:nil];
+                
+                [device setTorchMode:AVCaptureTorchModeOn];
+                [device setFlashMode:AVCaptureFlashModeOn];
+                
+                [device unlockForConfiguration];
+                
+                [onOffButton setTitle:@"Turn off" forState:UIControlStateNormal];
+                
+                [self.view addSubview:onBanner];
+                
+                NSLog(@"flashlight is on");
+            }
+        } else {
+            if ([device hasTorch] && [device hasFlash]) {
+                
+                [device lockForConfiguration:nil];
+                
+                [device setTorchMode:AVCaptureTorchModeOff];
+                [device setFlashMode:AVCaptureFlashModeOff];
+                
+                [device unlockForConfiguration];
+                
+                [onOffButton setTitle:@"Turn on" forState:UIControlStateNormal];
+                
+                [self.view addSubview:offBanner];
+                
+                NSLog(@"flashlight is off");
+            }
+        }
+    }
+    
+    _onOff = !_onOff;
     
 }
 
