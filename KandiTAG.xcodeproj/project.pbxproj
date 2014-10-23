@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AB423D219F8A8A300914ABF /* KandiTagNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB423D119F8A8A300914ABF /* KandiTagNavigationController.m */; };
+		1AB423D519F8AC0300914ABF /* QRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB423D419F8AC0300914ABF /* QRScannerViewController.m */; };
 		380334A719D9C15000D8A405 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 380334A619D9C15000D8A405 /* PageViewController.m */; };
 		3808CC2B19F35D6100D11FA5 /* QRDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3808CC2A19F35D6100D11FA5 /* QRDataController.m */; };
 		3808CC2E19F35D6C00D11FA5 /* UserDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3808CC2D19F35D6C00D11FA5 /* UserDataController.m */; };
@@ -53,6 +55,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1AB423D019F8A8A300914ABF /* KandiTagNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KandiTagNavigationController.h; sourceTree = "<group>"; };
+		1AB423D119F8A8A300914ABF /* KandiTagNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KandiTagNavigationController.m; sourceTree = "<group>"; };
+		1AB423D319F8AC0300914ABF /* QRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScannerViewController.h; sourceTree = "<group>"; };
+		1AB423D419F8AC0300914ABF /* QRScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRScannerViewController.m; sourceTree = "<group>"; };
 		380334A519D9C15000D8A405 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		380334A619D9C15000D8A405 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
 		3808CC2919F35D6100D11FA5 /* QRDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRDataController.h; sourceTree = "<group>"; };
@@ -135,6 +141,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AB423CC19F8A75500914ABF /* KandiController */ = {
+			isa = PBXGroup;
+			children = (
+				1AB423D019F8A8A300914ABF /* KandiTagNavigationController.h */,
+				1AB423D119F8A8A300914ABF /* KandiTagNavigationController.m */,
+			);
+			path = KandiController;
+			sourceTree = "<group>";
+		};
 		382DAC2119F4653000A077B8 /* ShapeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +205,7 @@
 		388BD26219BEB98100ED1571 /* KandiTAG */ = {
 			isa = PBXGroup;
 			children = (
+				1AB423CC19F8A75500914ABF /* KandiController */,
 				388BD26E19BEB98100ED1571 /* Main.storyboard */,
 				38D5CC4919E7746900AAD1D2 /* PopupViewController */,
 				38E0DD3A19C653C300A60BAF /* DataObjects */,
@@ -251,6 +267,8 @@
 			children = (
 				388BD27119BEB98100ED1571 /* ViewController.h */,
 				388BD27219BEB98100ED1571 /* ViewController.m */,
+				1AB423D319F8AC0300914ABF /* QRScannerViewController.h */,
+				1AB423D419F8AC0300914ABF /* QRScannerViewController.m */,
 			);
 			name = MainViewController;
 			sourceTree = "<group>";
@@ -424,6 +442,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AB423D519F8AC0300914ABF /* QRScannerViewController.m in Sources */,
 				3864FA0419D8CD2800AB72A7 /* Kandi.m in Sources */,
 				3874071119F4BEDF003ED84D /* OwnershipDataController.m in Sources */,
 				38CC6BA819F5B553007D8983 /* OwnershipCountDC.m in Sources */,
@@ -441,6 +460,7 @@
 				3864FA0119D8CCCE00AB72A7 /* Tag.m in Sources */,
 				3808CC2E19F35D6C00D11FA5 /* UserDataController.m in Sources */,
 				38B5903119C6AD7E00D27644 /* SettingsViewController.m in Sources */,
+				1AB423D219F8A8A300914ABF /* KandiTagNavigationController.m in Sources */,
 				388BD26919BEB98100ED1571 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

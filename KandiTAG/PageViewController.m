@@ -7,6 +7,8 @@
 //
 
 #import "PageViewController.h"
+#import "KandiTagNavigationController.h"
+#import "QRScannerViewController.h"
 
 @interface PageViewController ()
 
@@ -22,14 +24,19 @@
     self.delegate = self;
     self.dataSource = self;
     
-    UIViewController *vc1 = [self.storyboard instantiateViewControllerWithIdentifier:@"MainViewController"];
+    //UIViewController *vc1 = [self.storyboard instantiateViewControllerWithIdentifier:@"MainViewController"];
+    
+    UIViewController* vc1 = [[QRScannerViewController alloc] init];
+    
     UITableViewController *vc2 = [self.storyboard instantiateViewControllerWithIdentifier:@"Tag"];
     UIViewController *vc3 = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
-    UITableViewController *vc4 = [self.storyboard instantiateViewControllerWithIdentifier:@"Kandi"];
+    //UITableViewController *vc4 = [self.storyboard instantiateViewControllerWithIdentifier:@"Kandi"];
+    
+    UINavigationController *vc4 = [[KandiTagNavigationController alloc] init];
     
     myViewControllers = @[vc1, vc2, vc3, vc4];
     
-    [self setViewControllers:@[vc1] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    [self setViewControllers:@[vc2] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
     BOOL didRunbefore = [[NSUserDefaults standardUserDefaults] boolForKey:@"didRunBefore"];
     
