@@ -1,42 +1,24 @@
 //
-//  KandiTagNavigationController.m
+//  KandiDetailViewController.m
 //  KandiTAG
 //
 //  Created by James Nguyen on 10/22/14.
 //  Copyright (c) 2014 Jim. All rights reserved.
 //
 
-#import "KandiTagNavigationController.h"
+#import "KandiDetailViewController.h"
 
-@interface KandiTagNavigationController ()
+@interface KandiDetailViewController ()
 
 @end
 
-@implementation KandiTagNavigationController
-@synthesize tableView;
-
--(instancetype)initWithFlag:(NSString *)flag {
-    self = [super init];
-    if (self) {
-        self.tableView = [[KandiTableViewController alloc] initWithFlag:flag];
-        [self pushViewController:self.tableView animated:NO];
-        self.navigationBar.translucent = YES;
-    }
-    return self;
-    
-}
+@implementation KandiDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor greenColor];
 }
-
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-}
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

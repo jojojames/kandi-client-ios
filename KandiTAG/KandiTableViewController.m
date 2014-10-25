@@ -1,72 +1,51 @@
 //
-//  Tag.m
+//  Kandi.m
 //  KandiTAG
 //
 //  Created by Jim Chen on 9/28/14.
 //  Copyright (c) 2014 Jim. All rights reserved.
 //
 
-#import "Tag.h"
+#import "KandiTableViewController.h"
+#import "DetailVC.h"
+#import "KandiDetailViewController.h"
+#import "KandiTableViewCell.h"
+#import "KandiDetailTableViewController.h"
 
-
-@interface Tag ()
+@interface KandiTableViewController ()
 
 @end
 
-@implementation Tag
+@implementation KandiTableViewController
+@synthesize isKandi;
 
-@synthesize ktCodeArray;
+-(instancetype)initWithFlag:(NSString *)flag {
+    self = [super init];
+    if (self) {
+        if ([flag isEqualToString:@"TAG"])
+            isKandi = NO;
+        else
+            isKandi = YES;
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blackColor];
+    KandiDataController *kdc = [KandiDataController new];
+    
+    [kdc getOwnershipKandi];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-} /*
-
--(NSMutableArray *)getQRcodesforTable {
     
-    ktCodeArray = [NSMutableArray new];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *FBid = [defaults stringForKey:@"FBID"];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *docsPath = [paths objectAtIndex:0];
-    NSString *path = [docsPath stringByAppendingPathComponent:@"easyKTDB.sqlite"];
-    
-    FMDatabase *database = [FMDatabase databaseWithPath:path];
-    
-    [database open];
-    
-    FMResultSet *result = [database executeQuery:@"select * from ktcode where fbid = ?;", FBid];
-    
-    while ([result next]) {
-        ktcode *ktCode = [[ktcode alloc] init];
-        
-        ktCode.ktCODE = [result stringForColumn:@"code"];
-        ktCode.ktFBID = [result stringForColumn:@"fbid"];
-        
-        [ktCodeArray addObject:ktCode];
-    }
-    
-    NSLog(@"ktCodeArray contains: %@", ktCodeArray);
-    
-    [database close];
-    
-    return ktCodeArray;
-    
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.tableView registerClass:[KandiTableViewCell class] forCellReuseIdentifier:@"KandiTableViewCell"];
 }
 
 #pragma mark - Table view data source
@@ -80,28 +59,46 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [ktCodeArray count];
+    
+    return 10;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"KandiTableViewCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[KandiTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    // Configure the cell...
-    ktcode *codedata = [ktCodeArray objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text = codedata.ktFBID;
+    cell.textLabel.text = @"KANDI";
+    cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
 }
 
+- (void)didReceiveMemoryWarning {
+        [super didReceiveMemoryWarning];
+        // Dispose of any resources that can be recreated.
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    DetailVC *dvc = [storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
+    
+    dvc.view.bounds = CGRectMake(0, 0, 320, 448);
+    
+    
+    KandiDetailTableViewController* detailController = [[KandiDetailTableViewController alloc] init];
+    [self.navigationController pushViewController:detailController animated:YES];
+    //[self.navigationController pushViewController:dvc animated:YES];
+}
+     
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
-#import "UserDataController.h"
 #import "PageViewController.h"
 
-@interface FBLoginViewController : UIViewController <FBLoginViewDelegate>
+@interface FBLoginViewController : UIViewController <FBLoginViewDelegate, NSURLConnectionDataDelegate>
 
 
 @property (weak, nonatomic) IBOutlet FBLoginView *loginButton;
@@ -28,5 +27,8 @@
 
 
 -(void)toggleHiddenState:(BOOL)shouldHide;
+
+@property (nonatomic) BOOL requestedLogin;
+@property (strong, nonatomic) NSMutableData* responseData;
 
 @end

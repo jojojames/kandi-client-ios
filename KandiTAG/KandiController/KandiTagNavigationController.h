@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KandiTableViewController.h"
 
 @interface KandiTagNavigationController : UINavigationController
-@property (strong, nonatomic) UITableViewController* tableView;
+
+-(instancetype)initWithFlag:(NSString*)flag;
+@property (strong, nonatomic) KandiTableViewController* tableView;
 @end

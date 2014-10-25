@@ -33,6 +33,11 @@
     
 }
 
+-(void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+}
+
 /*
 #pragma mark - Navigation
 

@@ -10,7 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 
 #import "FBLoginViewController.h"
-#import "ViewController.h"
+#import "NetworkUtil.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -24,4 +24,13 @@
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 
 
+@property (strong, nonatomic) NSUserDefaults* defaults;
+
+@property (strong, nonatomic) NetworkUtil* network;
+@property (strong, nonatomic) NSString* mainUserId;
+@property (strong, nonatomic) NSString* facebookId;
+@property (strong, nonatomic) NSString* currentQrCode;
+@property (strong, nonatomic) NSString* userName;
++ (AppDelegate*)KandiAppDelegate;
+-(NSString*)UserId;
 @end

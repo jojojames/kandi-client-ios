@@ -24,15 +24,13 @@
     self.delegate = self;
     self.dataSource = self;
     
-    //UIViewController *vc1 = [self.storyboard instantiateViewControllerWithIdentifier:@"MainViewController"];
-    
     UIViewController* vc1 = [[QRScannerViewController alloc] init];
     
-    UITableViewController *vc2 = [self.storyboard instantiateViewControllerWithIdentifier:@"Tag"];
-    UIViewController *vc3 = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
-    //UITableViewController *vc4 = [self.storyboard instantiateViewControllerWithIdentifier:@"Kandi"];
+    UINavigationController *vc2 = [[KandiTagNavigationController alloc] initWithFlag:@"TAG"];
     
-    UINavigationController *vc4 = [[KandiTagNavigationController alloc] init];
+    UIViewController *vc3 = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+    
+    UINavigationController *vc4 = [[KandiTagNavigationController alloc] initWithFlag:@"KANDI"];
     
     myViewControllers = @[vc1, vc2, vc3, vc4];
     
@@ -41,28 +39,22 @@
     BOOL didRunbefore = [[NSUserDefaults standardUserDefaults] boolForKey:@"didRunBefore"];
     
     if (!didRunbefore) {
-        
         UIAlertView *welcomeAlert = [[UIAlertView alloc] initWithTitle:@"Welcome!" message:@"To get started, scan a KandiTAG" delegate:self cancelButtonTitle:@"Got it!" otherButtonTitles:nil, nil];
-        
         [welcomeAlert show];
-        
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"didRunBefore"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
     }
 }
   
 
--(UIViewController *)viewControllerAtIndex:(NSUInteger)index
-{
+-(UIViewController *)viewControllerAtIndex:(NSUInteger)index {
     return myViewControllers[index];
 }
 
 #pragma mark - Page View Controller Data Source
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-     viewControllerBeforeViewController:(UIViewController *)viewController
-{
+     viewControllerBeforeViewController:(UIViewController *)viewController {
     NSUInteger currentIndex = [myViewControllers indexOfObject:viewController];
     
     --currentIndex;
@@ -75,8 +67,7 @@
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-      viewControllerAfterViewController:(UIViewController *)viewController
-{
+      viewControllerAfterViewController:(UIViewController *)viewController {
     NSUInteger currentIndex = [myViewControllers indexOfObject:viewController];
     
     ++currentIndex;

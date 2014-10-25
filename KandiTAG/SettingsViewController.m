@@ -15,19 +15,14 @@
 
 @implementation SettingsViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-
     // Do any additional setup after loading the view, typically from a nib.
     
     [self toggleHiddenState:YES];
     self.lblLoginStatus.text = @"";
-    
     self.loginButton.readPermissions = @[@"public_profile", @"email"];
-    
     self.loginButton.delegate = self;
-    
 }
 
 -(void)toggleHiddenState:(BOOL)shouldHide{

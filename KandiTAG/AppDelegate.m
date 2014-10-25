@@ -7,16 +7,48 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import "Kandi.h"
+#import "KandiTableViewController.h"
 #import "Tag.h"
 
 @implementation AppDelegate
+@synthesize network;
+@synthesize mainUserId;
+@synthesize defaults;
+@synthesize facebookId;
+@synthesize userName;
+@synthesize currentQrCode;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
- 
++(AppDelegate*)KandiAppDelegate {
+    return (AppDelegate*)[UIApplication sharedApplication].delegate;
+}
+
+-(NSUserDefaults*)defaults {
+    if (!defaults)
+        defaults = [NSUserDefaults standardUserDefaults];
+    return defaults;
+}
+
+-(NSString*)facebookId {
+    if (!facebookId)
+        facebookId = [self.defaults stringForKey:@"FBID"];
+    return facebookId;
+}
+
+-(NSString*)userName {
+    if (!userName) {
+        userName = [self.defaults stringForKey:@"NAME"];
+    }
+    return userName;
+}
+
+-(NSString*)mainUserId {
+    if (!mainUserId)
+        mainUserId = [self.defaults stringForKey:@"USERID"];
+    return mainUserId;
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.pageViewController = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
@@ -26,7 +58,9 @@
     
     [FBLoginView class];
     [FBProfilePictureView class];
+    network = [[NetworkUtil alloc] init];
     
+    self.currentQrCode = @"dh1";
     return YES;
 }
 
@@ -64,5 +98,7 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
 
 @end

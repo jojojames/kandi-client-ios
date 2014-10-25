@@ -1,94 +1,67 @@
 //
-//  Kandi.m
+//  KandiDetailTableViewController.m
 //  KandiTAG
 //
-//  Created by Jim Chen on 9/28/14.
+//  Created by James Nguyen on 10/22/14.
 //  Copyright (c) 2014 Jim. All rights reserved.
 //
 
-#import "Kandi.h"
-#import "DetailVC.h"
+#import "KandiDetailTableViewController.h"
+#import "KandiFriendMessageTableCell.h"
 
-@interface Kandi ()
+@interface KandiDetailTableViewController ()
 
 @end
 
-@implementation Kandi
-
-@synthesize kandiForDisplay;
-
-@synthesize ktCodeArray;
+@implementation KandiDetailTableViewController
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor blackColor];
-    
-    KandiDataController *kdc = [KandiDataController new];
-    
-    [kdc getOwnershipKandi];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [self.tableView registerClass:[KandiFriendMessageTableCell class] forCellReuseIdentifier:@"KandiFriendMessageTableCell"];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    
-    return 10;
+    return 5;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"KandiFriendMessageTableCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+    KandiFriendMessageTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[KandiFriendMessageTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = @"KANDI";
+    
+    cell.label.text = @"KANDI";
     cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
 }
 
-- (void)didReceiveMemoryWarning {
-        [super didReceiveMemoryWarning];
-        // Dispose of any resources that can be recreated.
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    DetailVC *dvc = [storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
-    
-    dvc.view.bounds = CGRectMake(0, 0, 320, 448);
-    
-    [self addChildViewController:dvc];
-    [self.view addSubview:dvc.view];
-    [dvc didMoveToParentViewController:self];
-
-    
-    
-}
-     
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

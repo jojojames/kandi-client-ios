@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E755786A-99DC-424C-B1DA-35C87C90A683</string>
+	<key>IDESourceControlProjectName</key>
+	<string>KandiTAG</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B18EDB9F941F9E3B1D6DAEDBCF0B52AFD423E2A8</key>
+		<string>https://github.com/jojojames/kandi-client-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>KandiTAG.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B18EDB9F941F9E3B1D6DAEDBCF0B52AFD423E2A8</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/jojojames/kandi-client-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B18EDB9F941F9E3B1D6DAEDBCF0B52AFD423E2A8</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B18EDB9F941F9E3B1D6DAEDBCF0B52AFD423E2A8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>KandiTAG</string>
+		</dict>
+	</array>
+</dict>
+</plist>

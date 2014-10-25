@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QRCodeSaveDelegate.h"
 
-@interface QRScannerViewController : UIViewController <UIAlertViewDelegate>
+@interface QRScannerViewController : UIViewController <UIAlertViewDelegate, NSURLConnectionDataDelegate>
 - (IBAction)buttonPressed:(id)sender;
 -(void)buttonPressed;
 @property (readwrite) BOOL onOff;
 @property (strong, nonatomic) UIButton* onOffButton;
+
+@property (strong, nonatomic) QRCodeSaveDelegate* qrCodeSaveDelegate;
 @end

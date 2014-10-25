@@ -7,7 +7,6 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
-#import "ViewController.h"
 #import "AppDelegate.h"
 #import "ShapeView.h"
 #import "QRScannerViewController.h"
@@ -24,13 +23,21 @@
 
 @implementation QRScannerViewController
 @synthesize onOffButton;
+@synthesize qrCodeSaveDelegate;
+
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        qrCodeSaveDelegate = [[QRCodeSaveDelegate alloc] init];
+    }
+    return self;
+}
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     //flashlight
@@ -44,7 +51,6 @@
 }
 
 -(void)buttonPressed {
-    NSLog(@"BUTTON PRESSED");
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
     // on banner
@@ -172,7 +178,6 @@
         
     }
     
-    
     // Add the view to draw the bounding box for the UIView
     _boundingBox = [[ShapeView alloc] initWithFrame:self.view.bounds];
     _boundingBox.backgroundColor = [UIColor clearColor];
@@ -199,6 +204,8 @@
     [super viewDidAppear:YES];
     
     [self startSession];
+    
+    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate]; // hardcoding to get qrcodes
     
 }
 
@@ -234,57 +241,24 @@
              
              */
             
-            NSString *dhc = [[NSString alloc] initWithString:@"dhc"];
-            
+            NSString *dhc = @"dhc";
             //if code contains dhc
-            
             if ([_decodedMessage.text rangeOfString:dhc].location != NSNotFound) {
-                
                 //turn decoded text into string
                 NSString *ktQRcode = [[NSString alloc] initWithString:_decodedMessage.text];
-                
-                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                [defaults setObject:ktQRcode forKey:@"QRCODE"];
-                
-                //create datestring for create_at
-                NSDate *insertDate = [NSDate date];
-                NSDateFormatter *outputFormatter = [NSDateFormatter new];
-                [outputFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
-                NSString *newDateString = [outputFormatter stringFromDate:insertDate];
-                [defaults setObject:newDateString forKey:@"CREATE_AT"];
-                
-                //create datestring for original_create_at
-                NSDateComponents *originalUserdate = [[NSDateComponents alloc] init];
-                [originalUserdate setDay:31];
-                [originalUserdate setMonth:10];
-                [originalUserdate setYear:2000];
-                NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-                NSDate *originalUserinsertDate = [gregorian dateFromComponents:originalUserdate];
-                NSString *originalUserdateString = [outputFormatter stringFromDate:originalUserinsertDate];
-                [defaults setObject:originalUserdateString forKey:@"ORIGINAL_CREATE_AT"];
-                originalUserdate = nil;
-                outputFormatter = nil;
-                
+                [AppDelegate KandiAppDelegate].currentQrCode = ktQRcode;
                 NSLog(@"scanned qr: %@", ktQRcode);
-                insertDate = nil;
                 _decodedMessage.text = @"";
-                
-                NSLog(@"newDateString: %@", newDateString);
-                NSLog(@"originalDateString: %@", originalUserdateString);
-                
             }
             
             [self startOverlayHideTimer];
-            
-            
-            
+          
         }
     }
 }
 
 #pragma mark - Utility Methods
-- (void)startOverlayHideTimer
-{
+- (void)startOverlayHideTimer {
     // Cancel it if we're already running
     if(_boxHideTimer) {
         
@@ -300,33 +274,16 @@
                                                     repeats:NO];
 }
 
-- (void)removeBoundingBox:(id)sender
-{
+- (void)removeBoundingBox:(id)sender {
     // Hide the box and remove the decoded text
     _boundingBox.hidden = YES;
     _decodedMessage.text = @"";
-    
     if (_boundingBox.hidden) {
-        
-        QRDataController *qrDataController = [QRDataController new];
-        
-        [qrDataController checkQR];
-        
-        OwnershipDataController *ownershipDC = [OwnershipDataController new];
-        
-        [ownershipDC checkOwnership];
-        
-        OwnershipCountDC *ownershipcount = [OwnershipCountDC new];
-        
-        [ownershipcount checkOwnershipCount];
-        
-        
-        
+        [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate];
     }
 }
 
-- (NSArray *)translatePoints:(NSArray *)points fromView:(UIView *)fromView toView:(UIView *)toView
-{
+- (NSArray *)translatePoints:(NSArray *)points fromView:(UIView *)fromView toView:(UIView *)toView {
     NSMutableArray *translatedPoints = [NSMutableArray new];
     
     // The points are provided in a dictionary with keys X and Y
@@ -342,8 +299,7 @@
     return [translatedPoints copy];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
