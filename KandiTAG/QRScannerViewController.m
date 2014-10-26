@@ -244,6 +244,7 @@
                 //turn decoded text into string
                 NSString *ktQRcode = [[NSString alloc] initWithString:_decodedMessage.text];
                 [AppDelegate KandiAppDelegate].currentQrCode = ktQRcode;
+                [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:ktQRcode];
                 NSLog(@"scanned qr: %@", ktQRcode);
                 _decodedMessage.text = @"";
             }
