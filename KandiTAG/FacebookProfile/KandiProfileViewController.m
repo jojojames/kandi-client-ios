@@ -71,19 +71,19 @@
 }
 
 -(void)imageTapped {
-    //NSString* urlString = [NSString stringWithFormat:@"fb://profile/%@", facebookId];
-    //NSURL *url = [NSURL URLWithString:urlString];
-    //[[UIApplication sharedApplication] openURL:url];
+    NSString* urlString = [NSString stringWithFormat:@"fb://profile/%@", facebookId];
+    NSURL *url = [NSURL URLWithString:urlString];
+    [[UIApplication sharedApplication] openURL:url];
     
     
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.facebook.com/addfriend.php?id=%@", facebookId]];
+    //NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.facebook.com/addfriend.php?id=%@", facebookId]];
     //[[UIApplication sharedApplication] openURL:url];
    // NSData *data = [NSData dataWithContentsOfURL:url];
     
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys: facebookId, @"id", nil];
-    [FBWebDialogs presentDialogModallyWithSession:nil dialog:@"friends" parameters:params handler:nil];
+    //NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys: facebookId, @"id", nil];
+    //[FBWebDialogs presentDialogModallyWithSession:nil dialog:@"friends" parameters:params handler:nil];
     
 }
 
