@@ -63,7 +63,9 @@
 }
 
 -(void)facebookSendButtonPressed {
-    
+    NSString* urlString = [NSString stringWithFormat:@"fb-messenger://user-thread/%@", facebookId];
+    NSURL *url = [NSURL URLWithString:urlString];
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 -(void)facebookAddButtonPressed {
