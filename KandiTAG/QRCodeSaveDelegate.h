@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QRScannerViewController.h"
 
 @interface QRCodeSaveDelegate : NSObject <NSURLConnectionDataDelegate>
 @property (strong, nonatomic) NSMutableData *responseData;
-@property (weak, nonatomic) UIViewController* controller;
--(instancetype)initWithController:(UIViewController*)parent;
+@property (weak, nonatomic) QRScannerViewController* controller;
+-(instancetype)initWithController:(QRScannerViewController*)parent;
 @end

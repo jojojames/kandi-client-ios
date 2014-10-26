@@ -24,11 +24,13 @@
 @implementation QRScannerViewController
 @synthesize onOffButton;
 @synthesize qrCodeSaveDelegate;
+@synthesize saveInProgress;
 
 -(instancetype)init {
     self = [super init];
     if (self) {
         qrCodeSaveDelegate = [[QRCodeSaveDelegate alloc] initWithController:self];
+        saveInProgress = NO;
     }
     return self;
 }
@@ -242,11 +244,13 @@
             //if code contains dhc
             if ([_decodedMessage.text rangeOfString:dhc].location != NSNotFound) {
                 //turn decoded text into string
-                NSString *ktQRcode = [[NSString alloc] initWithString:_decodedMessage.text];
-                [AppDelegate KandiAppDelegate].currentQrCode = ktQRcode;
-                [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:ktQRcode];
-                NSLog(@"scanned qr: %@", ktQRcode);
-                _decodedMessage.text = @"";
+                if (!saveInProgress) {
+                    NSString *ktQRcode = [[NSString alloc] initWithString:_decodedMessage.text];
+                    [AppDelegate KandiAppDelegate].currentQrCode = ktQRcode;
+                    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:ktQRcode];
+                    NSLog(@"scanned qr: %@", ktQRcode);
+                    _decodedMessage.text = @"";
+                }
             }
             
             [self startOverlayHideTimer];

@@ -16,4 +16,5 @@
 @property (strong, nonatomic) UIButton* onOffButton;
 
 @property (strong, nonatomic) QRCodeSaveDelegate* qrCodeSaveDelegate;
+@property (nonatomic) BOOL saveInProgress;
 @end

@@ -16,7 +16,7 @@
 
 #pragma mark - NSURLConnection Delegate
 
--(instancetype)initWithController:(UIViewController*)parent {
+-(instancetype)initWithController:(QRScannerViewController*)parent {
     self = [super init];
     if (self) {
         self.responseData = [[NSMutableData alloc] init];
@@ -27,6 +27,7 @@
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [responseData setLength:0];
+    controller.saveInProgress = YES;
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -77,6 +78,7 @@
     } else {
         [self presentFailure];
     }
+    controller.saveInProgress = NO;
 
 }
 
