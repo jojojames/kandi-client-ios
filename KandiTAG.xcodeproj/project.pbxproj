@@ -34,9 +34,6 @@
 		388BD27E19BEB98100ED1571 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 388BD26019BEB98100ED1571 /* UIKit.framework */; };
 		388BD28619BEB98100ED1571 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 388BD28419BEB98100ED1571 /* InfoPlist.strings */; };
 		388BD28819BEB98100ED1571 /* KandiTAGTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 388BD28719BEB98100ED1571 /* KandiTAGTests.m */; };
-		3892934F19F0ADCE005BEB8D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892934E19F0ADCE005BEB8D /* User.m */; };
-		3892935219F0B48F005BEB8D /* QRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892935119F0B48F005BEB8D /* QRCode.m */; };
-		3892935519F0B4D6005BEB8D /* Ownership.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892935419F0B4D6005BEB8D /* Ownership.m */; };
 		38B5903119C6AD7E00D27644 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B5903019C6AD7E00D27644 /* SettingsViewController.m */; };
 		38F9FA6019C0D3E800EDA64C /* FBLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F9FA5F19C0D3E800EDA64C /* FBLoginViewController.m */; };
 /* End PBXBuildFile section */
@@ -93,12 +90,6 @@
 		388BD28319BEB98100ED1571 /* KandiTAGTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KandiTAGTests-Info.plist"; sourceTree = "<group>"; };
 		388BD28519BEB98100ED1571 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		388BD28719BEB98100ED1571 /* KandiTAGTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KandiTAGTests.m; sourceTree = "<group>"; };
-		3892934D19F0ADCE005BEB8D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		3892934E19F0ADCE005BEB8D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		3892935019F0B48F005BEB8D /* QRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCode.h; sourceTree = "<group>"; };
-		3892935119F0B48F005BEB8D /* QRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCode.m; sourceTree = "<group>"; };
-		3892935319F0B4D6005BEB8D /* Ownership.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ownership.h; sourceTree = "<group>"; };
-		3892935419F0B4D6005BEB8D /* Ownership.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ownership.m; sourceTree = "<group>"; };
 		38A72D5419E8780E00AC5BDE /* kandiDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = kandiDB.sqlite; sourceTree = "<group>"; };
 		38B5902F19C6AD7E00D27644 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		38B5903019C6AD7E00D27644 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
@@ -203,7 +194,6 @@
 				1AB3850F19FC853400243F92 /* FacebookProfile */,
 				1AB423CC19F8A75500914ABF /* KandiController */,
 				388BD26E19BEB98100ED1571 /* Main.storyboard */,
-				38E0DD3A19C653C300A60BAF /* DataObjects */,
 				38F9FA5D19C0D3D900EDA64C /* FBLogin */,
 				38D7241F19C6832900724C28 /* Settings */,
 				3864F9FB19D8C8A400AB72A7 /* PageViewController */,
@@ -279,19 +269,6 @@
 				38B5903019C6AD7E00D27644 /* SettingsViewController.m */,
 			);
 			name = Settings;
-			sourceTree = "<group>";
-		};
-		38E0DD3A19C653C300A60BAF /* DataObjects */ = {
-			isa = PBXGroup;
-			children = (
-				3892934D19F0ADCE005BEB8D /* User.h */,
-				3892934E19F0ADCE005BEB8D /* User.m */,
-				3892935019F0B48F005BEB8D /* QRCode.h */,
-				3892935119F0B48F005BEB8D /* QRCode.m */,
-				3892935319F0B4D6005BEB8D /* Ownership.h */,
-				3892935419F0B4D6005BEB8D /* Ownership.m */,
-			);
-			name = DataObjects;
 			sourceTree = "<group>";
 		};
 		38F9FA5D19C0D3D900EDA64C /* FBLogin */ = {
@@ -409,10 +386,7 @@
 				3864FA0419D8CD2800AB72A7 /* KandiTableViewController.m in Sources */,
 				1AB423DB19F8B63F00914ABF /* KandiTableViewCell.m in Sources */,
 				1AB3851519FCB8C400243F92 /* VersionCheck.m in Sources */,
-				3892935219F0B48F005BEB8D /* QRCode.m in Sources */,
 				1AB3850719FB4D3300243F92 /* QRCodeSaveDelegate.m in Sources */,
-				3892935519F0B4D6005BEB8D /* Ownership.m in Sources */,
-				3892934F19F0ADCE005BEB8D /* User.m in Sources */,
 				382DAC2419F4653A00A077B8 /* ShapeView.m in Sources */,
 				388BD26D19BEB98100ED1571 /* AppDelegate.m in Sources */,
 				380334A719D9C15000D8A405 /* PageViewController.m in Sources */,
