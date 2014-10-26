@@ -13,6 +13,14 @@
 
 #pragma mark - NSURLConnection Delegate
 
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        self.responseData = [[NSMutableData alloc] init];
+    }
+    return self;
+}
+
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [responseData setLength:0];
 }
@@ -34,17 +42,24 @@
                           error:&error];
     
     if ([json objectForKey:@"success"]) {
-        NSString* success = (NSString*)[json objectForKey:@"success"];
-        if ([json objectForKey:@"qrcode_limit_reached"]) {
-            // limit has been reached for qrcode
+        NSNumber* success = [json objectForKey:@"success"];
+        if ([success boolValue]) {
+            // QRCode was saved properly
+            NSString* qrCodeId = (NSString*)[json objectForKey:@"qrcode_id"];
+            NSString* qrCode = (NSString*)[json objectForKey:@"qrcode"];
+            NSString* user_id = (NSString*)[json objectForKey:@"user_id"];
+            NSNumber* placement = (NSString*) [json objectForKey:@"placement"];
+            NSString* ownershipId = (NSString*)[json objectForKey:@"ownership_id"];
         } else {
-            if ([json objectForKey:@"qrcode_id"]) {
-                NSString* qrcodeId = (NSString*)[json objectForKey:@"qrcode_id"];
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"QRCODEID"];
-                [[NSUserDefaults standardUserDefaults] setObject:qrcodeId forKey:@"QRCODEID"];
+            NSString* error = (NSString*) [json objectForKey:@"error"];
+            BOOL limitReached = [json objectForKey:@"limit_reached"];
+            if (limitReached) {
+                // show an alert telling us the QR limit has been reached
+                NSLog(@"QRCODE LIMIT REACHED");
             }
+            
+            NSLog(@"QRCodeSaveDelegate: connectionDidFinishLoading: %@", error);
         }
-        
     } else {
         // should always have a success object
         // if it reaches here, something went wrong on the server

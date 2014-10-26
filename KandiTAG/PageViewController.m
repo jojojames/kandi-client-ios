@@ -9,6 +9,7 @@
 #import "PageViewController.h"
 #import "KandiTagNavigationController.h"
 #import "QRScannerViewController.h"
+#import "Constants.h"
 
 @interface PageViewController ()
 
@@ -26,11 +27,11 @@
     
     UIViewController* vc1 = [[QRScannerViewController alloc] init];
     
-    UINavigationController *vc2 = [[KandiTagNavigationController alloc] initWithFlag:@"TAG"];
+    UINavigationController *vc2 = [[KandiTagNavigationController alloc] initWithFlag:TAG];
     
     UIViewController *vc3 = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
     
-    UINavigationController *vc4 = [[KandiTagNavigationController alloc] initWithFlag:@"KANDI"];
+    UINavigationController *vc4 = [[KandiTagNavigationController alloc] initWithFlag:KANDI];
     
     myViewControllers = @[vc1, vc2, vc3, vc4];
     

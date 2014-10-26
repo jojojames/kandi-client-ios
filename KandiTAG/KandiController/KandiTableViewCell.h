@@ -10,4 +10,6 @@
 
 @interface KandiTableViewCell : UITableViewCell
 @property (strong, nonatomic) UIImageView* profileIcon;
+-(void)setImageUsingFacebookId:(NSString*)c_facebookId;
+@property (nonatomic) BOOL hasImage;
 @end

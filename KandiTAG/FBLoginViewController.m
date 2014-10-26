@@ -94,12 +94,18 @@
                           JSONObjectWithData:responseData
                           options:kNilOptions
                           error:&error];
-    NSString* userId = (NSString*)[json objectForKey:@"user_id"];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:userId forKey:@"USERID"];
-    NSString *user_id = [defaults objectForKey:@"USERID"];
-    NSLog(@"FBLoginViewController: connectionDidFinishLoading: user_id: %@", user_id);
-    [AppDelegate KandiAppDelegate].mainUserId = user_id;
+    
+    if ([json objectForKey:@"success"]) {
+        NSNumber* success = [json objectForKey:@"success"];
+        if ([success boolValue]) {
+            NSString* userId = (NSString*)[json objectForKey:@"user_id"];
+            [AppDelegate KandiAppDelegate].mainUserId = userId;
+            NSLog(@"FBLoginViewController: connectionDidFinishLoading: user_id: %@", userId);
+        } else {
+            // todo; show an alert that the login was not successful for whatever reason
+        }
+    }
+
 }
 
 @end

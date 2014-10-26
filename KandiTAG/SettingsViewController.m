@@ -42,6 +42,9 @@
     self.profilePicture.profileID = user.id;
     self.lblUsername.text = user.name;
     self.lblEmail.text = [user objectForKey:@"email"];
+    
+    [self.profilePicture layer].cornerRadius = 5.0f;
+    [self.profilePicture layer].masksToBounds = YES;
 }
 
 -(void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView{

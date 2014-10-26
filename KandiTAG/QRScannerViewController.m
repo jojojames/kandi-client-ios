@@ -43,7 +43,7 @@
     //flashlight
     //_onOff = YES;
     
-    onOffButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    onOffButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 70, 70)];
     onOffButton.backgroundColor = [UIColor grayColor];
     [self.view addSubview:onOffButton];
     
@@ -117,7 +117,7 @@
 
 -(void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    onOffButton.frame = CGRectMake(self.view.frame.size.width/2, 40, onOffButton.frame.size.width, onOffButton.frame.size.height);
+    onOffButton.frame = CGRectMake(self.view.frame.size.width/2 - onOffButton.frame.size.width / 2, 25, onOffButton.frame.size.width, onOffButton.frame.size.height);
 }
 
 -(void)startSession {
@@ -205,7 +205,23 @@
     
     [self startSession];
     
-    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate]; // hardcoding to get qrcodes
+    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh3"];
+    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh8"];
+    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh4"];
+    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh5"];
+    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh6"];
+    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh7"];
+    
+    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh10"];
+    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh18"];
+    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh14"];
+    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh15"];
+    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh16"];
+    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh17"];
+    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh30"];
+    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh39"];
+    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh29"];
+    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh38"];
     
 }
 

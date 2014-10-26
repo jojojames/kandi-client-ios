@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "KandiTableViewController.h"
-#import "Tag.h"
 
 @implementation AppDelegate
 @synthesize network;
@@ -60,7 +59,7 @@
     [FBProfilePictureView class];
     network = [[NetworkUtil alloc] init];
     
-    self.currentQrCode = @"dh1";
+    self.currentQrCode = @"dh2";
     return YES;
 }
 

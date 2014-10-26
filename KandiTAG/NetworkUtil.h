@@ -15,6 +15,8 @@
 
 -(void)requestLogin:(id<NSURLConnectionDataDelegate>) netdelegate;
 -(void)saveQrCode:(id<NSURLConnectionDataDelegate>) netdelegate;
--(void)checkOwnership:(id<NSURLConnectionDataDelegate>) netdelegate;
--(void)checkOwnershipCount:(id<NSURLConnectionDataDelegate>) netDelegate;
+-(void)saveQrCode:(id<NSURLConnectionDataDelegate>) netdelegate withCode:(NSString*)code;
+-(void)getOriginalTags:(id<NSURLConnectionDataDelegate>) netdelegate;
+-(void)getCurrentTags:(id<NSURLConnectionDataDelegate>) netdelegate;
+-(void)getAllTags:(id<NSURLConnectionDataDelegate>) netdelegate withQRcode:(NSString*)code;
 @end

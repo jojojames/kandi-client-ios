@@ -7,140 +7,232 @@
 //
 
 #import "KandiTableViewController.h"
-#import "DetailVC.h"
-#import "KandiDetailViewController.h"
 #import "KandiTableViewCell.h"
-#import "KandiDetailTableViewController.h"
+#import "AppDelegate.h"
+#import "KandiProfileViewController.h"
 
 @interface KandiTableViewController ()
 
 @end
 
 @implementation KandiTableViewController
-@synthesize isKandi;
+@synthesize responseData;
+@synthesize loadedDataSource;
+@synthesize tags;
+@synthesize displayType;
+@synthesize selectedQrCodeId;
+@synthesize indicator;
 
--(instancetype)initWithFlag:(NSString *)flag {
+#define ORIGINAL @"original"
+#define CURRENT @"current"
+#define QRCODE_ID @"qrcode_id"
+#define USER_ID @"user_id"
+#define PLACEMENT @"placement"
+#define OWNERSHIP_ID @"ownership_id"
+#define USER_NAME @"user_name"
+#define FACEBOOK_ID @"facebookid"
+
+-(instancetype)initWithFlag:(DisplayType)flag {
     self = [super init];
     if (self) {
-        if ([flag isEqualToString:@"TAG"])
-            isKandi = NO;
-        else
-            isKandi = YES;
+        responseData = [[NSMutableData alloc] init];
+        loadedDataSource = NO;
+        tags = [[NSMutableArray alloc] init];
+        displayType = flag;
     }
     
     return self;
 }
 
-- (void)viewDidLoad {
-    
+-(instancetype)initWithFlag:(DisplayType)flag andQRCode:(NSString*)qrCode {
+    self = [self initWithFlag:flag];
+    if (self) {
+        self.selectedQrCodeId = qrCode;
+    }
+    return self;
+}
+
+-(void)viewDidLoad {
     [super viewDidLoad];
-    
-    KandiDataController *kdc = [KandiDataController new];
-    
-    [kdc getOwnershipKandi];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
     [self.tableView registerClass:[KandiTableViewCell class] forCellReuseIdentifier:@"KandiTableViewCell"];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    indicator.center = self.view.center;
+    [self.view addSubview:indicator];
+    [indicator bringSubviewToFront:self.view];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    
+    switch (displayType) {
+        case TAG:
+            self.title = @"Tags";
+            [[AppDelegate KandiAppDelegate].network getCurrentTags:self];
+            [indicator startAnimating];
+            break;
+        case KANDI:
+            self.title = @"Kandi";
+            [[AppDelegate KandiAppDelegate].network getOriginalTags:self];
+            [indicator startAnimating];
+            break;
+        case DETAIL:
+            self.title = @"Detail";
+            [[AppDelegate KandiAppDelegate].network getAllTags:self withQRcode:self.selectedQrCodeId];
+            [indicator startAnimating];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    
-    return 10;
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (loadedDataSource)
+        return [tags count];
+    else
+        return 0;
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"KandiTableViewCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    KandiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (cell == nil) {
         cell = [[KandiTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = @"KANDI";
     cell.backgroundColor = [UIColor whiteColor];
     
+    NSDictionary* json = [tags objectAtIndex:indexPath.row];
+    NSDictionary* original = [json objectForKey:ORIGINAL];
+    NSDictionary* current = [json objectForKey:CURRENT];
+    
+    NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
+    NSString* o_userId = [original objectForKey:USER_ID];
+    NSString* o_placement = [original objectForKey:PLACEMENT];
+    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
+    NSString* c_userId = [current objectForKey:USER_ID];
+    NSString* c_userName = [current objectForKey:USER_NAME];
+    NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
+    
+    cell.textLabel.text = c_userName;
+    [cell setImageUsingFacebookId:c_facebookId];
     return cell;
 }
 
-- (void)didReceiveMemoryWarning {
-        [super didReceiveMemoryWarning];
-        // Dispose of any resources that can be recreated.
+-(void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSDictionary* json = [tags objectAtIndex:indexPath.row];
+    NSDictionary* original = [json objectForKey:ORIGINAL];
+    NSDictionary* current = [json objectForKey:CURRENT];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    DetailVC *dvc = [storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
+    NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
+    NSString* o_userId = [original objectForKey:USER_ID];
+    NSString* o_placement = [original objectForKey:PLACEMENT];
+    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
     
-    dvc.view.bounds = CGRectMake(0, 0, 320, 448);
+    NSString* c_userId = [current objectForKey:USER_ID];
+    NSString* c_userName = [current objectForKey:USER_NAME];
+    NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
     
+    switch (displayType) {
+        case TAG:
+        {
+            KandiTableViewController* detailController = [[KandiTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
+            [self.navigationController pushViewController:detailController animated:YES];
+            break;
+        }
+        case KANDI:
+        {
+            KandiTableViewController* detailController = [[KandiTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
+            [self.navigationController pushViewController:detailController animated:YES];
+            break;
+        }
+        case DETAIL:
+        {
+            KandiProfileViewController* profileController = [[KandiProfileViewController alloc] initWithFacebookId:c_facebookId];
+            [self.navigationController pushViewController:profileController animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return ROW_HEIGHT;
+}
+
+#pragma mark NSURLConnectionDataDelegate
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    [responseData setLength:0];
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [responseData appendData:data];
+}
+
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    //if we get any connection error manage it here
+    //for example use alert view to say no internet connection
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSError* error;
     
-    KandiDetailTableViewController* detailController = [[KandiDetailTableViewController alloc] init];
-    [self.navigationController pushViewController:detailController animated:YES];
-    //[self.navigationController pushViewController:dvc animated:YES];
+    // response data for the kandi REST calls always comes back as an array
+    NSDictionary* jsonResponse = [NSJSONSerialization
+                                JSONObjectWithData:responseData
+                                options:kNilOptions
+                                error:&error];
+    
+    if ([jsonResponse objectForKey:@"success"]) {
+        NSNumber* success = [jsonResponse objectForKey:@"success"];
+        if ([success boolValue]) {
+            NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
+            tags = jsonArray;
+            for (int i=0; i<[jsonArray count]; i++) {
+                NSDictionary* json = [jsonArray objectAtIndex:i];
+                loadedDataSource = YES;
+                if ([json count]) {
+                    // we'll consider it a success if there's any json
+                    NSDictionary* original = [json objectForKey:ORIGINAL];
+                    NSDictionary* current = [json objectForKey:CURRENT];
+                    
+                    NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
+                    NSString* o_userId = [original objectForKey:USER_ID];
+                    NSString* o_placement = [original objectForKey:PLACEMENT];
+                    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
+                    
+                    NSString* c_userId = [current objectForKey:USER_ID];
+                    NSString* c_userName = [current objectForKey:USER_NAME];
+                    NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
+                }
+            }
+            
+            if (loadedDataSource)
+                [self.tableView reloadData];
+        } else {
+            NSString* error = [jsonResponse objectForKey:@"error"];
+            NSLog(@"%@", error);
+        }
+    }
+    
+    [indicator stopAnimating];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
-     
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
