@@ -58,15 +58,11 @@
     [FBLoginView class];
     [FBProfilePictureView class];
     network = [[NetworkUtil alloc] init];
-    
-    self.currentQrCode = @"dh2";
     return YES;
 }
 
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    
-    return YES;
     return [FBAppCall handleOpenURL:url
                   sourceApplication:sourceApplication];
 }

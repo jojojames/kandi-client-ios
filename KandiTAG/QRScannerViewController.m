@@ -204,25 +204,6 @@
     [super viewDidAppear:YES];
     
     [self startSession];
-    
-    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh3"];
-    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh8"];
-    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh4"];
-    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh5"];
-    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh6"];
-    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh7"];
-    
-    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh10"];
-    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh18"];
-    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh14"];
-    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh15"];
-    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh16"];
-    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh17"];
-    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh30"];
-    //[[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh39"];
-    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh29"];
-    [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:@"dh38"];
-    
 }
 
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate

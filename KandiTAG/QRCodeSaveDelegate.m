@@ -12,7 +12,6 @@
 
 @implementation QRCodeSaveDelegate
 @synthesize responseData;
-@synthesize showingAlert;
 @synthesize controller;
 
 #pragma mark - NSURLConnection Delegate
@@ -21,7 +20,6 @@
     self = [super init];
     if (self) {
         self.responseData = [[NSMutableData alloc] init];
-        self.showingAlert = NO;
         self.controller = parent;
     }
     return self;
@@ -83,31 +81,26 @@
 }
 
 -(void)presentSuccess {
-    if (!showingAlert) {
-        showingAlert = YES;
-        if ([VersionCheck IOS8ORLater]) {
-            UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Save Success" message:@"Save succeeded" preferredStyle:UIAlertControllerStyleAlert];
-            [controller presentViewController:alertController animated:YES completion:^{
-            }];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save Success" message:@"Save succeeded" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-        }
+    if ([VersionCheck IOS8ORLater]) {
+        UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Save Success" message:@"Save succeeded" preferredStyle:UIAlertControllerStyleAlert];
+        [controller presentViewController:alertController animated:YES completion:^{
+        }];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save Success" message:@"Save succeeded" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
     }
+    
 }
 
 -(void)presentFailure {
-    if (!showingAlert) {
-        showingAlert = YES;
-        if ([VersionCheck IOS8ORLater]) {
-            UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Save Failed" message:@"This tag has been saved too many times" preferredStyle:UIAlertControllerStyleAlert];
-            [controller presentViewController:alertController animated:YES completion:^{
-            }];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save Failed" message:@"This tag has een saved too many times." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            
-        }
+    if ([VersionCheck IOS8ORLater]) {
+        UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Save Failed" message:@"This tag has been saved too many times" preferredStyle:UIAlertControllerStyleAlert];
+        [controller presentViewController:alertController animated:YES completion:^{
+        }];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save Failed" message:@"This tag has een saved too many times." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        
     }
 }
 
