@@ -13,14 +13,16 @@
 @implementation QRCodeSaveDelegate
 @synthesize responseData;
 @synthesize showingAlert;
+@synthesize controller;
 
 #pragma mark - NSURLConnection Delegate
 
--(instancetype)init {
+-(instancetype)initWithController:(UIViewController*)parent {
     self = [super init];
     if (self) {
         self.responseData = [[NSMutableData alloc] init];
         self.showingAlert = NO;
+        self.controller = parent;
     }
     return self;
 }
@@ -40,44 +42,54 @@
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
     
-    NSError* error;
-    NSDictionary* json = [NSJSONSerialization
-                          JSONObjectWithData:responseData
-                          options:kNilOptions
-                          error:&error];
-    
-    if ([json objectForKey:@"success"]) {
-        NSNumber* success = [json objectForKey:@"success"];
-        if ([success boolValue]) {
-            // QRCode was saved properly
-            NSString* qrCodeId = (NSString*)[json objectForKey:@"qrcode_id"];
-            NSString* qrCode = (NSString*)[json objectForKey:@"qrcode"];
-            NSString* user_id = (NSString*)[json objectForKey:@"user_id"];
-            NSNumber* placement = (NSString*) [json objectForKey:@"placement"];
-            NSString* ownershipId = (NSString*)[json objectForKey:@"ownership_id"];
-        } else {
-            NSString* error = (NSString*) [json objectForKey:@"error"];
-            BOOL limitReached = [json objectForKey:@"limit_reached"];
-            if (limitReached) {
-                // show an alert telling us the QR limit has been reached
-                NSLog(@"QRCODE LIMIT REACHED");
-                if ([VersionCheck IOS8ORLater]) {
-                    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Save Failed" message:@"This tag has been saved too many times" preferredStyle:UIAlertControllerStyleAlert];
-                    [[AppDelegate KandiAppDelegate].window.rootViewController presentViewController:alertController animated:YES completion:^{
-                    }];
-                    
-                } else {
-                    
+    if (responseData) {
+        NSError* error;
+        NSDictionary* json = [NSJSONSerialization
+                              JSONObjectWithData:responseData
+                              options:kNilOptions
+                              error:&error];
+        
+        if ([json objectForKey:@"success"]) {
+            NSNumber* success = [json objectForKey:@"success"];
+            if ([success boolValue]) {
+                // QRCode was saved properly
+                NSString* qrCodeId = (NSString*)[json objectForKey:@"qrcode_id"];
+                NSString* qrCode = (NSString*)[json objectForKey:@"qrcode"];
+                NSString* user_id = (NSString*)[json objectForKey:@"user_id"];
+                NSNumber* placement = (NSString*) [json objectForKey:@"placement"];
+                NSString* ownershipId = (NSString*)[json objectForKey:@"ownership_id"];
+            } else {
+                NSString* error = (NSString*) [json objectForKey:@"error"];
+                BOOL limitReached = [json objectForKey:@"limit_reached"];
+                if (limitReached) {
+                    // show an alert telling us the QR limit has been reached
+                    NSLog(@"QRCODE LIMIT REACHED");
+                    [self presentFailure];
                 }
+                
+                NSLog(@"QRCodeSaveDelegate: connectionDidFinishLoading: %@", error);
             }
+        } else {
+            // should always have a success object
+            // if it reaches here, something went wrong on the server
+            [self presentFailure];
             
-            NSLog(@"QRCodeSaveDelegate: connectionDidFinishLoading: %@", error);
         }
     } else {
-        // should always have a success object
-        // if it reaches here, something went wrong on the server
+        [self presentFailure];
     }
-    
+
+}
+
+-(void)presentFailure {
+    if ([VersionCheck IOS8ORLater]) {
+        if (!showingAlert) {
+            showingAlert = YES;
+            UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Save Failed" message:@"This tag has been saved too many times" preferredStyle:UIAlertControllerStyleAlert];
+            [controller presentViewController:alertController animated:YES completion:^{
+            }];
+        }
+    }
 
 }
 
