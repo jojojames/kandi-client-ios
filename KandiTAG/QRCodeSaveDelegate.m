@@ -83,32 +83,32 @@
 }
 
 -(void)presentSuccess {
-    if ([VersionCheck IOS8ORLater]) {
-        if (!showingAlert) {
-            showingAlert = YES;
+    if (!showingAlert) {
+        showingAlert = YES;
+        if ([VersionCheck IOS8ORLater]) {
             UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Save Success" message:@"Save succeeded" preferredStyle:UIAlertControllerStyleAlert];
             [controller presentViewController:alertController animated:YES completion:^{
             }];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save Success" message:@"Save succeeded" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
         }
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save Success" message:@"Save succeeded" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
     }
 }
 
 -(void)presentFailure {
-    if ([VersionCheck IOS8ORLater]) {
-        if (!showingAlert) {
-            showingAlert = YES;
+    if (!showingAlert) {
+        showingAlert = YES;
+        if ([VersionCheck IOS8ORLater]) {
             UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Save Failed" message:@"This tag has been saved too many times" preferredStyle:UIAlertControllerStyleAlert];
             [controller presentViewController:alertController animated:YES completion:^{
             }];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save Failed" message:@"This tag has een saved too many times." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
         }
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save Failed" message:@"This tag has een saved too many times." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
     }
-
 }
 
 @end
