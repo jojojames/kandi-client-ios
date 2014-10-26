@@ -13,7 +13,6 @@
 @implementation QRCodeSaveDelegate
 @synthesize responseData;
 @synthesize controller;
-@synthesize started;
 #pragma mark - NSURLConnection Delegate
 
 -(instancetype)initWithController:(UIViewController*)parent {
@@ -21,17 +20,12 @@
     if (self) {
         self.responseData = [[NSMutableData alloc] init];
         self.controller = parent;
-        self.started = NO;
     }
     return self;
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [responseData setLength:0];
-    if (!started) {
-        self.started = YES;
-    }
-    
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -77,14 +71,10 @@
             // should always have a success object
             // if it reaches here, something went wrong on the server
             [self presentFailure];
-            
         }
     } else {
         [self presentFailure];
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"done" object:nil];
-    self.started = NO;
 
 }
 
@@ -97,7 +87,6 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save Success" message:@"Save succeeded" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
     }
-    
 }
 
 -(void)presentFailure {

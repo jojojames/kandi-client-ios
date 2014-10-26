@@ -12,6 +12,4 @@
 @property (strong, nonatomic) NSMutableData *responseData;
 @property (weak, nonatomic) UIViewController* controller;
 -(instancetype)initWithController:(UIViewController*)parent;
-
-@property (nonatomic) BOOL started;
 @end

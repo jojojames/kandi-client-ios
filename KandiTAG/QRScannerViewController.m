@@ -24,13 +24,13 @@
 @implementation QRScannerViewController
 @synthesize onOffButton;
 @synthesize qrCodeSaveDelegate;
-@synthesize saveInProgress;
+@synthesize scannedCodes;
 
 -(instancetype)init {
     self = [super init];
     if (self) {
         qrCodeSaveDelegate = [[QRCodeSaveDelegate alloc] initWithController:self];
-        saveInProgress = NO;
+        scannedCodes = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -50,12 +50,6 @@
     [self.view addSubview:onOffButton];
     
     [onOffButton addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchDown];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveDone) name:@"done" object:nil];
-}
-
--(void)saveDone {
-    self.saveInProgress = NO;
 }
 
 -(void)buttonPressed {
@@ -250,10 +244,10 @@
             //if code contains dhc
             if ([_decodedMessage.text rangeOfString:dhc].location != NSNotFound) {
                 //turn decoded text into string
-                if (!saveInProgress) {
-                    saveInProgress = YES;
-                    NSString *ktQRcode = [[NSString alloc] initWithString:_decodedMessage.text];
+                NSString *ktQRcode = [[NSString alloc] initWithString:_decodedMessage.text];
+                if (![scannedCodes objectForKey:ktQRcode]) {
                     [AppDelegate KandiAppDelegate].currentQrCode = ktQRcode;
+                    [scannedCodes setObject:[NSNumber numberWithBool:YES] forKey:ktQRcode];
                     [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:ktQRcode];
                     NSLog(@"scanned qr: %@", ktQRcode);
                     _decodedMessage.text = @"";
