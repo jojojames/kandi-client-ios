@@ -13,21 +13,26 @@
 @implementation QRCodeSaveDelegate
 @synthesize responseData;
 @synthesize controller;
-
+@synthesize started;
 #pragma mark - NSURLConnection Delegate
 
--(instancetype)initWithController:(QRScannerViewController*)parent {
+-(instancetype)initWithController:(UIViewController*)parent {
     self = [super init];
     if (self) {
         self.responseData = [[NSMutableData alloc] init];
         self.controller = parent;
+        self.started = NO;
     }
     return self;
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [responseData setLength:0];
-    controller.saveInProgress = YES;
+    if (!started) {
+        self.started = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"started" object:nil];
+    }
+    
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -78,7 +83,9 @@
     } else {
         [self presentFailure];
     }
-    controller.saveInProgress = NO;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"done" object:nil];
+    self.started = NO;
 
 }
 

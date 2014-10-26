@@ -50,6 +50,17 @@
     [self.view addSubview:onOffButton];
     
     [onOffButton addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchDown];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveStart) name:@"start" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveDone) name:@"done" object:nil];
+}
+
+-(void)saveStart {
+    self.saveInProgress = YES;
+}
+
+-(void)saveDone {
+    self.saveInProgress = NO;
 }
 
 -(void)buttonPressed {
