@@ -28,7 +28,7 @@
 -(instancetype)init {
     self = [super init];
     if (self) {
-        qrCodeSaveDelegate = [[QRCodeSaveDelegate alloc] init];
+        qrCodeSaveDelegate = [[QRCodeSaveDelegate alloc] initWithController:self];
     }
     return self;
 }
