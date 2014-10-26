@@ -40,7 +40,7 @@
         tags = [[NSMutableArray alloc] init];
         displayType = flag;
     }
-    
+    //return
     return self;
 }
 
