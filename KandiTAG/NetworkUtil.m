@@ -110,17 +110,15 @@
 }
 
 -(void)getOriginalTags:(id<NSURLConnectionDataDelegate>)netdelegate {
-    NSString* qrCode = [AppDelegate KandiAppDelegate].currentQrCode;
     NSString* user_id = [AppDelegate KandiAppDelegate].mainUserId;
     
-    if (!qrCode || !user_id)
+    if (!user_id)
         return;
     
     NSLog(@"checkQR has been called");
     
     NSError* error;
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:qrCode forKey:@"qrcode"];
     [dict setObject:user_id forKey:@"user_id"];
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict
                                                           options:NSJSONReadingAllowFragments
