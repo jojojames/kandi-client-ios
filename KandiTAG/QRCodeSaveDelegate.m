@@ -7,9 +7,12 @@
 //
 
 #import "QRCodeSaveDelegate.h"
+#import "VersionCheck.h"
+#import "AppDelegate.h"
 
 @implementation QRCodeSaveDelegate
 @synthesize responseData;
+@synthesize showingAlert;
 
 #pragma mark - NSURLConnection Delegate
 
@@ -17,6 +20,7 @@
     self = [super init];
     if (self) {
         self.responseData = [[NSMutableData alloc] init];
+        self.showingAlert = NO;
     }
     return self;
 }
@@ -35,6 +39,7 @@
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    
     NSError* error;
     NSDictionary* json = [NSJSONSerialization
                           JSONObjectWithData:responseData
@@ -56,6 +61,14 @@
             if (limitReached) {
                 // show an alert telling us the QR limit has been reached
                 NSLog(@"QRCODE LIMIT REACHED");
+                if ([VersionCheck IOS8ORLater]) {
+                    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Save Failed" message:@"This tag has been saved too many times" preferredStyle:UIAlertControllerStyleAlert];
+                    [[AppDelegate KandiAppDelegate].window.rootViewController presentViewController:alertController animated:YES completion:^{
+                    }];
+                    
+                } else {
+                    
+                }
             }
             
             NSLog(@"QRCodeSaveDelegate: connectionDidFinishLoading: %@", error);

@@ -10,4 +10,5 @@
 
 @interface QRCodeSaveDelegate : NSObject <NSURLConnectionDataDelegate>
 @property (strong, nonatomic) NSMutableData *responseData;
+@property (nonatomic) BOOL showingAlert;
 @end

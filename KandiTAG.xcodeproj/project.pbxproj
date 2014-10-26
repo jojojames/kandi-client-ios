@@ -10,6 +10,7 @@
 		1AB3850419FB25F600243F92 /* NetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB3850319FB25F600243F92 /* NetworkUtil.m */; };
 		1AB3850719FB4D3300243F92 /* QRCodeSaveDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB3850619FB4D3300243F92 /* QRCodeSaveDelegate.m */; };
 		1AB3851219FC854900243F92 /* KandiProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB3851119FC854900243F92 /* KandiProfileViewController.m */; };
+		1AB3851519FCB8C400243F92 /* VersionCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB3851419FCB8C400243F92 /* VersionCheck.m */; };
 		1AB423D219F8A8A300914ABF /* KandiTagNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB423D119F8A8A300914ABF /* KandiTagNavigationController.m */; };
 		1AB423D519F8AC0300914ABF /* QRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB423D419F8AC0300914ABF /* QRScannerViewController.m */; };
 		1AB423DB19F8B63F00914ABF /* KandiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */; };
@@ -58,6 +59,8 @@
 		1AB3850E19FC79BC00243F92 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1AB3851019FC854900243F92 /* KandiProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KandiProfileViewController.h; sourceTree = "<group>"; };
 		1AB3851119FC854900243F92 /* KandiProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KandiProfileViewController.m; sourceTree = "<group>"; };
+		1AB3851319FCB8C400243F92 /* VersionCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionCheck.h; sourceTree = "<group>"; };
+		1AB3851419FCB8C400243F92 /* VersionCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionCheck.m; sourceTree = "<group>"; };
 		1AB423D019F8A8A300914ABF /* KandiTagNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KandiTagNavigationController.h; sourceTree = "<group>"; };
 		1AB423D119F8A8A300914ABF /* KandiTagNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KandiTagNavigationController.m; sourceTree = "<group>"; };
 		1AB423D319F8AC0300914ABF /* QRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScannerViewController.h; sourceTree = "<group>"; };
@@ -250,6 +253,8 @@
 				1AB3850219FB25F600243F92 /* NetworkUtil.h */,
 				1AB3850319FB25F600243F92 /* NetworkUtil.m */,
 				1AB3850E19FC79BC00243F92 /* Constants.h */,
+				1AB3851319FCB8C400243F92 /* VersionCheck.h */,
+				1AB3851419FCB8C400243F92 /* VersionCheck.m */,
 			);
 			name = AppDelegate;
 			sourceTree = "<group>";
@@ -403,6 +408,7 @@
 				1AB3850419FB25F600243F92 /* NetworkUtil.m in Sources */,
 				3864FA0419D8CD2800AB72A7 /* KandiTableViewController.m in Sources */,
 				1AB423DB19F8B63F00914ABF /* KandiTableViewCell.m in Sources */,
+				1AB3851519FCB8C400243F92 /* VersionCheck.m in Sources */,
 				3892935219F0B48F005BEB8D /* QRCode.m in Sources */,
 				1AB3850719FB4D3300243F92 /* QRCodeSaveDelegate.m in Sources */,
 				3892935519F0B4D6005BEB8D /* Ownership.m in Sources */,

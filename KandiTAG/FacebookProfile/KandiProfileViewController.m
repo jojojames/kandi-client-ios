@@ -63,9 +63,24 @@
 }
 
 -(void)facebookSendButtonPressed {
-    NSString* urlString = [NSString stringWithFormat:@"fb-messenger://user-thread/%@", facebookId];
-    NSURL *url = [NSURL URLWithString:urlString];
-    [[UIApplication sharedApplication] openURL:url];
+    //NSString* urlString = [NSString stringWithFormat:@"fb-messenger://user-thread/%@", facebookId];
+    //NSURL *url = [NSURL URLWithString:urlString];
+    //[[UIApplication sharedApplication] openURL:url];
+    
+    
+    
+    [FBDialogs presentMessageDialogWithLink:[NSURL URLWithString:@"https://developers.facebook.com/docs/ios/"]
+                                    handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+                                        if(error) {
+                                            // An error occurred, we need to handle the error
+                                            // See: https://developers.facebook.com/docs/ios/errors
+                                            NSLog([NSString stringWithFormat:@"Error messaging link: %@", error.description]);
+                                        } else {
+                                            // Success
+                                            NSLog(@"result %@", results);
+                                        }
+                                    }];
+    
 }
 
 -(void)facebookAddButtonPressed {
