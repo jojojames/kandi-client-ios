@@ -51,12 +51,7 @@
     
     [onOffButton addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchDown];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveStart) name:@"start" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveDone) name:@"done" object:nil];
-}
-
--(void)saveStart {
-    self.saveInProgress = YES;
 }
 
 -(void)saveDone {
@@ -256,6 +251,7 @@
             if ([_decodedMessage.text rangeOfString:dhc].location != NSNotFound) {
                 //turn decoded text into string
                 if (!saveInProgress) {
+                    saveInProgress = YES;
                     NSString *ktQRcode = [[NSString alloc] initWithString:_decodedMessage.text];
                     [AppDelegate KandiAppDelegate].currentQrCode = ktQRcode;
                     [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:ktQRcode];

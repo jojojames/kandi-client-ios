@@ -30,7 +30,6 @@
     [responseData setLength:0];
     if (!started) {
         self.started = YES;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"started" object:nil];
     }
     
 }
