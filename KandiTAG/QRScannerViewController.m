@@ -44,7 +44,7 @@
     //_onOff = YES;
     
     onOffButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 70, 70)];
-    onOffButton.backgroundColor = [UIColor grayColor];
+    onOffButton.backgroundColor = [UIColor clearColor];
     [self.view addSubview:onOffButton];
     
     [onOffButton addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchDown];
