@@ -39,6 +39,12 @@
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    if (FBSession.activeSession.isOpen) {
+        [self performSegueWithIdentifier:@"toApp" sender:self];
+    }
+}
+
 -(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)fbuser {
     NSLog(@"-loginViewFetchedUserInfo:\n %@", fbuser);
     self.profilePicture.profileID = fbuser.id;

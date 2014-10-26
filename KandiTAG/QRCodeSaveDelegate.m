@@ -58,6 +58,7 @@
                 NSString* user_id = (NSString*)[json objectForKey:@"user_id"];
                 NSNumber* placement = (NSString*) [json objectForKey:@"placement"];
                 NSString* ownershipId = (NSString*)[json objectForKey:@"ownership_id"];
+                [self presentSuccess];
             } else {
                 NSString* error = (NSString*) [json objectForKey:@"error"];
                 BOOL limitReached = [json objectForKey:@"limit_reached"];
@@ -81,6 +82,20 @@
 
 }
 
+-(void)presentSuccess {
+    if ([VersionCheck IOS8ORLater]) {
+        if (!showingAlert) {
+            showingAlert = YES;
+            UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Save Success" message:@"Save succeeded" preferredStyle:UIAlertControllerStyleAlert];
+            [controller presentViewController:alertController animated:YES completion:^{
+            }];
+        }
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save Success" message:@"Save succeeded" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
 -(void)presentFailure {
     if ([VersionCheck IOS8ORLater]) {
         if (!showingAlert) {
@@ -89,6 +104,9 @@
             [controller presentViewController:alertController animated:YES completion:^{
             }];
         }
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save Failed" message:@"This tag has een saved too many times." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
     }
 
 }
