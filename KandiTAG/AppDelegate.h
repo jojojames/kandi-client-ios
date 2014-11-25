@@ -23,7 +23,6 @@
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 
-
 @property (strong, nonatomic) NSUserDefaults* defaults;
 
 @property (strong, nonatomic) NetworkUtil* network;
@@ -31,6 +30,7 @@
 @property (strong, nonatomic) NSString* facebookId;
 @property (strong, nonatomic) NSString* currentQrCode;
 @property (strong, nonatomic) NSString* userName;
+
 + (AppDelegate*)KandiAppDelegate;
 -(NSString*)UserId;
 @end

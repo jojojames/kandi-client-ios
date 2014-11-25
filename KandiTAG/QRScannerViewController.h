@@ -11,7 +11,7 @@
 
 @interface QRScannerViewController : UIViewController <UIAlertViewDelegate, NSURLConnectionDataDelegate>
 - (IBAction)buttonPressed:(id)sender;
--(void)buttonPressed;
+-(void)buttonPress;
 @property (readwrite) BOOL onOff;
 @property (strong, nonatomic) UIButton* onOffButton;
 

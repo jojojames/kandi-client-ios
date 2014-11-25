@@ -7,9 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SLExpandableTableView.h>
+#import "Constants.h"
 
-@interface KandiTableViewCell : UITableViewCell
+@interface KandiTableViewCell : UITableViewCell <UIExpandingTableViewCell>
+
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UIButton *expandButton;
+
 @property (strong, nonatomic) UIImageView* profileIcon;
 -(void)setImageUsingFacebookId:(NSString*)c_facebookId;
 @property (nonatomic) BOOL hasImage;
+
+@property (nonatomic, assign, getter=isLoading) BOOL loading;
+
+@property (nonatomic, readonly) UIExpansionStyle expansionStyle;
+-(void)setExpansionStyle:(UIExpansionStyle)style animated:(BOOL)animated;
+
+
 @end

@@ -19,4 +19,14 @@
 -(void)getOriginalTags:(id<NSURLConnectionDataDelegate>) netdelegate;
 -(void)getCurrentTags:(id<NSURLConnectionDataDelegate>) netdelegate;
 -(void)getAllTags:(id<NSURLConnectionDataDelegate>) netdelegate withQRcode:(NSString*)code;
+
+//methods for messaging
+-(void)sendMessage:(id<NSURLConnectionDataDelegate>) netdelegate withMessage:(NSString *)message andRecipient:(NSString *)recipient andTime:(NSString*)timestamp;
+//for retrieving list of conversations
+-(void)getAllMessages:(id<NSURLConnectionDataDelegate>) netdelegate;
+//for retrieving a conversation
+-(void)getMessageExchange:(id<NSURLConnectionDataDelegate>) netdelegate withRecipient:(NSString *)recipient;
+//saving a conversation marker for the list
+-(void)saveConvo:(id<NSURLConnectionDataDelegate>) netdelegate withMessage:(NSString *)message andRecipient:(NSString *)recipient andName:(NSString *)name;
+
 @end

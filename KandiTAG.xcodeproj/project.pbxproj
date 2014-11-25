@@ -16,11 +16,15 @@
 		1AB423DB19F8B63F00914ABF /* KandiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */; };
 		380334A719D9C15000D8A405 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 380334A619D9C15000D8A405 /* PageViewController.m */; };
 		381A8D1119C0348800AE4336 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 381A8D1019C0348800AE4336 /* FacebookSDK.framework */; };
-		382DAC2419F4653A00A077B8 /* ShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 382DAC2319F4653A00A077B8 /* ShapeView.m */; };
+		382BEB1F1A0D794D00BFBB50 /* MessagingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 382BEB1E1A0D794D00BFBB50 /* MessagingNavigationController.m */; };
+		382DAC2419F4653A00A077B8 /* QRBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 382DAC2319F4653A00A077B8 /* QRBox.m */; };
 		38392AE719BFE3A300D9D2CD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38392AE619BFE3A300D9D2CD /* AVFoundation.framework */; };
+		383FFFAA1A098D2100E6F5E6 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 383FFFA91A098D2100E6F5E6 /* ChatTableViewCell.m */; };
 		3842D4FD19E899A400B11119 /* kandiDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 38A72D5419E8780E00AC5BDE /* kandiDB.sqlite */; };
 		3864FA0419D8CD2800AB72A7 /* KandiTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3864FA0319D8CD2800AB72A7 /* KandiTableViewController.m */; };
 		386EAC5019E4DD09008E7C88 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 386EAC4F19E4DD09008E7C88 /* libsqlite3.0.dylib */; };
+		387493F61A0F2B21009F77CC /* MessagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 387493F51A0F2B21009F77CC /* MessagesTableViewController.m */; };
+		387578131A119E6D00B35781 /* MessageSendDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 387578121A119E6D00B35781 /* MessageSendDelegate.m */; };
 		388BD25D19BEB98100ED1571 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 388BD25C19BEB98100ED1571 /* Foundation.framework */; };
 		388BD25F19BEB98100ED1571 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 388BD25E19BEB98100ED1571 /* CoreGraphics.framework */; };
 		388BD26119BEB98100ED1571 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 388BD26019BEB98100ED1571 /* UIKit.framework */; };
@@ -34,8 +38,13 @@
 		388BD27E19BEB98100ED1571 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 388BD26019BEB98100ED1571 /* UIKit.framework */; };
 		388BD28619BEB98100ED1571 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 388BD28419BEB98100ED1571 /* InfoPlist.strings */; };
 		388BD28819BEB98100ED1571 /* KandiTAGTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 388BD28719BEB98100ED1571 /* KandiTAGTests.m */; };
+		388EE16E1A03188D00576705 /* ChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 388EE16D1A03188D00576705 /* ChatTableViewController.m */; };
+		389B6A761A23C8E9006F15CC /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 389B6A751A23C8E9006F15CC /* MessageTableViewCell.m */; };
 		38B5903119C6AD7E00D27644 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B5903019C6AD7E00D27644 /* SettingsViewController.m */; };
+		38C6B1EF1A15B1EF0001A924 /* KandiDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C6B1EE1A15B1EF0001A924 /* KandiDetailTableViewCell.m */; };
 		38F9FA6019C0D3E800EDA64C /* FBLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F9FA5F19C0D3E800EDA64C /* FBLoginViewController.m */; };
+		38FF7C861A04496200892539 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38FF7C851A04496200892539 /* QuartzCore.framework */; };
+		FBFD4A5A55A8BCE711C2501A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F65C92E703ECC69988312C /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00F27DDA763B157074281EBB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		1AB3850219FB25F600243F92 /* NetworkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkUtil.h; sourceTree = "<group>"; };
 		1AB3850319FB25F600243F92 /* NetworkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkUtil.m; sourceTree = "<group>"; };
 		1AB3850519FB4D3300243F92 /* QRCodeSaveDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeSaveDelegate.h; sourceTree = "<group>"; };
@@ -67,12 +77,20 @@
 		380334A519D9C15000D8A405 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		380334A619D9C15000D8A405 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
 		381A8D1019C0348800AE4336 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
-		382DAC2219F4653A00A077B8 /* ShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShapeView.h; path = ../ShapeView.h; sourceTree = "<group>"; };
-		382DAC2319F4653A00A077B8 /* ShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShapeView.m; path = ../ShapeView.m; sourceTree = "<group>"; };
+		382BEB1D1A0D794D00BFBB50 /* MessagingNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingNavigationController.h; sourceTree = "<group>"; };
+		382BEB1E1A0D794D00BFBB50 /* MessagingNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingNavigationController.m; sourceTree = "<group>"; };
+		382DAC2219F4653A00A077B8 /* QRBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QRBox.h; path = ../QRBox.h; sourceTree = "<group>"; };
+		382DAC2319F4653A00A077B8 /* QRBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QRBox.m; path = ../QRBox.m; sourceTree = "<group>"; };
 		38392AE619BFE3A300D9D2CD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		383FFFA81A098D2100E6F5E6 /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
+		383FFFA91A098D2100E6F5E6 /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
 		3864FA0219D8CD2800AB72A7 /* KandiTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KandiTableViewController.h; path = ../KandiTableViewController.h; sourceTree = "<group>"; };
 		3864FA0319D8CD2800AB72A7 /* KandiTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KandiTableViewController.m; path = ../KandiTableViewController.m; sourceTree = "<group>"; };
 		386EAC4F19E4DD09008E7C88 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		387493F41A0F2B21009F77CC /* MessagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesTableViewController.h; sourceTree = "<group>"; };
+		387493F51A0F2B21009F77CC /* MessagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesTableViewController.m; sourceTree = "<group>"; };
+		387578111A119E6D00B35781 /* MessageSendDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageSendDelegate.h; sourceTree = "<group>"; };
+		387578121A119E6D00B35781 /* MessageSendDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageSendDelegate.m; sourceTree = "<group>"; };
 		388BD25919BEB98100ED1571 /* KandiTAG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KandiTAG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		388BD25C19BEB98100ED1571 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		388BD25E19BEB98100ED1571 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -90,11 +108,21 @@
 		388BD28319BEB98100ED1571 /* KandiTAGTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KandiTAGTests-Info.plist"; sourceTree = "<group>"; };
 		388BD28519BEB98100ED1571 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		388BD28719BEB98100ED1571 /* KandiTAGTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KandiTAGTests.m; sourceTree = "<group>"; };
+		388EE16C1A03188D00576705 /* ChatTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewController.h; sourceTree = "<group>"; };
+		388EE16D1A03188D00576705 /* ChatTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewController.m; sourceTree = "<group>"; };
+		389B6A741A23C8E9006F15CC /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
+		389B6A751A23C8E9006F15CC /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		38A72D5419E8780E00AC5BDE /* kandiDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = kandiDB.sqlite; sourceTree = "<group>"; };
 		38B5902F19C6AD7E00D27644 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		38B5903019C6AD7E00D27644 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		38C6B1ED1A15B1EF0001A924 /* KandiDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KandiDetailTableViewCell.h; sourceTree = "<group>"; };
+		38C6B1EE1A15B1EF0001A924 /* KandiDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KandiDetailTableViewCell.m; sourceTree = "<group>"; };
 		38F9FA5E19C0D3E800EDA64C /* FBLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLoginViewController.h; sourceTree = "<group>"; };
 		38F9FA5F19C0D3E800EDA64C /* FBLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLoginViewController.m; sourceTree = "<group>"; };
+		38FF7C851A04496200892539 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		91F65C92E703ECC69988312C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E597A1397B412E68635B519C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		ED23E33BE0B45C4520D01844 /* Pods.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.distribution.xcconfig; path = "Pods/Target Support Files/Pods/Pods.distribution.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,12 +130,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38FF7C861A04496200892539 /* QuartzCore.framework in Frameworks */,
 				386EAC5019E4DD09008E7C88 /* libsqlite3.0.dylib in Frameworks */,
 				38392AE719BFE3A300D9D2CD /* AVFoundation.framework in Frameworks */,
 				388BD25F19BEB98100ED1571 /* CoreGraphics.framework in Frameworks */,
 				388BD26119BEB98100ED1571 /* UIKit.framework in Frameworks */,
 				388BD25D19BEB98100ED1571 /* Foundation.framework in Frameworks */,
 				381A8D1119C0348800AE4336 /* FacebookSDK.framework in Frameworks */,
+				FBFD4A5A55A8BCE711C2501A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,8 +172,21 @@
 				1AB423D119F8A8A300914ABF /* KandiTagNavigationController.m */,
 				1AB423D919F8B63F00914ABF /* KandiTableViewCell.h */,
 				1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */,
+				38C6B1ED1A15B1EF0001A924 /* KandiDetailTableViewCell.h */,
+				38C6B1EE1A15B1EF0001A924 /* KandiDetailTableViewCell.m */,
 			);
 			path = KandiController;
+			sourceTree = "<group>";
+		};
+		382BEB181A0D69CB00BFBB50 /* Messaging */ = {
+			isa = PBXGroup;
+			children = (
+				387493F41A0F2B21009F77CC /* MessagesTableViewController.h */,
+				387493F51A0F2B21009F77CC /* MessagesTableViewController.m */,
+				382BEB1D1A0D794D00BFBB50 /* MessagingNavigationController.h */,
+				382BEB1E1A0D794D00BFBB50 /* MessagingNavigationController.m */,
+			);
+			name = Messaging;
 			sourceTree = "<group>";
 		};
 		3864F9FB19D8C8A400AB72A7 /* PageViewController */ = {
@@ -162,6 +205,7 @@
 				388BD28119BEB98100ED1571 /* KandiTAGTests */,
 				388BD25B19BEB98100ED1571 /* Frameworks */,
 				388BD25A19BEB98100ED1571 /* Products */,
+				5AA17C21F96DF0E735CDDF7C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -177,6 +221,7 @@
 		388BD25B19BEB98100ED1571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				38FF7C851A04496200892539 /* QuartzCore.framework */,
 				386EAC4F19E4DD09008E7C88 /* libsqlite3.0.dylib */,
 				381A8D1019C0348800AE4336 /* FacebookSDK.framework */,
 				38392AE619BFE3A300D9D2CD /* AVFoundation.framework */,
@@ -184,6 +229,7 @@
 				388BD25E19BEB98100ED1571 /* CoreGraphics.framework */,
 				388BD26019BEB98100ED1571 /* UIKit.framework */,
 				388BD27B19BEB98100ED1571 /* XCTest.framework */,
+				91F65C92E703ECC69988312C /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -191,9 +237,11 @@
 		388BD26219BEB98100ED1571 /* KandiTAG */ = {
 			isa = PBXGroup;
 			children = (
+				388BD26E19BEB98100ED1571 /* Main.storyboard */,
+				382BEB181A0D69CB00BFBB50 /* Messaging */,
+				388EE16A1A03181D00576705 /* Chat */,
 				1AB3850F19FC853400243F92 /* FacebookProfile */,
 				1AB423CC19F8A75500914ABF /* KandiController */,
-				388BD26E19BEB98100ED1571 /* Main.storyboard */,
 				38F9FA5D19C0D3D900EDA64C /* FBLogin */,
 				38D7241F19C6832900724C28 /* Settings */,
 				3864F9FB19D8C8A400AB72A7 /* PageViewController */,
@@ -252,14 +300,29 @@
 		388BD29319BEB99700ED1571 /* QRScanner */ = {
 			isa = PBXGroup;
 			children = (
-				382DAC2219F4653A00A077B8 /* ShapeView.h */,
-				382DAC2319F4653A00A077B8 /* ShapeView.m */,
+				382DAC2219F4653A00A077B8 /* QRBox.h */,
+				382DAC2319F4653A00A077B8 /* QRBox.m */,
 				1AB423D319F8AC0300914ABF /* QRScannerViewController.h */,
 				1AB423D419F8AC0300914ABF /* QRScannerViewController.m */,
 				1AB3850519FB4D3300243F92 /* QRCodeSaveDelegate.h */,
 				1AB3850619FB4D3300243F92 /* QRCodeSaveDelegate.m */,
 			);
 			name = QRScanner;
+			sourceTree = "<group>";
+		};
+		388EE16A1A03181D00576705 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				388EE16C1A03188D00576705 /* ChatTableViewController.h */,
+				388EE16D1A03188D00576705 /* ChatTableViewController.m */,
+				383FFFA81A098D2100E6F5E6 /* ChatTableViewCell.h */,
+				383FFFA91A098D2100E6F5E6 /* ChatTableViewCell.m */,
+				387578111A119E6D00B35781 /* MessageSendDelegate.h */,
+				387578121A119E6D00B35781 /* MessageSendDelegate.m */,
+				389B6A741A23C8E9006F15CC /* MessageTableViewCell.h */,
+				389B6A751A23C8E9006F15CC /* MessageTableViewCell.m */,
+			);
+			name = Chat;
 			sourceTree = "<group>";
 		};
 		38D7241F19C6832900724C28 /* Settings */ = {
@@ -280,6 +343,16 @@
 			name = FBLogin;
 			sourceTree = "<group>";
 		};
+		5AA17C21F96DF0E735CDDF7C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E597A1397B412E68635B519C /* Pods.debug.xcconfig */,
+				00F27DDA763B157074281EBB /* Pods.release.xcconfig */,
+				ED23E33BE0B45C4520D01844 /* Pods.distribution.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -287,9 +360,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 388BD28B19BEB98100ED1571 /* Build configuration list for PBXNativeTarget "KandiTAG" */;
 			buildPhases = (
+				E203303420911A77AC11147C /* Check Pods Manifest.lock */,
 				388BD25519BEB98100ED1571 /* Sources */,
 				388BD25619BEB98100ED1571 /* Frameworks */,
 				388BD25719BEB98100ED1571 /* Resources */,
+				390613A58B4AE6DFCC7ECA63 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -376,19 +451,59 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		390613A58B4AE6DFCC7ECA63 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E203303420911A77AC11147C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		388BD25519BEB98100ED1571 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				382BEB1F1A0D794D00BFBB50 /* MessagingNavigationController.m in Sources */,
 				1AB423D519F8AC0300914ABF /* QRScannerViewController.m in Sources */,
+				389B6A761A23C8E9006F15CC /* MessageTableViewCell.m in Sources */,
+				383FFFAA1A098D2100E6F5E6 /* ChatTableViewCell.m in Sources */,
 				1AB3850419FB25F600243F92 /* NetworkUtil.m in Sources */,
 				3864FA0419D8CD2800AB72A7 /* KandiTableViewController.m in Sources */,
 				1AB423DB19F8B63F00914ABF /* KandiTableViewCell.m in Sources */,
+				38C6B1EF1A15B1EF0001A924 /* KandiDetailTableViewCell.m in Sources */,
+				387493F61A0F2B21009F77CC /* MessagesTableViewController.m in Sources */,
 				1AB3851519FCB8C400243F92 /* VersionCheck.m in Sources */,
 				1AB3850719FB4D3300243F92 /* QRCodeSaveDelegate.m in Sources */,
-				382DAC2419F4653A00A077B8 /* ShapeView.m in Sources */,
+				388EE16E1A03188D00576705 /* ChatTableViewController.m in Sources */,
+				382DAC2419F4653A00A077B8 /* QRBox.m in Sources */,
 				388BD26D19BEB98100ED1571 /* AppDelegate.m in Sources */,
+				387578131A119E6D00B35781 /* MessageSendDelegate.m in Sources */,
 				380334A719D9C15000D8A405 /* PageViewController.m in Sources */,
 				38F9FA6019C0D3E800EDA64C /* FBLoginViewController.m in Sources */,
 				38B5903119C6AD7E00D27644 /* SettingsViewController.m in Sources */,
@@ -444,6 +559,78 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		387533A019FDAE24006325BF /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jim Chen (GG6887D3SB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jim Chen (GG6887D3SB)";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Distribution;
+		};
+		387533A119FDAE24006325BF /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED23E33BE0B45C4520D01844 /* Pods.distribution.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KandiTAG/KandiTAG-Prefix.pch";
+				INFOPLIST_FILE = "KandiTAG/KandiTAG-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Distribution;
+		};
+		387533A219FDAE24006325BF /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KandiTAG.app/KandiTAG";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KandiTAG/KandiTAG-Prefix.pch";
+				INFOPLIST_FILE = "KandiTAGTests/KandiTAGTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Distribution;
+		};
 		388BD28919BEB98100ED1571 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -460,7 +647,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jim Chen (GG6887D3SB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jim Chen (GG6887D3SB)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -498,7 +686,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jim Chen (GG6887D3SB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jim Chen (GG6887D3SB)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -516,9 +705,12 @@
 		};
 		388BD28C19BEB98100ED1571 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E597A1397B412E68635B519C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -527,15 +719,19 @@
 				GCC_PREFIX_HEADER = "KandiTAG/KandiTAG-Prefix.pch";
 				INFOPLIST_FILE = "KandiTAG/KandiTAG-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		388BD28D19BEB98100ED1571 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00F27DDA763B157074281EBB /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -544,6 +740,7 @@
 				GCC_PREFIX_HEADER = "KandiTAG/KandiTAG-Prefix.pch";
 				INFOPLIST_FILE = "KandiTAG/KandiTAG-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -596,6 +793,7 @@
 			buildConfigurations = (
 				388BD28919BEB98100ED1571 /* Debug */,
 				388BD28A19BEB98100ED1571 /* Release */,
+				387533A019FDAE24006325BF /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -605,6 +803,7 @@
 			buildConfigurations = (
 				388BD28C19BEB98100ED1571 /* Debug */,
 				388BD28D19BEB98100ED1571 /* Release */,
+				387533A119FDAE24006325BF /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -614,6 +813,7 @@
 			buildConfigurations = (
 				388BD28F19BEB98100ED1571 /* Debug */,
 				388BD29019BEB98100ED1571 /* Release */,
+				387533A219FDAE24006325BF /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

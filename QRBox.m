@@ -1,19 +1,19 @@
 //
-//  ShapeView.m
+//  QRBox.m
 //  KandiTAG
 //
 //  Created by Jim Chen on 9/8/14.
 //  Copyright (c) 2014 Jim. All rights reserved.
 //
 
-#import "ShapeView.h"
+#import "QRBox.h"
 
-@interface ShapeView () {
+@interface QRBox () {
     CAShapeLayer *_outline;
 }
 @end
 
-@implementation ShapeView
+@implementation QRBox
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -22,7 +22,7 @@
         // Initialization code
         _outline = [CAShapeLayer new];
         _outline.strokeColor = [[[UIColor greenColor] colorWithAlphaComponent:0.8] CGColor];
-        _outline.lineWidth = 2.0;
+        _outline.lineWidth = 3.0;
         _outline.fillColor = [[UIColor clearColor] CGColor];
         [self.layer addSublayer:_outline];
         

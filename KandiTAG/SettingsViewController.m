@@ -8,8 +8,16 @@
 
 #import "SettingsViewController.h"
 #import "FBLoginViewController.h"
+#import "PageViewController.h"
 
-@interface SettingsViewController ()
+@interface SettingsViewController () {
+    UIButton *backToScanner;
+    UIButton *addKandi;
+    UITextField *add;
+    UIView *addKandiView;
+    UIButton *removeAdd;
+    UIButton *saveKandi;
+}
 
 @end
 
@@ -23,12 +31,69 @@
     self.lblLoginStatus.text = @"";
     self.loginButton.readPermissions = @[@"public_profile", @"email"];
     self.loginButton.delegate = self;
+    UINavigationBar *settingBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+    UINavigationItem *settingsTitle = [[UINavigationItem alloc] initWithTitle:@"SETTINGS"];
+    [settingBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DINCondensed-Bold" size:22], NSFontAttributeName , nil]];
+    [settingBar pushNavigationItem:settingsTitle animated:NO];
+    [self.view addSubview:settingBar];
+    
+    backToScanner = [[UIButton alloc] initWithFrame:CGRectMake(15, 25, 30, 30)];
+    [backToScanner setImage:[UIImage imageNamed:@"qrScannerButton"] forState:UIControlStateNormal];
+    [backToScanner addTarget:self action:@selector(removeSettingsFromView) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backToScanner];
+    
+    addKandi = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 45, 25, 30, 30)];
+    [addKandi setImage:[UIImage imageNamed:@"addButton"] forState:UIControlStateNormal];
+    [addKandi addTarget:self action:@selector(addKandiTAG) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:addKandi];
+}
+
+
+-(void)removeSettingsFromView {
+    [self.view removeFromSuperview];
+}
+
+-(void)addKandiTAG {
+    NSLog(@"need to add KandiTAG");
+    removeAdd = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [removeAdd addTarget:self action:@selector(removeAddKandiTAG) forControlEvents:UIControlEventTouchUpInside];
+    addKandiView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    addKandiView.backgroundColor = [UIColor colorWithRed:247.0f/255.0 green:247.0f/255.0 blue:120.0f/255.0 alpha:0.5f];
+    //addKandiView.layer.cornerRadius = 10.0f;
+    add = [[UITextField alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 5.25, self.view.frame.size.height / 3, 200, 30)];
+    add.textAlignment =  NSTextAlignmentCenter;
+    add.backgroundColor = [UIColor whiteColor];
+    add.layer.cornerRadius = 10.0f;
+    saveKandi = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.9, self.view.frame.size.height / 2.4, 100, 30)];
+    [saveKandi setTitle:@"REDEEM" forState:UIControlStateNormal];
+    saveKandi.layer.borderWidth = 3.0f;
+    saveKandi.layer.borderColor = [UIColor whiteColor].CGColor;
+    saveKandi.layer.cornerRadius = 10.0f;
+    //[saveKandi setImage:[UIImage imageNamed:@"addButton"] forState:UIControlStateNormal];
+    [saveKandi addTarget:self action:@selector(saveKandi) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *remove = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [remove addTarget:self action:@selector(removeAddKandiTAG) forControlEvents:UIControlEventTouchUpInside];
+    [addKandiView addSubview:remove];
+    [addKandiView addSubview:saveKandi];
+    [addKandiView addSubview:add];
+    [self.view addSubview:removeAdd];
+    [self.view addSubview:addKandiView];
+    
+}
+
+-(void)removeAddKandiTAG {
+    [addKandiView removeFromSuperview];
+    [removeAdd removeFromSuperview];
 }
 
 -(void)toggleHiddenState:(BOOL)shouldHide{
     self.lblUsername.hidden = shouldHide;
     self.lblEmail.hidden = shouldHide;
     self.profilePicture.hidden = shouldHide;
+}
+
+-(void)saveKandi {
+    NSLog(@"need to set up network connection");
 }
 
 -(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView{
@@ -38,19 +103,22 @@
 }
 
 -(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user{
-    NSLog(@"%@", user);
+    //NSLog(@"%@", user);
     self.profilePicture.profileID = user.id;
     self.lblUsername.text = user.name;
     self.lblEmail.text = [user objectForKey:@"email"];
     
-    [self.profilePicture layer].cornerRadius = 5.0f;
+    self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
+    //[self.profilePicture layer].cornerRadius = 5.0f;
+    self.profilePicture.layer.borderWidth = 3.0f;
+    self.profilePicture.layer.borderColor = [UIColor whiteColor].CGColor;
     [self.profilePicture layer].masksToBounds = YES;
 }
 
 -(void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView{
     self.lblLoginStatus.text = @"Please Login to Continue";
     
-    NSLog(@"user logged out");
+    //NSLog(@"user logged out");
     
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
@@ -67,7 +135,7 @@
 }
 
 -(void)loginView:(FBLoginView *)loginView handleError:(NSError *)error{
-    NSLog(@"%@", [error localizedDescription]);
+    //NSLog(@"%@", [error localizedDescription]);
 }
 
 @end

@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MessageSendDelegate : NSObject
+@interface MessageSendDelegate : NSObject <NSURLConnectionDataDelegate>
+
+@property (strong, nonatomic) NSMutableData *responseData;
+@property (weak, nonatomic) UIViewController* controller;
+-(instancetype)initWithController:(UIViewController*)parent;
 
 @end

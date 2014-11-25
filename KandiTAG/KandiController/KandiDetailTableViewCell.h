@@ -10,4 +10,12 @@
 
 @interface KandiDetailTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UIButton *expandButton;
+
+@property (strong, nonatomic) UIImageView* profileIcon;
+-(void)setImageUsingFacebookId:(NSString*)c_facebookId;
+@property (nonatomic) BOOL hasImage;
+
 @end
+

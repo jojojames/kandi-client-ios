@@ -29,43 +29,6 @@
     if (!facebookId || !userName)
         return;
     
-    //facebookId = [NSString stringWithFormat:@"Custom1_%@", facebookId];
-    //userName = [NSString stringWithFormat:@"Custom1_%@", userName];
-    /*
-   
-    facebookId = @"100008421902023";
-    userName = @"John Qkgujgf";
-    
-    
-    facebookId = @"100007313506657";
-    userName = @"Bill Qkgujgf";
-    
-    
-    facebookId = @"100007116706642";
-    userName = @"Linda Qkgujgf";
-    
-    
-    facebookId = @"100004751116722";
-    userName = @"James Qkgujgf";
-    
-    
-    facebookId = @"100008421572029";
-    userName = @"Bob Well";
-    
-    
-    facebookId = @"100005724196611";
-    userName = @"Mary Fitzzzs";
-    
-    
-    facebookId = @"100005652436668";
-    userName = @"Dave Quccaut";
-    
-    
-    facebookId = @"100005138056644";
-    userName = @"Lisa Mlazn";
-    
-    */
-    
     //need to get user_id in order to save qr code
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     [dict setObject:facebookId forKey:@"facebookid"];
@@ -110,12 +73,11 @@
 }
 
 -(void)getOriginalTags:(id<NSURLConnectionDataDelegate>)netdelegate {
+    NSLog(@"checkQR has been called");
     NSString* user_id = [AppDelegate KandiAppDelegate].mainUserId;
     
     if (!user_id)
         return;
-    
-    NSLog(@"checkQR has been called");
     
     NSError* error;
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
@@ -158,6 +120,99 @@
                                                             error:&error];
     
     NSString* requestUrl = [NSString stringWithFormat:@"%@/alltags", host];
+    [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
+}
+
+# pragma mark - messaging
+
+-(void)sendMessage:(id<NSURLConnectionDataDelegate>)netdelegate withMessage:(NSString *)message andRecipient:(NSString *)recipient andTime:(NSString *)timestamp {
+    NSString *user_id = [AppDelegate KandiAppDelegate].facebookId;
+    
+    if (!message || !user_id || !recipient || !timestamp) {
+        return;
+    }
+    
+    NSLog(@"sendMessage has been called");
+    
+    NSError *error;
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    [dict setObject:message forKey:@"message"];
+    [dict setObject:user_id forKey:@"sender"];
+    [dict setObject:recipient forKey:@"recipient"];
+    [dict setObject:timestamp forKey:@"timestamp"];
+    
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict
+                                                          options:NSJSONReadingAllowFragments
+                                                            error:&error];
+    
+    NSString *requestURL = [NSString stringWithFormat:@"%@/sendmessage", host];
+    
+    [self postRequestWithURL:requestURL andData:requestData withDelegate:netdelegate];
+    
+}
+
+-(void)getAllMessages:(id<NSURLConnectionDataDelegate>)netdelegate {
+    NSLog(@"getAllMessages has been called");
+    NSString *user_id = [AppDelegate KandiAppDelegate].facebookId;
+    if (!user_id) {
+        return;
+    }
+    
+    NSError *error;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:user_id forKey:@"sender"];
+    
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict
+                                                          options:NSJSONReadingAllowFragments
+                                                            error:&error];
+    
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/allmessages", host];
+    [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
+}
+
+-(void)getMessageExchange:(id<NSURLConnectionDataDelegate>)netdelegate withRecipient:(NSString *)recipient {
+    NSLog(@"getMessageExchange called");
+    if (!recipient) {
+        return;
+    }
+    
+    NSString *user_id = [AppDelegate KandiAppDelegate].facebookId;
+    
+    NSError *error;
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    [dict setObject:recipient forKey:@"recipient"];
+    [dict setObject:user_id forKey:@"sender"];
+    
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict
+                                                          options:NSJSONReadingAllowFragments
+                                                            error:&error];
+    
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/messagehistory", host];
+    [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
+}
+
+-(void)saveConvo:(id<NSURLConnectionDataDelegate>)netdelegate withMessage:(NSString *)message andRecipient:(NSString *)recipient andName:(NSString *)name {
+    if (!message || !recipient || !name) {
+        return;
+    }
+    
+    NSString *user_id = [AppDelegate KandiAppDelegate].facebookId;
+    NSString *user_name = [AppDelegate KandiAppDelegate].userName;
+    
+    NSError *error;
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    [dict setObject:user_id forKey:@"sender"];
+    [dict setObject:recipient forKey:@"recipient"];
+    [dict setObject:message forKey:@"message"];
+    [dict setObject:user_name forKey:@"myname"];
+    [dict setObject:name forKey:@"username"];
+    
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict
+                                                          options:NSJSONReadingAllowFragments
+                                                            error:&error];
+    
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/saveconvo", host];
+    
     [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
 }
 

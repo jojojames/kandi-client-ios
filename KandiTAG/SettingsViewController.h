@@ -11,6 +11,7 @@
 
 @interface SettingsViewController : UIViewController <FBLoginViewDelegate>
 
+
 @property (weak, nonatomic) IBOutlet FBLoginView *loginButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblLoginStatus;

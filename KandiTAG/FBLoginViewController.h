@@ -23,7 +23,7 @@
 
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *profilePicture;
 
-@property (strong, nonatomic) UIPageViewController *pageViewController;
+@property (strong, nonatomic) PageViewController *pageViewController;
 
 
 -(void)toggleHiddenState:(BOOL)shouldHide;

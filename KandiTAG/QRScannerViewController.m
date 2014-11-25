@@ -8,15 +8,18 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "AppDelegate.h"
-#import "ShapeView.h"
+#import "QRBox.h"
 #import "QRScannerViewController.h"
 
 
 @interface QRScannerViewController () <AVCaptureMetadataOutputObjectsDelegate> {
     AVCaptureVideoPreviewLayer *_previewLayer;
-    ShapeView *_boundingBox;
+    QRBox *_boundingBox;
     NSTimer *_boxHideTimer;
     UILabel *_decodedMessage;
+    UILabel *touch;
+    UIImageView *flash;
+    AVCaptureSession *session;
 }
 
 @end
@@ -42,39 +45,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self startSession];
+    
     //flashlight
     //_onOff = YES;
     
-    onOffButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 70, 70)];
-    onOffButton.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:onOffButton];
+    //onOffButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    //onOffButton.backgroundColor = [UIColor clearColor];
+    //[self.view addSubview:onOffButton];
     
-    [onOffButton addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchDown];
+    //[onOffButton addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];
+    
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonPress)];
+    doubleTap.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:doubleTap];
 }
 
--(void)buttonPressed {
+-(void)buttonPress {
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
-    // on banner
-    UILabel *onBanner = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-    UIImage *img = [UIImage imageNamed:@"OnBanner"];
-    CGSize imgSize = onBanner.frame.size;
-    UIGraphicsBeginImageContext(imgSize);
-    [img drawInRect:CGRectMake(0, 0, imgSize.width, imgSize.height)];
-    UIImage *newimg = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    onBanner.backgroundColor = [UIColor colorWithPatternImage:newimg];
-    [self.view addSubview:onBanner];
-    
-    //off banner
-    UILabel *offBanner = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-    UIImage *imgs = [UIImage imageNamed:@"OffBanner"];
-    CGSize imgsSize = offBanner.frame.size;
-    UIGraphicsBeginImageContext(imgSize);
-    [imgs drawInRect:CGRectMake(0, 0, imgsSize.width, imgsSize.height)];
-    UIImage *newsimg = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    offBanner.backgroundColor = [UIColor colorWithPatternImage:newsimg];
     
     if (device != nil) {
         if (!_onOff) {
@@ -90,9 +78,15 @@
                 
                 [onOffButton setTitle:@"Turn off" forState:UIControlStateNormal];
                 
-                [self.view addSubview:onBanner];
+                //[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(hideTouch) userInfo:nil repeats:NO];
                 
-                NSLog(@"flashlight is on");
+                touch.hidden = YES;
+                
+                
+                
+                //[self.view addSubview:onBar];
+                
+                //NSLog(@"flashlight is on");
             }
         } else {
             if ([device hasTorch] && [device hasFlash]) {
@@ -106,9 +100,11 @@
                 
                 [onOffButton setTitle:@"Turn on" forState:UIControlStateNormal];
                 
-                [self.view addSubview:offBanner];
+                touch.hidden = NO;
                 
-                NSLog(@"flashlight is off");
+                //[self.view addSubview:offBar];
+                
+                //NSLog(@"flashlight is off");
             }
         }
     }
@@ -119,12 +115,12 @@
 
 -(void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    onOffButton.frame = CGRectMake(self.view.frame.size.width/2 - onOffButton.frame.size.width / 2, 25, onOffButton.frame.size.width, onOffButton.frame.size.height);
+    onOffButton.frame = CGRectMake(self.view.frame.size.width/2 - onOffButton.frame.size.width / 2, 0, onOffButton.frame.size.width, onOffButton.frame.size.height);
 }
 
 -(void)startSession {
     
-    AVCaptureSession *session = [AVCaptureSession new];
+    session = [AVCaptureSession new];
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     NSError *error = nil;
     
@@ -135,7 +131,7 @@
         // Add the input to the session
         [session addInput:input];
     } else {
-        NSLog(@"error: %@", error);
+        //NSLog(@"error: %@", error);
         return;
     }
     
@@ -154,34 +150,8 @@
     _previewLayer.position = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
     [self.view.layer addSublayer:_previewLayer];
     
-    //banner
-    UILabel *offBanner = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-    UIImage *img = [UIImage imageNamed:@"OffBanner"];
-    CGSize imgSize = offBanner.frame.size;
-    UIGraphicsBeginImageContext(imgSize);
-    [img drawInRect:CGRectMake(0, 0, imgSize.width, imgSize.height)];
-    UIImage *newimg = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    offBanner.backgroundColor = [UIColor colorWithPatternImage:newimg];
-    [self.view addSubview:offBanner];
-    
-    if (_onOff == YES) {
-        
-        // on banner
-        UILabel *onBanner = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-        UIImage *img = [UIImage imageNamed:@"OnBanner"];
-        CGSize imgSize = onBanner.frame.size;
-        UIGraphicsBeginImageContext(imgSize);
-        [img drawInRect:CGRectMake(0, 0, imgSize.width, imgSize.height)];
-        UIImage *newimg = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        onBanner.backgroundColor = [UIColor colorWithPatternImage:newimg];
-        [self.view addSubview:onBanner];
-        
-    }
-    
     // Add the view to draw the bounding box for the UIView
-    _boundingBox = [[ShapeView alloc] initWithFrame:self.view.bounds];
+    _boundingBox = [[QRBox alloc] initWithFrame:self.view.bounds];
     _boundingBox.backgroundColor = [UIColor clearColor];
     _boundingBox.hidden = YES;
     [self.view addSubview:_boundingBox];
@@ -196,16 +166,29 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    //start the avsession running
-    [session startRunning];
+    touch = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/9, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/2)];
+    touch.text = @"Double Tap To Turn On Flashlight";
+    touch.font = [UIFont fontWithName:@"DINCondensed-Bold" size:25];
+    touch.textColor = [UIColor whiteColor];
+    [self.view addSubview:touch];
     
+    //start the avsession running
+    //[session startRunning];
+    
+}
+
+-(void)hideTouch {
+    touch.hidden = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    [super viewDidAppear:YES];
+    [super viewDidAppear:animated];
     
-    [self startSession];
+    //[self startSession];
+    
+    [session startRunning];
+    
 }
 
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
@@ -249,7 +232,7 @@
                     [AppDelegate KandiAppDelegate].currentQrCode = ktQRcode;
                     [scannedCodes setObject:[NSNumber numberWithBool:YES] forKey:ktQRcode];
                     [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:ktQRcode];
-                    NSLog(@"scanned qr: %@", ktQRcode);
+                    //NSLog(@"scanned qr: %@", ktQRcode);
                     _decodedMessage.text = @"";
                 }
             }
@@ -306,71 +289,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-//torch light on/off
-- (IBAction)buttonPressed:(id)sender {
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
-    // on banner
-    UILabel *onBanner = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-    UIImage *img = [UIImage imageNamed:@"OnBanner"];
-    CGSize imgSize = onBanner.frame.size;
-    UIGraphicsBeginImageContext(imgSize);
-    [img drawInRect:CGRectMake(0, 0, imgSize.width, imgSize.height)];
-    UIImage *newimg = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    onBanner.backgroundColor = [UIColor colorWithPatternImage:newimg];
-    [self.view addSubview:onBanner];
-    
-    //off banner
-    UILabel *offBanner = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-    UIImage *imgs = [UIImage imageNamed:@"OffBanner"];
-    CGSize imgsSize = offBanner.frame.size;
-    UIGraphicsBeginImageContext(imgSize);
-    [imgs drawInRect:CGRectMake(0, 0, imgsSize.width, imgsSize.height)];
-    UIImage *newsimg = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    offBanner.backgroundColor = [UIColor colorWithPatternImage:newsimg];
-    
-    if (device != nil) {
-        if (!_onOff) {
-            
-            if ([device hasTorch] && [device hasFlash]) {
-                
-                [device lockForConfiguration:nil];
-                
-                [device setTorchMode:AVCaptureTorchModeOn];
-                [device setFlashMode:AVCaptureFlashModeOn];
-                
-                [device unlockForConfiguration];
-                
-                [sender setTitle:@"Turn off" forState:UIControlStateNormal];
-                
-                [self.view addSubview:onBanner];
-                
-                NSLog(@"flashlight is on");
-            }
-        } else {
-            if ([device hasTorch] && [device hasFlash]) {
-                
-                [device lockForConfiguration:nil];
-                
-                [device setTorchMode:AVCaptureTorchModeOff];
-                [device setFlashMode:AVCaptureFlashModeOff];
-                
-                [device unlockForConfiguration];
-                
-                [sender setTitle:@"Turn on" forState:UIControlStateNormal];
-                
-                [self.view addSubview:offBanner];
-                
-                NSLog(@"flashlight is off");
-            }
-        }
-    }
-    
-    _onOff = !_onOff;
-}
-
 @end
 

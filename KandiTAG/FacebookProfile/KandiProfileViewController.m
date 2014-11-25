@@ -63,12 +63,14 @@
 }
 
 -(void)facebookSendButtonPressed {
-    //NSString* urlString = [NSString stringWithFormat:@"fb-messenger://user-thread/%@", facebookId];
-    //NSURL *url = [NSURL URLWithString:urlString];
-    //[[UIApplication sharedApplication] openURL:url];
+    NSString* urlString = [NSString stringWithFormat:@"https://www.facebook.com/app_scoped_user_id/%@", facebookId];
+    NSURL *url = [NSURL URLWithString:urlString];
+    [[UIApplication sharedApplication] openURL:url];
     
+    /*
     
-    
+     @"fb-messenger://user-thread/%@"
+     
     [FBDialogs presentMessageDialogWithLink:[NSURL URLWithString:@"https://developers.facebook.com/docs/ios/"]
                                     handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
                                         if(error) {
@@ -80,15 +82,20 @@
                                             NSLog(@"result %@", results);
                                         }
                                     }];
+     
+     */
     
 }
 
 -(void)facebookAddButtonPressed {
-    
+    //for now it opens the url to the facebook page same as clicking on the picture
+    NSString* urlString = [NSString stringWithFormat:@"fb://profile/%@", facebookId];
+    NSURL *url = [NSURL URLWithString:urlString];
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 -(void)imageTapped {
-    NSString* urlString = [NSString stringWithFormat:@"fb://profile/%@", facebookId];
+    NSString* urlString = [NSString stringWithFormat:@"https://www.facebook.com/app_scoped_user_id/%@", facebookId];
     NSURL *url = [NSURL URLWithString:urlString];
     [[UIApplication sharedApplication] openURL:url];
     
@@ -110,6 +117,9 @@
     NSData *picData = [NSData dataWithContentsOfURL:profilePictureURL];
     self.profileIcon.image = [UIImage imageWithData:picData];
     [self setNameForTitle];
+    UIImageView *setting = [[UIImageView alloc] initWithFrame:CGRectMake(0, -11, 300, 100)];
+    setting.image = [UIImage imageNamed:@"profile"];
+    self.navigationItem.titleView = setting;
 }
 
 -(void)setNameForTitle {

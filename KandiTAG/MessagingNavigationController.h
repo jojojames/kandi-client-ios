@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChatTableViewController.h"
+#import "KandiTableViewController.h"
 
 @interface MessagingNavigationController : UINavigationController
+
+-(instancetype)initWithFlag:(DisplayType)flag;
+
 
 @end

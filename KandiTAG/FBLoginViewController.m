@@ -9,10 +9,17 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "FBLoginViewController.h"
 #import "AppDelegate.h"
+#import "PageViewController.h"
 
-@implementation FBLoginViewController
+@implementation FBLoginViewController {
+    UIImageView *background;
+}
 @synthesize responseData;
 @synthesize requestedLogin;
+@synthesize pageViewController;
+
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -20,6 +27,16 @@
     self.lblLoginStatus.text = @"";
     self.loginButton.readPermissions = @[@"public_profile", @"email"];
     self.loginButton.delegate = self;
+    background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    if (IS_IPHONE_5) {
+        background.image = [UIImage imageNamed:@"Official640x1136"];
+        [self.view addSubview:background];
+        [self.view addSubview:self.loginButton];
+    } else {
+        background.image = [UIImage imageNamed:@"Official640x960"];
+        [self.view addSubview:background];
+        [self.view addSubview:self.loginButton];
+    }
 }
 
 -(void)toggleHiddenState:(BOOL)shouldHide {
@@ -46,11 +63,11 @@
 }
 
 -(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)fbuser {
-    NSLog(@"-loginViewFetchedUserInfo:\n %@", fbuser);
+    //NSLog(@"-loginViewFetchedUserInfo:\n %@", fbuser);
     self.profilePicture.profileID = fbuser.id;
     self.lblUsername.text = fbuser.name;
     self.lblEmail.text = [fbuser objectForKey:@"email"];
-    NSLog(@"user data fetched");
+    //NSLog(@"user data fetched");
 
     //store fbid and name
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -76,7 +93,7 @@
 }
 
 -(void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
-    NSLog(@"error in FBLoginViewController: %@", [error localizedDescription]);
+    //NSLog(@"error in FBLoginViewController: %@", [error localizedDescription]);
 }
 
 #pragma mark - NSURLConnection Delegate

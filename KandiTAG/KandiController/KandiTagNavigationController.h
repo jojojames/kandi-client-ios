@@ -13,4 +13,5 @@
 
 -(instancetype)initWithFlag:(DisplayType)flag;
 @property (strong, nonatomic) KandiTableViewController* tableView;
+
 @end

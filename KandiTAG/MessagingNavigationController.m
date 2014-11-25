@@ -7,8 +7,11 @@
 //
 
 #import "MessagingNavigationController.h"
+#import "Constants.h"
 
-@interface MessagingNavigationController ()
+@interface MessagingNavigationController () {
+    UIImageView *tag;
+}
 
 @end
 
@@ -16,12 +19,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.title = @"Messaging";
+        
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DINCondensed-Bold" size:20], NSFontAttributeName , nil]];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return ROW_HEIGHT;
 }
 
 /*

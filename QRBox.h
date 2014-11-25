@@ -1,5 +1,5 @@
 //
-//  ShapeView.h
+//  QRBox.h
 //  KandiTAG
 //
 //  Created by Jim Chen on 9/8/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShapeView : UIView 
+@interface QRBox : UIView 
 
 @property (nonatomic, strong) NSArray *corners;
 
