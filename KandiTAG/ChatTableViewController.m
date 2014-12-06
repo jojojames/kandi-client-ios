@@ -11,12 +11,16 @@
 #import "ChatTableViewCell.h"
 #import "Constants.h"
 #import "MessageTableViewCell.h"
+#import "Sender.h"
+#import "Message.h"
 
 @interface ChatTableViewController () {
     UILabel *messageLabel;
     UITextField *messageTextField;
     UIButton *send;
     NSMutableData *mutableData;
+    Sender *sender;
+    Message *messageList;
 }
 
 @end
@@ -38,7 +42,10 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 @synthesize list;
 @synthesize tableView;
 @synthesize userName;
+@synthesize sender;
+@synthesize messageslisted;
 
+#define PROFILE_ICON_SIZE 30
 #define ORIGINAL @"original"
 #define CURRENT @"current"
 #define QRCODE_ID @"qrcode_id"
@@ -77,6 +84,21 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         responseData = [[NSMutableData alloc] init];
         loadedDataSource = NO;
         messages = [[NSMutableArray alloc] init];
+        
+        UIImageView *profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
+        NSURL *profilePictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=150&height=150", self.facebookId]];
+        NSData *picData = [NSData dataWithContentsOfURL:profilePictureURL];
+        profileImage.image = [UIImage imageWithData:picData];
+        profileImage.layer.cornerRadius = profileImage.frame.size.width / 2;
+        profileImage.frame = CGRectMake(10, profileImage.frame.size.height / 2 - profileImage.frame.size.height / 2, profileImage.frame.size.width, profileImage.frame.size.height);
+        profileImage.clipsToBounds = YES;
+        profileImage.layer.borderWidth = 1.0f;
+        profileImage.layer.borderColor = [UIColor whiteColor].CGColor;
+        
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:profileImage];
+        self.navigationItem.rightBarButtonItem = item;
+
+        
 
     }
     return self;
@@ -91,6 +113,8 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     tableView.dataSource = self;
     [tableView registerClass:[ChatTableViewCell class] forCellReuseIdentifier:@"ChatTableViewCell"];
     [tableView registerClass:[MessageTableViewCell class] forCellReuseIdentifier:@"MessageTableViewCell"];
+    
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40)];
     messageLabel.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:0.8];
@@ -108,6 +132,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     messageTextField.layer.cornerRadius = 10.0f;
     messageTextField.backgroundColor = [UIColor whiteColor];
     messageTextField.placeholder = [NSString stringWithFormat:@" New Message"];
+    messageTextField.delegate = self;
     [self.view addSubview:messageTextField];
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
@@ -125,14 +150,14 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 }
 
--(void)registerForKeyboardNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardDidHideNotification object:nil];
-}
-
--(void)deregisterFromKeyboardNotifications {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[AppDelegate KandiAppDelegate].network getMessageExchange:self withRecipient:self.facebookId];
+    
+    [self.view addGestureRecognizer:
+     [[UITapGestureRecognizer alloc] initWithTarget:self
+                                             action:@selector(hideKeyboard:)]];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -154,13 +179,25 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     NSString *message = [NSString new];
     message = messageTextField.text;
     if (![sentMessages objectForKey:message]) {
-    [[AppDelegate KandiAppDelegate].network sendMessage:messageSendDelegate withMessage:message andRecipient:self.facebookId andTime:timeString];
-    [[AppDelegate KandiAppDelegate].network saveConvo:messageSendDelegate withMessage:message andRecipient:self.facebookId andName:userName];
+        [[AppDelegate KandiAppDelegate].network sendMessage:messageSendDelegate withMessage:message andRecipient:self.facebookId andTime:timeString];
+        [[AppDelegate KandiAppDelegate].network saveConvo:messageSendDelegate withMessage:message andRecipient:self.facebookId andName:userName];
         [[AppDelegate KandiAppDelegate].network getMessageExchange:self withRecipient:self.facebookId];
     }
     messageTextField.text = nil;
     [tableView reloadData];
+    [tableView beginUpdates];
+    //[tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX) animated:NO];
     
+}
+
+-(void)registerForKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardDidHideNotification object:nil];
+}
+
+-(void)deregisterFromKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
 }
 
 -(void)keyboardWillShow:(NSNotification*)notification {
@@ -195,24 +232,8 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [UIView animateWithDuration:duration delay:0 options:animationOptionsWithCurve(animationCurve) animations:^{self.view.frame = newFrame;} completion:^(BOOL finished){}];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [[AppDelegate KandiAppDelegate].network getMessageExchange:self withRecipient:self.facebookId];
-    
-    [self.view addGestureRecognizer:
-     [[UITapGestureRecognizer alloc] initWithTarget:self
-                                             action:@selector(hideKeyboard:)]];
-
-}
-
 - (IBAction)hideKeyboard:(id)sender {
     [self.view endEditing:YES];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -241,44 +262,51 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     NSDictionary* current = [json objectForKey:CURRENT];
     NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
     
-    NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
-    NSString* o_userId = [original objectForKey:USER_ID];
-    NSString* o_placement = [original objectForKey:PLACEMENT];
-    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
-    
-    NSString* c_userId = [current objectForKey:USER_ID];
-    NSString* c_userName = [current objectForKey:USER_NAME];
-    NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
-    
     NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
     NSString* mh_sender = [messagehistory objectForKey:SENDER];
     NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
     NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
     
     NSString *cellIdentifier = @"ChatTableViewCell";
-    NSString *otherCellId = @"MessageTableViewCell";
     
     ChatTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ChatTableViewCell" forIndexPath:indexPath];
-    //MessageTableViewCell *otherCell = [self.tableView dequeueReusableCellWithIdentifier:@"MessageTableViewCell" forIndexPath:indexPath];
     
     if (cell == nil) {
-        cell = [[ChatTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        //otherCell = [[MessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:otherCellId];
+        cell = [[ChatTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
     
     NSString *facebookID = [AppDelegate KandiAppDelegate].facebookId;
     
-    //if (mh_sender == facebookID) {
+    //cell.textLabel.text = [list objectAtIndex:indexPath.row];
     
     cell.textLabel.text = mh_message;
+    cell.detailTextLabel.text = [list objectAtIndex:indexPath.row];
+    //[cell setImageUsingFacebookId:[list objectAtIndex:indexPath.row]];
+    //[cell setImageUsingFacebookId:self.facebookId];
+    UILabel *who = [[UILabel alloc] init];
+    who.text = [list objectAtIndex:indexPath.row];
+    [cell addSubview:who];
+    who.hidden = YES;
+    
+
+    //cell.textLabel.text = [showingMessages objectAtIndex:[showingMessages count]];
         
-    //}
+    if ([who.text isEqualToString:facebookID]) {
+        cell.textLabel.textAlignment = NSTextAlignmentRight;
+    } else {
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+    }
     
-    
+    //cell.textLabel.text = mh_message;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.numberOfLines = 0;
+    [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [cell.textLabel sizeToFit];
     
     return cell;
 }
+
+
 
 #pragma mark NSURLConnectionDataDelegate
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -308,7 +336,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         if ([success boolValue]) {
             NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
             messages = jsonArray;
-            NSLog(@"messages: %@", messages);
+           // NSLog(@"messages: %@", messages);
             for (int i=0; i<[jsonArray count]; i++) {
                 json = [jsonArray objectAtIndex:i];
                 loadedDataSource = YES;
@@ -331,7 +359,24 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
                     NSString* mh_sender = [messagehistory objectForKey:SENDER];
                     NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
                     NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
+                    
+                    list = [[NSMutableArray alloc] init];
 
+                    for (json in messages) {
+                        sender = [Sender new];
+                        sender.facebookID = [[json objectForKey:MESSAGEHISTORY] objectForKey:SENDER];
+                        [list addObject:sender.facebookID];
+                    }
+                    
+                    messageslisted = [[NSMutableArray alloc] init];
+                    
+                    for (json in messages) {
+                        messageList = [Message new];
+                        messageList.listedMessage = [[json objectForKey:MESSAGEHISTORY] objectForKey:MESSAGE_KT];
+                        [messageslisted addObject:messageList.listedMessage];
+                    }
+                   
+                    //NSLog(@"list: %@", list);
                 }
             }
             
@@ -348,6 +393,10 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 /*
 // Override to support conditional editing of the table view.

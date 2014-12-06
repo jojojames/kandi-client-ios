@@ -12,4 +12,5 @@
 @property (strong, nonatomic) NSMutableData *responseData;
 @property (weak, nonatomic) UIViewController* controller;
 -(instancetype)initWithController:(UIViewController*)parent;
+-(void)presentSuccess;
 @end

@@ -9,7 +9,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UIViewController <FBLoginViewDelegate>
+@interface SettingsViewController : UIViewController <FBLoginViewDelegate, UITextFieldDelegate>
 
 
 @property (weak, nonatomic) IBOutlet FBLoginView *loginButton;

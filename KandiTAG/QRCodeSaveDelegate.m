@@ -56,14 +56,20 @@
                 NSString* user_id = (NSString*)[json objectForKey:@"user_id"];
                 NSNumber* placement = (NSString*) [json objectForKey:@"placement"];
                 NSString* ownershipId = (NSString*)[json objectForKey:@"ownership_id"];
-                [self presentSuccess];
+                
+                //[self presentSuccess];
             } else {
                 NSString* error = (NSString*) [json objectForKey:@"error"];
                 BOOL limitReached = [json objectForKey:@"limit_reached"];
+                BOOL alreadyOwned = [json objectForKey:@"already_owned"];
                 if (limitReached) {
                     // show an alert telling us the QR limit has been reached
                     //NSLog(@"QRCODE LIMIT REACHED");
-                    [self presentFailure];
+                    //[self presentFailure];
+                }
+                
+                if (alreadyOwned) {
+                    //[self presentAlreadyOwned];
                 }
                 
                 //NSLog(@"QRCodeSaveDelegate: connectionDidFinishLoading: %@", error);
@@ -71,12 +77,12 @@
         } else {
             // should always have a success object
             // if it reaches here, something went wrong on the server
-            [self presentFailure];
+            [self presentServerFail];
         }
     } else {
-        [self presentFailure];
+        [self presentServerFail];
     }
-
+    
 }
 
 -(void)presentSuccess {
@@ -90,8 +96,10 @@
     } else {
      
      */
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:@"KandiTAG has been registered" delegate:self cancelButtonTitle:@"Proceed" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:@"You have registered a new KandiTAG" delegate:self cancelButtonTitle:@"Proceed" otherButtonTitles:nil];
         [alert show];
+
+    
   /*  }  */
 }
 
@@ -106,10 +114,34 @@
     } else {
      
      */
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Woah There!" message:@"You can no longer register this KandiTAG" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"You can no longer register this KandiTAG" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
         [alert show];
-        
+    
    /* } */
+}
+
+-(void)presentAlreadyOwned {
+    
+    /*
+     
+     if ([VersionCheck IOS8ORLater]) {
+     UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Woah There!" message:@"You can no longer register this KandiTAG" preferredStyle:UIAlertControllerStyleAlert];
+     [controller presentViewController:alertController animated:YES completion:^{
+     }];
+     } else {
+     
+     */
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hang on a Sec!" message:@"You've already owned this KandiTAG" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+    [alert show];
+
+    
+    /* } */
+}
+
+-(void)presentServerFail {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"The server is busy, please try again later" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+    [alert show];
+
 }
 
 @end

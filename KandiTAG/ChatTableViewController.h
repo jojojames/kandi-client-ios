@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MessageSendDelegate.h"
+#import "Sender.h"
 
 @interface ChatTableViewController : UIViewController <NSURLConnectionDataDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -35,5 +36,8 @@
 
 @property (strong, nonatomic) NSString* userName;
 
+@property (strong, nonatomic) Sender *sender;
+
+@property (strong, nonatomic) NSMutableArray *messageslisted;
 
 @end

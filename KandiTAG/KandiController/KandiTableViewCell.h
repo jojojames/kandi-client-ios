@@ -10,7 +10,7 @@
 #import <SLExpandableTableView.h>
 #import "Constants.h"
 
-@interface KandiTableViewCell : UITableViewCell <UIExpandingTableViewCell>
+@interface KandiTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *expandButton;

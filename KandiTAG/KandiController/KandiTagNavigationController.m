@@ -24,8 +24,8 @@
         self.navigationBar.translucent = YES;
         [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:247.0f/255.0 green:247.0f/255.0 blue:247.0f/255.0 alpha:0.97f]];
         //[[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
-        //[[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:255.0f/255.0 green:255.0f/255.0 blue:102.0f/255.0 alpha:0.57f]];
-        [self.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DINCondensed-Bold" size:22], NSFontAttributeName , nil]];
+        //[[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:204.0f/255.0 green:255.0f/255.0 blue:255.0f/255.0 alpha:0.57f]];
+        [self.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DINCondensed-Bold" size:22], NSFontAttributeName , [UIColor blackColor], NSForegroundColorAttributeName, nil]];
 
     }
     return self;

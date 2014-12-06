@@ -23,10 +23,11 @@
 }
 
 -(void)requestLogin:(id<NSURLConnectionDataDelegate>) netdelegate {
+    NSLog(@"Requesting Login");
     NSString* facebookId = [AppDelegate KandiAppDelegate].facebookId;
     NSString* userName = [AppDelegate KandiAppDelegate].userName;
     
-    if (!facebookId || !userName)
+    if (!facebookId || !userName )
         return;
     
     //need to get user_id in order to save qr code
@@ -47,18 +48,37 @@
     [connection start];
 }
 
+-(void)saveDeviceToken:(id<NSURLConnectionDataDelegate>)netdelegate {
+    NSLog(@"saveDeviceToken has been called");
+    NSString* token = [AppDelegate KandiAppDelegate].deviceToken;
+    NSString* facebookid = [AppDelegate KandiAppDelegate].facebookId;
+    NSString* userName = [AppDelegate KandiAppDelegate].userName;
+    
+    if (!token)
+        return;
+    
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:token forKey:@"token"];
+    [dict setObject:facebookid forKey:@"facebookid"];
+    [dict setObject:userName forKey:@"username"];
+    NSError *error;
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONReadingAllowFragments error:&error];
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/token", host];
+    [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
+}
+
 -(void)saveQrCode:(id<NSURLConnectionDataDelegate>) netdelegate {
     NSString* qrCode = [AppDelegate KandiAppDelegate].currentQrCode;
     [self saveQrCode:netdelegate withCode:qrCode];
 }
 
 -(void)saveQrCode:(id<NSURLConnectionDataDelegate>) netdelegate withCode:(NSString*)qrCode {
+    NSLog(@"saveQrCode has been called");
     NSString* user_id = [AppDelegate KandiAppDelegate].mainUserId;
     
     if (!qrCode || !user_id)
         return;
     
-    NSLog(@"checkQR has been called");
     
     NSError* error;
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
@@ -73,7 +93,7 @@
 }
 
 -(void)getOriginalTags:(id<NSURLConnectionDataDelegate>)netdelegate {
-    NSLog(@"checkQR has been called");
+    NSLog(@"getOriginalTags has been called");
     NSString* user_id = [AppDelegate KandiAppDelegate].mainUserId;
     
     if (!user_id)
@@ -111,6 +131,7 @@
 -(void)getAllTags:(id<NSURLConnectionDataDelegate>) netdelegate withQRcode:(NSString*)code {
     if (!code)
         return;
+    NSLog(@"getAllTags has been called");
     
     NSError* error;
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
@@ -123,10 +144,26 @@
     [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
 }
 
+-(void)getPreviousOwner:(id<NSURLConnectionDataDelegate>)netdelegate withQrCode:(NSString *)code {
+    NSLog(@"getPreviousOwner has been called");
+    if (!code)
+        return;
+    
+    NSError *error;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:code forKey:@"qrcode"];
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONReadingAllowFragments error:&error];
+    
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/previouspic", host];
+    [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
+}
+
 # pragma mark - messaging
 
 -(void)sendMessage:(id<NSURLConnectionDataDelegate>)netdelegate withMessage:(NSString *)message andRecipient:(NSString *)recipient andTime:(NSString *)timestamp {
     NSString *user_id = [AppDelegate KandiAppDelegate].facebookId;
+    NSInteger badgeN = [[UIApplication sharedApplication] applicationIconBadgeNumber];
+    NSNumber *badgeNum = [NSNumber numberWithInteger:badgeN];
     
     if (!message || !user_id || !recipient || !timestamp) {
         return;
@@ -140,6 +177,8 @@
     [dict setObject:user_id forKey:@"sender"];
     [dict setObject:recipient forKey:@"recipient"];
     [dict setObject:timestamp forKey:@"timestamp"];
+    [dict setObject:badgeNum forKey:@"badgenum"];
+
     
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict
                                                           options:NSJSONReadingAllowFragments

@@ -17,6 +17,8 @@
 @synthesize facebookId;
 @synthesize userName;
 @synthesize currentQrCode;
+@synthesize deviceToken;
+@synthesize currentQrPicId;
 
 +(AppDelegate*)KandiAppDelegate {
     return (AppDelegate*)[UIApplication sharedApplication].delegate;
@@ -47,7 +49,23 @@
     return mainUserId;
 }
 
+-(NSString*)deviceToken {
+    if (!deviceToken)
+        deviceToken = [self.defaults stringForKey:@"DEVICETOKEN"];
+    return deviceToken;
+}
+
+-(NSString*)currentQrPicId {
+    if (!currentQrPicId)
+        currentQrPicId = [self.defaults stringForKey:@"CURRENTQRPICID"];
+    return currentQrPicId;
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.pageViewController = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
@@ -59,6 +77,22 @@
     [FBProfilePictureView class];
     network = [[NetworkUtil alloc] init];
     return YES;
+}
+
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)device_Token {
+    NSLog(@"Did Register for Remote Notifications with Device Token (%@)", device_Token);
+    NSString* token = [[device_Token description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    [defaults setObject:token forKey:@"DEVICETOKEN"];
+}
+
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"Did Fail to Register for Remote Notifications");
+    NSLog(@"%@, %@", error, error.localizedDescription);
+}
+
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"Push received: %@", userInfo);
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
@@ -86,6 +120,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 

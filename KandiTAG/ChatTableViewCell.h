@@ -20,6 +20,4 @@
 
 @property (nonatomic, assign, getter=isLoading) BOOL loading;
 
-
-
 @end

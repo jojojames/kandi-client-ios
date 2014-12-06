@@ -21,7 +21,7 @@
     if (self) {
         // Initialization code
         _outline = [CAShapeLayer new];
-        _outline.strokeColor = [[[UIColor greenColor] colorWithAlphaComponent:0.8] CGColor];
+        _outline.strokeColor = [[[UIColor colorWithRed:0.0f/255.0 green:255.0f/255.0 blue:255.0f/255.0 alpha:0.97f] colorWithAlphaComponent:0.8] CGColor];
         _outline.lineWidth = 3.0;
         _outline.fillColor = [[UIColor clearColor] CGColor];
         [self.layer addSublayer:_outline];

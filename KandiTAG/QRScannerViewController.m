@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "QRBox.h"
 #import "QRScannerViewController.h"
+#import "ProfilePicViewController.h"
 
 
 @interface QRScannerViewController () <AVCaptureMetadataOutputObjectsDelegate> {
@@ -20,14 +21,33 @@
     UILabel *touch;
     UIImageView *flash;
     AVCaptureSession *session;
+    UIView *viewShowingMessage;
+    UIViewController *detailController;
+    UIButton *dismiss;
+    ProfilePicViewController *picView;
+    NSTimer *removePicView;
+    int attempt;
 }
 
 @end
 
 @implementation QRScannerViewController
-@synthesize onOffButton;
 @synthesize qrCodeSaveDelegate;
 @synthesize scannedCodes;
+@synthesize loadedDataSource;
+@synthesize responseData;
+@synthesize tags;
+@synthesize json;
+
+#define ORIGINAL @"original"
+#define CURRENT @"current"
+#define QRCODE_ID @"qrcode_id"
+#define USER_ID @"user_id"
+#define PLACEMENT @"placement"
+#define OWNERSHIP_ID @"ownership_id"
+#define USER_NAME @"user_name"
+#define FACEBOOK_ID @"facebookid"
+
 
 -(instancetype)init {
     self = [super init];
@@ -47,18 +67,26 @@
     
     [self startSession];
     
-    //flashlight
-    //_onOff = YES;
-    
-    //onOffButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    //onOffButton.backgroundColor = [UIColor clearColor];
-    //[self.view addSubview:onOffButton];
-    
-    //[onOffButton addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];
-    
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonPress)];
     doubleTap.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:doubleTap];
+    
+    responseData = [[NSMutableData alloc] init];
+    loadedDataSource = NO;
+    tags = [[NSMutableArray alloc] init];
+        
+    //flashlight
+    //_onOff = YES;
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
+    [session startRunning];
+    
+    [[AppDelegate KandiAppDelegate].network saveDeviceToken:self];
+    
 }
 
 -(void)buttonPress {
@@ -75,10 +103,6 @@
                 [device setFlashMode:AVCaptureFlashModeOn];
                 
                 [device unlockForConfiguration];
-                
-                [onOffButton setTitle:@"Turn off" forState:UIControlStateNormal];
-                
-                //[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(hideTouch) userInfo:nil repeats:NO];
                 
                 touch.hidden = YES;
                 
@@ -97,14 +121,9 @@
                 [device setFlashMode:AVCaptureFlashModeOff];
                 
                 [device unlockForConfiguration];
-                
-                [onOffButton setTitle:@"Turn on" forState:UIControlStateNormal];
-                
+
                 touch.hidden = NO;
-                
-                //[self.view addSubview:offBar];
-                
-                //NSLog(@"flashlight is off");
+
             }
         }
     }
@@ -115,7 +134,6 @@
 
 -(void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    onOffButton.frame = CGRectMake(self.view.frame.size.width/2 - onOffButton.frame.size.width / 2, 0, onOffButton.frame.size.width, onOffButton.frame.size.height);
 }
 
 -(void)startSession {
@@ -181,16 +199,6 @@
     touch.hidden = YES;
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
-    
-    //[self startSession];
-    
-    [session startRunning];
-    
-}
-
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
@@ -213,6 +221,7 @@
             // Update the view with the decoded text
             _decodedMessage.text = [transformed stringValue];
             
+            
             /* Open kanditag.com, come back to this later
              
              //if the code is www.kanditag.com, open the link in safari
@@ -223,6 +232,7 @@
              
              */
             
+            
             NSString *dhc = @"dhc";
             //if code contains dhc
             if ([_decodedMessage.text rangeOfString:dhc].location != NSNotFound) {
@@ -230,8 +240,12 @@
                 NSString *ktQRcode = [[NSString alloc] initWithString:_decodedMessage.text];
                 if (![scannedCodes objectForKey:ktQRcode]) {
                     [AppDelegate KandiAppDelegate].currentQrCode = ktQRcode;
+                    //NSString *deviceToken = [AppDelegate KandiAppDelegate].deviceToken;
                     [scannedCodes setObject:[NSNumber numberWithBool:YES] forKey:ktQRcode];
                     [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:ktQRcode];
+                    [[AppDelegate KandiAppDelegate].network getPreviousOwner:self withQrCode:ktQRcode];
+                    //[self.view addSubview:picView.view];
+                    //NSString *fbidforpic = [AppDelegate KandiAppDelegate].currentQrPicId;
                     //NSLog(@"scanned qr: %@", ktQRcode);
                     _decodedMessage.text = @"";
                 }
@@ -265,7 +279,7 @@
     _boundingBox.hidden = YES;
     _decodedMessage.text = @"";
     if (_boundingBox.hidden) {
-        [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate];
+       // [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate];
     }
 }
 
@@ -285,9 +299,104 @@
     return [translatedPoints copy];
 }
 
+#pragma mark NSURLConnectionDataDelegate
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    [responseData setLength:0];
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [responseData appendData:data];
+}
+
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    //if we get any connection error manage it here
+    //for example use alert view to say no internet connection
+}
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+    return nil;
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSError* error;
+    
+    // response data for the kandi REST calls always comes back as an array
+    NSDictionary* jsonResponse = [NSJSONSerialization
+                                  JSONObjectWithData:responseData
+                                  options:kNilOptions
+                                  error:&error];
+    
+    NSDictionary* jsonn = [NSJSONSerialization
+                          JSONObjectWithData:responseData
+                          options:kNilOptions
+                          error:&error];
+
+    
+    if ([jsonn objectForKey:@"success"]) {
+        NSNumber* successful = [jsonn objectForKey:@"success"];
+        if ([successful boolValue]) {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSString* fbidforpic = (NSString*)[jsonn objectForKey:@"fbidforpic"];
+            [defaults setObject:fbidforpic forKey:@"CURRENTQRPICID"];
+            if (fbidforpic != nil) {
+            picView = [[ProfilePicViewController alloc] initWithFacebookId:fbidforpic];
+            [picView.view setFrame:CGRectMake(0, self.view.frame.size.height / 3, self.view.frame.size.width, 150)];
+            [picView setImageUsingFacebookId:fbidforpic];
+            [self addChildViewController:picView];
+            [self.view addSubview:picView.view];
+                removePicView = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(removeProfilePicViewController) userInfo:nil repeats:NO];
+            }
+        }
+    }
+    
+    if ([jsonResponse objectForKey:@"success"]) {
+        NSNumber* success = [jsonResponse objectForKey:@"success"];
+        if ([success boolValue]) {
+            NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
+            tags = jsonArray;
+            //NSLog(@"tags: %@", tags);
+            for (int i=0; i<[jsonArray count]; i++) {
+                json = [jsonArray objectAtIndex:i];
+                loadedDataSource = YES;
+                if ([json count]) {
+                    // we'll consider it a success if there's any json
+                    NSDictionary* original = [json objectForKey:ORIGINAL];
+                    NSDictionary* current = [json objectForKey:CURRENT];
+                    
+                    NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
+                    NSString* o_userId = [original objectForKey:USER_ID];
+                    NSString* o_placement = [original objectForKey:PLACEMENT];
+                    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
+                    
+                    NSString* c_userId = [current objectForKey:USER_ID];
+                    NSString* c_userName = [current objectForKey:USER_NAME];
+                    NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
+                    
+
+                }
+            }
+        }
+    }
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+-(void)removeProfilePicViewController {
+    [picView.view removeFromSuperview];
+    [picView removeFromParentViewController];
+    NSLog(@"scannedCodes: %@", scannedCodes);
+    NSString *currentQR = [AppDelegate KandiAppDelegate].currentQrCode;
+    [scannedCodes removeObjectForKey:currentQR];
+    NSLog(@"scannedCodes after set nil: %@", scannedCodes);
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 @end
 

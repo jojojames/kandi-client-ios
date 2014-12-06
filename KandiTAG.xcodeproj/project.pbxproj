@@ -22,6 +22,7 @@
 		383FFFAA1A098D2100E6F5E6 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 383FFFA91A098D2100E6F5E6 /* ChatTableViewCell.m */; };
 		3842D4FD19E899A400B11119 /* kandiDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 38A72D5419E8780E00AC5BDE /* kandiDB.sqlite */; };
 		3864FA0419D8CD2800AB72A7 /* KandiTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3864FA0319D8CD2800AB72A7 /* KandiTableViewController.m */; };
+		38699DB01A2657CD00617581 /* Sender.m in Sources */ = {isa = PBXBuildFile; fileRef = 38699DAF1A2657CD00617581 /* Sender.m */; };
 		386EAC5019E4DD09008E7C88 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 386EAC4F19E4DD09008E7C88 /* libsqlite3.0.dylib */; };
 		387493F61A0F2B21009F77CC /* MessagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 387493F51A0F2B21009F77CC /* MessagesTableViewController.m */; };
 		387578131A119E6D00B35781 /* MessageSendDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 387578121A119E6D00B35781 /* MessageSendDelegate.m */; };
@@ -39,6 +40,9 @@
 		388BD28619BEB98100ED1571 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 388BD28419BEB98100ED1571 /* InfoPlist.strings */; };
 		388BD28819BEB98100ED1571 /* KandiTAGTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 388BD28719BEB98100ED1571 /* KandiTAGTests.m */; };
 		388EE16E1A03188D00576705 /* ChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 388EE16D1A03188D00576705 /* ChatTableViewController.m */; };
+		38905A041A327774008C6970 /* ProfilePicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38905A031A327774008C6970 /* ProfilePicViewController.m */; };
+		3891231A1A29654B00A21B6A /* JSQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 389123191A29654B00A21B6A /* JSQViewController.m */; };
+		3892C9AB1A2AAF40006DB300 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892C9AA1A2AAF40006DB300 /* Message.m */; };
 		389B6A761A23C8E9006F15CC /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 389B6A751A23C8E9006F15CC /* MessageTableViewCell.m */; };
 		38B5903119C6AD7E00D27644 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B5903019C6AD7E00D27644 /* SettingsViewController.m */; };
 		38C6B1EF1A15B1EF0001A924 /* KandiDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C6B1EE1A15B1EF0001A924 /* KandiDetailTableViewCell.m */; };
@@ -86,6 +90,8 @@
 		383FFFA91A098D2100E6F5E6 /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
 		3864FA0219D8CD2800AB72A7 /* KandiTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KandiTableViewController.h; path = ../KandiTableViewController.h; sourceTree = "<group>"; };
 		3864FA0319D8CD2800AB72A7 /* KandiTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KandiTableViewController.m; path = ../KandiTableViewController.m; sourceTree = "<group>"; };
+		38699DAE1A2657CD00617581 /* Sender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sender.h; sourceTree = "<group>"; };
+		38699DAF1A2657CD00617581 /* Sender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sender.m; sourceTree = "<group>"; };
 		386EAC4F19E4DD09008E7C88 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		387493F41A0F2B21009F77CC /* MessagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesTableViewController.h; sourceTree = "<group>"; };
 		387493F51A0F2B21009F77CC /* MessagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesTableViewController.m; sourceTree = "<group>"; };
@@ -110,6 +116,12 @@
 		388BD28719BEB98100ED1571 /* KandiTAGTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KandiTAGTests.m; sourceTree = "<group>"; };
 		388EE16C1A03188D00576705 /* ChatTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewController.h; sourceTree = "<group>"; };
 		388EE16D1A03188D00576705 /* ChatTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewController.m; sourceTree = "<group>"; };
+		38905A021A327774008C6970 /* ProfilePicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfilePicViewController.h; sourceTree = "<group>"; };
+		38905A031A327774008C6970 /* ProfilePicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilePicViewController.m; sourceTree = "<group>"; };
+		389123181A29654B00A21B6A /* JSQViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQViewController.h; sourceTree = "<group>"; };
+		389123191A29654B00A21B6A /* JSQViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQViewController.m; sourceTree = "<group>"; };
+		3892C9A91A2AAF40006DB300 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		3892C9AA1A2AAF40006DB300 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		389B6A741A23C8E9006F15CC /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
 		389B6A751A23C8E9006F15CC /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		38A72D5419E8780E00AC5BDE /* kandiDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = kandiDB.sqlite; sourceTree = "<group>"; };
@@ -306,6 +318,8 @@
 				1AB423D419F8AC0300914ABF /* QRScannerViewController.m */,
 				1AB3850519FB4D3300243F92 /* QRCodeSaveDelegate.h */,
 				1AB3850619FB4D3300243F92 /* QRCodeSaveDelegate.m */,
+				38905A021A327774008C6970 /* ProfilePicViewController.h */,
+				38905A031A327774008C6970 /* ProfilePicViewController.m */,
 			);
 			name = QRScanner;
 			sourceTree = "<group>";
@@ -321,6 +335,12 @@
 				387578121A119E6D00B35781 /* MessageSendDelegate.m */,
 				389B6A741A23C8E9006F15CC /* MessageTableViewCell.h */,
 				389B6A751A23C8E9006F15CC /* MessageTableViewCell.m */,
+				38699DAE1A2657CD00617581 /* Sender.h */,
+				38699DAF1A2657CD00617581 /* Sender.m */,
+				389123181A29654B00A21B6A /* JSQViewController.h */,
+				389123191A29654B00A21B6A /* JSQViewController.m */,
+				3892C9A91A2AAF40006DB300 /* Message.h */,
+				3892C9AA1A2AAF40006DB300 /* Message.m */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -490,7 +510,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				382BEB1F1A0D794D00BFBB50 /* MessagingNavigationController.m in Sources */,
+				3892C9AB1A2AAF40006DB300 /* Message.m in Sources */,
 				1AB423D519F8AC0300914ABF /* QRScannerViewController.m in Sources */,
+				38699DB01A2657CD00617581 /* Sender.m in Sources */,
 				389B6A761A23C8E9006F15CC /* MessageTableViewCell.m in Sources */,
 				383FFFAA1A098D2100E6F5E6 /* ChatTableViewCell.m in Sources */,
 				1AB3850419FB25F600243F92 /* NetworkUtil.m in Sources */,
@@ -507,8 +529,10 @@
 				380334A719D9C15000D8A405 /* PageViewController.m in Sources */,
 				38F9FA6019C0D3E800EDA64C /* FBLoginViewController.m in Sources */,
 				38B5903119C6AD7E00D27644 /* SettingsViewController.m in Sources */,
+				38905A041A327774008C6970 /* ProfilePicViewController.m in Sources */,
 				1AB423D219F8A8A300914ABF /* KandiTagNavigationController.m in Sources */,
 				1AB3851219FC854900243F92 /* KandiProfileViewController.m in Sources */,
+				3891231A1A29654B00A21B6A /* JSQViewController.m in Sources */,
 				388BD26919BEB98100ED1571 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -598,8 +622,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jim Chen (GG6887D3SB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jim Chen (GG6887D3SB)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -608,7 +632,7 @@
 				GCC_PREFIX_HEADER = "KandiTAG/KandiTAG-Prefix.pch";
 				INFOPLIST_FILE = "KandiTAG/KandiTAG-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0ac011a4-6e9d-45f2-9eb7-79892c02dddf";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
@@ -709,8 +733,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jim Chen (GG6887D3SB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jim Chen (GG6887D3SB)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -719,7 +743,7 @@
 				GCC_PREFIX_HEADER = "KandiTAG/KandiTAG-Prefix.pch";
 				INFOPLIST_FILE = "KandiTAG/KandiTAG-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0ac011a4-6e9d-45f2-9eb7-79892c02dddf";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -730,8 +754,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jim Chen (GG6887D3SB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jim Chen (GG6887D3SB)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -740,7 +764,7 @@
 				GCC_PREFIX_HEADER = "KandiTAG/KandiTAG-Prefix.pch";
 				INFOPLIST_FILE = "KandiTAG/KandiTAG-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0ac011a4-6e9d-45f2-9eb7-79892c02dddf";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

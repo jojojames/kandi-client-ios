@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AA8ADCA17E8053B0FD6E34BA"
+               BlueprintIdentifier = "740CB41ED01014EA44839D7C"
                BuildableName = "libPods-SLExpandableTableView.a"
                BlueprintName = "Pods-SLExpandableTableView"
                ReferencedContainer = "container:Pods.xcodeproj">

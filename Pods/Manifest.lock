@@ -1,13 +1,19 @@
 PODS:
   - JSONModel (1.0.1)
+  - JSQMessagesViewController (6.1.0):
+    - JSQSystemSoundPlayer (~> 2.0.0)
+  - JSQSystemSoundPlayer (2.0.0)
   - SLExpandableTableView (1.2.3)
 
 DEPENDENCIES:
   - JSONModel
+  - JSQMessagesViewController
   - SLExpandableTableView
 
 SPEC CHECKSUMS:
   JSONModel: 634100aaacbd89811bc8a03da209356e5989c569
+  JSQMessagesViewController: 8998c086bf6db5d6190376041903d5be2961f03f
+  JSQSystemSoundPlayer: c98443b1cbb3b45db09d0d3d6c2355cf78294981
   SLExpandableTableView: 1bc7c10dd115ad094551e4a04e2b8c7835840e6e
 
 COCOAPODS: 0.34.4

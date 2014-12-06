@@ -1,6 +1,6 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/JSONModel" "${PODS_ROOT}/Headers/Public/SLExpandableTableView"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/JSONModel" -isystem "${PODS_ROOT}/Headers/Public/SLExpandableTableView"
-OTHER_LDFLAGS = -ObjC -l"Pods-JSONModel" -l"Pods-SLExpandableTableView" -framework "Foundation" -framework "UIKit"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/JSONModel" "${PODS_ROOT}/Headers/Public/JSQMessagesViewController" "${PODS_ROOT}/Headers/Public/JSQSystemSoundPlayer" "${PODS_ROOT}/Headers/Public/SLExpandableTableView"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/JSONModel" -isystem "${PODS_ROOT}/Headers/Public/JSQMessagesViewController" -isystem "${PODS_ROOT}/Headers/Public/JSQSystemSoundPlayer" -isystem "${PODS_ROOT}/Headers/Public/SLExpandableTableView"
+OTHER_LDFLAGS = -ObjC -l"Pods-JSONModel" -l"Pods-JSQMessagesViewController" -l"Pods-JSQSystemSoundPlayer" -l"Pods-SLExpandableTableView" -framework "AudioToolbox" -framework "Foundation" -framework "QuartzCore" -framework "UIKit"
 OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
 PODS_ROOT = ${SRCROOT}/Pods

@@ -58,15 +58,17 @@
     
     [self setViewControllers:@[vc1] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
-    BOOL didRunbefore = [[NSUserDefaults standardUserDefaults] boolForKey:@"didRunBefore"];
+    //BOOL didRunbefore = [[NSUserDefaults standardUserDefaults] boolForKey:@"didRunBefore"];
     
+    /*
     if (!didRunbefore) {
         UIAlertView *welcomeAlert = [[UIAlertView alloc] initWithTitle:@"Welcome!" message:@"To get started, scan a KandiTAG" delegate:self cancelButtonTitle:@"Got it!" otherButtonTitles:nil, nil];
         [welcomeAlert show];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"didRunBefore"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
+    */
+     
     //buttons on qrscanner
     left = [[UIButton alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height - 60, 50, 50)];
     [left setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];

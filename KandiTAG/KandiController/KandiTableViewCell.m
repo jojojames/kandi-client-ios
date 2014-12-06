@@ -45,10 +45,14 @@
     [super layoutSubviews];
     CGRect frame = self.contentView.frame;
     self.profileIcon.frame = CGRectMake(10, frame.size.height / 2 - self.profileIcon.frame.size.height / 2, self.profileIcon.frame.size.width, self.profileIcon.frame.size.height);
-    self.textLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 20, self.textLabel.frame.origin.y, self.textLabel.frame.size.width, self.textLabel.frame.size.height);
-    self.detailTextLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 20, self.detailTextLabel.frame.origin.y, self.detailTextLabel.frame.size.width, self.detailTextLabel.frame.size.height);
-    self.textLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Thin" size:18];
-    self.detailTextLabel.font = [UIFont fontWithName:@"AppleSBGothicNeo-Thin" size:10];
+    self.textLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 10, self.textLabel.frame.origin.y, 235, self.textLabel.frame.size.height);
+    //self.textLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 10, 10, 230, 35);
+    //self.textLabel.backgroundColor = [UIColor yellowColor];
+    //self.detailTextLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 10, 36, 230, 35);
+    //self.detailTextLabel.backgroundColor = [UIColor redColor];
+    //self.detailTextLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 20, self.detailTextLabel.frame.origin.y, self.detailTextLabel.frame.size.width, self.detailTextLabel.frame.size.height);
+    self.textLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:16];
+    self.detailTextLabel.font = [UIFont fontWithName:@"Verdana" size:18];
     self.profileIcon.layer.cornerRadius = self.profileIcon.frame.size.width / 2;
    // [self.profileIcon layer].cornerRadius = 13.5f;
     self.profileIcon.layer.borderWidth = 1.5f;
@@ -75,6 +79,8 @@
     }
 }
 
+/*
+
 -(void)setLoading:(BOOL)loading {
     if (loading != _loading) {
         _loading = loading;
@@ -88,8 +94,8 @@
         [self _updateDetailTextLabel];
     }
 }
-
-
+*/
+/*
 -(void)_updateDetailTextLabel {
     if (self.isLoading) {
         self.detailTextLabel.text = @"loading data";
@@ -104,5 +110,6 @@
         }
     }
 }
+ */
 
 @end

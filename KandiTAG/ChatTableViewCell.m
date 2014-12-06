@@ -12,7 +12,7 @@
 @synthesize messageTextField;
 @synthesize hasImage;
 
-#define PROFILE_ICON_SIZE 45
+#define PROFILE_ICON_SIZE 30
 
 
 -(instancetype)init {
@@ -34,7 +34,7 @@
         defaultPic.image = [UIImage imageNamed:@"OfficialKTLogo"];
         self.profileIcon.backgroundColor = [UIColor colorWithRed:255.0f/255.0 green:255.0f/255.0 blue:100.0f/255.0 alpha:0.6f];
         self.profileIcon.image = defaultPic.image;
-        [self.contentView addSubview:self.profileIcon];
+        //[self.contentView addSubview:self.profileIcon];
     }
     
     return self;
@@ -44,12 +44,15 @@
     [super layoutSubviews];
     CGRect frame = self.contentView.frame;
     self.profileIcon.frame = CGRectMake(10, frame.size.height / 2 - self.profileIcon.frame.size.height / 2, self.profileIcon.frame.size.width, self.profileIcon.frame.size.height);
-    self.textLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 20, self.textLabel.frame.origin.y, self.textLabel.frame.size.width, self.textLabel.frame.size.height);
+    self.textLabel.frame = CGRectMake(15, self.textLabel.frame.origin.y, 285, self.textLabel.frame.size.height);
+    //self.textLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 10, self.textLabel.frame.origin.y, 255, self.textLabel.frame.size.height);
+   // self.textLabel.backgroundColor = [UIColor yellowColor];
+    //self.textLabel.backgroundColor = [UIColor yellowColor];
     self.detailTextLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 20, self.detailTextLabel.frame.origin.y, self.detailTextLabel.frame.size.width, self.detailTextLabel.frame.size.height);
-    self.textLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Thin" size:18];
+    self.textLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:14];
     self.detailTextLabel.font = [UIFont fontWithName:@"AppleSBGothicNeo-Thin" size:10];
     self.profileIcon.layer.cornerRadius = self.profileIcon.frame.size.width / 2;
-    // [self.profileIcon layer].cornerRadius = 13.5f;
+     [self.profileIcon layer].cornerRadius = 13.5f;
     self.profileIcon.layer.borderWidth = 1.5f;
     self.profileIcon.layer.borderColor = [UIColor whiteColor].CGColor;
     [self.profileIcon layer].masksToBounds = YES;

@@ -104,7 +104,6 @@
     [self.tableView setTableHeaderView:view];
     [self.tableView setTableFooterView:view];
     
-    
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor clearColor];//[UIColor colorWithRed:255.0f/255.0 green:250.0f/255.0 blue:104.0f/255.0 alpha:1.0f];
     self.refreshControl.tintColor = [UIColor colorWithRed:50.0f/255.0 green:197.0f/255.0 blue:244.0f/255.0 alpha:1.0f];
@@ -117,6 +116,8 @@
     self.refreshControl.attributedTitle = attributedString;
     [self.refreshControl addTarget:self action:@selector(viewWillAppear:) forControlEvents:UIControlEventValueChanged];
     
+    self.view.layer.borderWidth = 0.25f;
+    self.view.layer.borderColor = [UIColor blackColor].CGColor;
 }
 
 -(void)refreshTable {
@@ -222,20 +223,32 @@
     KandiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     if (cell == nil) {
-        cell = [[KandiTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[KandiTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     NSString *facebookID = [AppDelegate KandiAppDelegate].facebookId;
     
     switch (displayType) {
-        case MESSAGE:
-            cell.textLabel.text = [NSString stringWithFormat:@"%@", c_message];
+        case MESSAGE: {
             if ([c_partyA isEqualToString:facebookID]) {
                 [cell setImageUsingFacebookId:c_partyB];
+                UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 230, 35)];
+                [detailLabel setFont:[UIFont fontWithName:@"Helvetica-Light" size:12]];
+                detailLabel.text = c_nameB;
+                cell.textLabel.text = [NSString stringWithFormat:@"\"%@\"", c_message];
+                cell.detailTextLabel.text = c_message;
+                [cell.contentView addSubview:detailLabel];
             }
             else if ([c_partyB isEqualToString:facebookID]) {
                 [cell setImageUsingFacebookId:c_partyA];
+                UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 230, 35)];
+                [detailLabel setFont:[UIFont fontWithName:@"Helvetica-Light" size:12]];
+                detailLabel.text = c_nameA;
+                cell.textLabel.text = [NSString stringWithFormat:@"\"%@\"", c_message];
+                cell.detailTextLabel.text = c_message;
+                [cell.contentView addSubview:detailLabel];
             }
+        }
             break;
             
         default:
@@ -244,8 +257,9 @@
 
             break;
     }
-
+    
     cell.backgroundColor = [UIColor clearColor];
+    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     //cell.backgroundColor = [UIColor colorWithRed:247.0f/255.0 green:247.0f/255.0 blue:100.0f/255.0 alpha:0.6f];
 
     return cell;
@@ -302,7 +316,7 @@
             //detailController.tableView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:1.0];
             detailController.tableView.backgroundColor = [UIColor whiteColor];
             detailController.tableView.layer.cornerRadius = 10.0f;
-            //detailController.tableView.layer.borderWidth = 1.0f;
+            detailController.tableView.layer.borderWidth = 0.0f;
             //detailController.tableView.layer.borderColor = [UIColor blackColor].CGColor;
             [self.view addSubview:detailController.tableView];
             [self addChildViewController:detailController];
@@ -332,7 +346,7 @@
             //detailController.tableView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:1.0];
             detailController.tableView.backgroundColor = [UIColor whiteColor];
             detailController.tableView.layer.cornerRadius = 10.0f;
-            //detailController.tableView.layer.borderWidth = 1.0f;
+            detailController.tableView.layer.borderWidth = 0.0f;
             //detailController.tableView.layer.borderColor = [UIColor blackColor].CGColor;
             [self.view addSubview:detailController.tableView];
             [self addChildViewController:detailController];
@@ -493,6 +507,7 @@
     [self.refreshControl endRefreshing];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
+
 
 #pragma mark - extras
 

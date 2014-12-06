@@ -17,11 +17,14 @@
     UIView *addKandiView;
     UIButton *removeAdd;
     UIButton *saveKandi;
+    UITextField *bio;
 }
 
 @end
 
 @implementation SettingsViewController
+
+#define MAX_LENGTH 6
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,7 +36,7 @@
     self.loginButton.delegate = self;
     UINavigationBar *settingBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
     UINavigationItem *settingsTitle = [[UINavigationItem alloc] initWithTitle:@"SETTINGS"];
-    [settingBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DINCondensed-Bold" size:22], NSFontAttributeName , nil]];
+    [settingBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DINCondensed-Bold" size:22], NSFontAttributeName , [UIColor blackColor], NSForegroundColorAttributeName, nil]];
     [settingBar pushNavigationItem:settingsTitle animated:NO];
     [self.view addSubview:settingBar];
     
@@ -58,13 +61,14 @@
     removeAdd = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [removeAdd addTarget:self action:@selector(removeAddKandiTAG) forControlEvents:UIControlEventTouchUpInside];
     addKandiView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    addKandiView.backgroundColor = [UIColor colorWithRed:247.0f/255.0 green:247.0f/255.0 blue:120.0f/255.0 alpha:0.5f];
+    addKandiView.backgroundColor = [UIColor colorWithRed:247.0f/255.0 green:247.0f/255.0 blue:120.0f/255.0 alpha:0.9f];
     //addKandiView.layer.cornerRadius = 10.0f;
     add = [[UITextField alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 5.25, self.view.frame.size.height / 3, 200, 30)];
+    add.delegate = self;
     add.textAlignment =  NSTextAlignmentCenter;
     add.backgroundColor = [UIColor whiteColor];
     add.layer.cornerRadius = 10.0f;
-    saveKandi = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.9, self.view.frame.size.height / 2.4, 100, 30)];
+    saveKandi = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.9, self.view.frame.size.height / 2.4, 100, 35)];
     [saveKandi setTitle:@"REDEEM" forState:UIControlStateNormal];
     saveKandi.layer.borderWidth = 3.0f;
     saveKandi.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -79,6 +83,12 @@
     [self.view addSubview:removeAdd];
     [self.view addSubview:addKandiView];
     
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    add = textField;
+    NSUInteger newLength = [add.text length] + [string length] - range.length;
+    return (newLength > 6) ? NO : YES;
 }
 
 -(void)removeAddKandiTAG {
@@ -98,6 +108,7 @@
 
 -(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView{
     self.lblLoginStatus.text = @"You are logged in as";
+
     
     [self toggleHiddenState:NO];
 }
