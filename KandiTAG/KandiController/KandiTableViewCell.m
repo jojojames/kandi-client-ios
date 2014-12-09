@@ -79,37 +79,5 @@
     }
 }
 
-/*
-
--(void)setLoading:(BOOL)loading {
-    if (loading != _loading) {
-        _loading = loading;
-        [self _updateDetailTextLabel];
-    }
-}
-
--(void)setExpansionStyle:(UIExpansionStyle)style animated:(BOOL)animated {
-    if (self.expansionStyle != _expansionStyle) {
-        _expansionStyle = self.expansionStyle;
-        [self _updateDetailTextLabel];
-    }
-}
-*/
-/*
--(void)_updateDetailTextLabel {
-    if (self.isLoading) {
-        self.detailTextLabel.text = @"loading data";
-    } else {
-        switch (self.expansionStyle) {
-            case UIExpansionStyleCollapsed:
-                self.detailTextLabel.text = @"click to expand";
-                break;
-            case UIExpansionStyleExpanded:
-                self.detailTextLabel.text = @"click to collapse";
-                break;
-        }
-    }
-}
- */
 
 @end

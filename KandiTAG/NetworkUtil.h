@@ -22,9 +22,12 @@
 
 -(void)saveDeviceToken:(id<NSURLConnectionDataDelegate>) netdelegate;
 
--(void)getPreviousOwner:(id<NSURLConnectionDataDelegate>) netdelegate withQrCode:(NSString*)code;
 -(void)sendMessage:(id<NSURLConnectionDataDelegate>) netdelegate withMessage:(NSString *)message andRecipient:(NSString *)recipient andTime:(NSString*)timestamp;
 -(void)getAllMessages:(id<NSURLConnectionDataDelegate>) netdelegate;
 -(void)getMessageExchange:(id<NSURLConnectionDataDelegate>) netdelegate withRecipient:(NSString *)recipient;
 -(void)saveConvo:(id<NSURLConnectionDataDelegate>) netdelegate withMessage:(NSString *)message andRecipient:(NSString *)recipient andName:(NSString *)name;
+
+-(void)getPreviousOwner:(id<NSURLConnectionDataDelegate>) netdelegate withQrCode:(NSString*)code;
+-(void)getPreviousUserList:(id<NSURLConnectionDataDelegate>) netdelegate withQrCode:(NSString*)code;
+
 @end

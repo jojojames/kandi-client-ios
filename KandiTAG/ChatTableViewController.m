@@ -108,6 +108,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [super viewDidLoad];
     
     tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 104) style:UITableViewStylePlain];
+    //tableView.backgroundColor = [UIColor yellowColor];
     
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -140,9 +141,9 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [tableView setTableHeaderView:view];
     [tableView setTableFooterView:view];
     
-    UIGestureRecognizer *hideKeyboard = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardWillBeHidden:)];
-    [tableView addGestureRecognizer:hideKeyboard];
-    [self.view addGestureRecognizer:hideKeyboard];
+    //UIGestureRecognizer *hideKeyboard = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardWillBeHidden:)];
+    //[tableView addGestureRecognizer:hideKeyboard];
+    //[self.view addGestureRecognizer:hideKeyboard];
     
     [tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX)];
     
@@ -184,8 +185,12 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         [[AppDelegate KandiAppDelegate].network getMessageExchange:self withRecipient:self.facebookId];
     }
     messageTextField.text = nil;
-    [tableView reloadData];
-    [tableView beginUpdates];
+    //[tableView reloadData];
+    //[tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+
+    //[tableView beginUpdates];
+    CGFloat height = self.tableView.contentSize.height - self.tableView.bounds.size.height;
+    [self.tableView setContentOffset:CGPointMake(0, height) animated:YES];
     //[tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX) animated:NO];
     
 }
@@ -201,11 +206,28 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 }
 
 -(void)keyboardWillShow:(NSNotification*)notification {
-    [self moveControls:notification up:YES];
+    //[self moveControls:notification up:YES];
+    
+    CGRect keyboardBounds;
+    [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboardBounds];
+    [tableView setFrame:CGRectMake(0, 65, self.view.frame.size.width, self.view.frame.size.height - keyboardBounds.size.height - 90)];
+    [messageLabel setFrame:CGRectMake(0, self.view.frame.size.height - keyboardBounds.size.height - 40, self.view.frame.size.width, 40)];
+    [self.view addSubview:messageLabel];
+    [messageTextField setFrame:CGRectMake(5, self.view.frame.size.height - 35 - keyboardBounds.size.height, self.view.frame.size.width /1.32, 30)];
+    [self.view addSubview:messageTextField];
+    [send setFrame:CGRectMake(self.view.frame.size.width - 65, self.view.frame.size.height - 32 - keyboardBounds.size.height, 57, 25)];
+    [self.view addSubview:send];
+    CGFloat height = self.tableView.contentSize.height - self.tableView.bounds.size.height;
+    [self.tableView setContentOffset:CGPointMake(0, height) animated:YES];
 }
 
 -(void)keyboardWillBeHidden:(NSNotification*)notification {
-    [self moveControls:notification up:NO];
+    //[self moveControls:notification up:NO];
+    [tableView setFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 104)];
+    [messageLabel setFrame:CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40)];
+    [messageTextField setFrame:CGRectMake(5, self.view.frame.size.height - 35, self.view.frame.size.width /1.32, 30)];
+    [send setFrame:CGRectMake(self.view.frame.size.width - 65, self.view.frame.size.height - 32 , 57, 25)];
+
 }
 
 -(void)moveControls:(NSNotification*)notification up:(BOOL)up {
@@ -219,8 +241,9 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     CGRect kbFrame = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     kbFrame = [self.view convertRect:kbFrame fromView:nil];
     
-    CGRect newFrame = self.view.frame;
-    newFrame.origin.y += kbFrame.size.height * (up ? -1 : 1);
+    //CGRect newFrame = self.view.frame;
+    CGRect newFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - kbFrame.size.height);
+    //newFrame.origin.y += kbFrame.size.height * (up ? -1 : 1);
     
     return newFrame;
 }

@@ -53,6 +53,8 @@
     NSString* token = [AppDelegate KandiAppDelegate].deviceToken;
     NSString* facebookid = [AppDelegate KandiAppDelegate].facebookId;
     NSString* userName = [AppDelegate KandiAppDelegate].userName;
+    NSInteger badgeN = [[UIApplication sharedApplication] applicationIconBadgeNumber];
+    NSNumber *badgeNum = [NSNumber numberWithInteger:badgeN];
     
     if (!token)
         return;
@@ -61,6 +63,7 @@
     [dict setObject:token forKey:@"token"];
     [dict setObject:facebookid forKey:@"facebookid"];
     [dict setObject:userName forKey:@"username"];
+    [dict setObject:badgeNum forKey:@"badgenum"];
     NSError *error;
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONReadingAllowFragments error:&error];
     NSString *requestUrl = [NSString stringWithFormat:@"%@/token", host];
@@ -158,14 +161,24 @@
     [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
 }
 
+-(void)getPreviousUserList:(id<NSURLConnectionDataDelegate>)netdelegate withQrCode:(NSString *)code {
+    NSLog(@"getPreviousUserList has been called");
+    if (!code)
+        return;
+    NSError *error;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:code forKey:@"qrcode"];
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONReadingAllowFragments error:&error];
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/previoususerlist", host];
+    [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
+}
+
 # pragma mark - messaging
 
 -(void)sendMessage:(id<NSURLConnectionDataDelegate>)netdelegate withMessage:(NSString *)message andRecipient:(NSString *)recipient andTime:(NSString *)timestamp {
     NSString *user_id = [AppDelegate KandiAppDelegate].facebookId;
-    NSInteger badgeN = [[UIApplication sharedApplication] applicationIconBadgeNumber];
-    NSNumber *badgeNum = [NSNumber numberWithInteger:badgeN];
     
-    if (!message || !user_id || !recipient || !timestamp) {
+    if (!message || !recipient || !timestamp) {
         return;
     }
     
@@ -177,7 +190,6 @@
     [dict setObject:user_id forKey:@"sender"];
     [dict setObject:recipient forKey:@"recipient"];
     [dict setObject:timestamp forKey:@"timestamp"];
-    [dict setObject:badgeNum forKey:@"badgenum"];
 
     
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict

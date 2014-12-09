@@ -36,7 +36,7 @@
     self.loginButton.delegate = self;
     UINavigationBar *settingBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
     UINavigationItem *settingsTitle = [[UINavigationItem alloc] initWithTitle:@"SETTINGS"];
-    [settingBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DINCondensed-Bold" size:22], NSFontAttributeName , [UIColor blackColor], NSForegroundColorAttributeName, nil]];
+    [settingBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"ChalkboardSE-Bold" size:21], NSFontAttributeName , [UIColor blackColor], NSForegroundColorAttributeName, nil]];
     [settingBar pushNavigationItem:settingsTitle animated:NO];
     [self.view addSubview:settingBar];
     
@@ -48,7 +48,7 @@
     addKandi = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 45, 25, 30, 30)];
     [addKandi setImage:[UIImage imageNamed:@"addButton"] forState:UIControlStateNormal];
     [addKandi addTarget:self action:@selector(addKandiTAG) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:addKandi];
+    //[self.view addSubview:addKandi];
 }
 
 

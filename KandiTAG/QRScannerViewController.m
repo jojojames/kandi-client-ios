@@ -11,7 +11,7 @@
 #import "QRBox.h"
 #import "QRScannerViewController.h"
 #import "ProfilePicViewController.h"
-
+#import "Sender.h"
 
 @interface QRScannerViewController () <AVCaptureMetadataOutputObjectsDelegate> {
     AVCaptureVideoPreviewLayer *_previewLayer;
@@ -24,9 +24,11 @@
     UIView *viewShowingMessage;
     UIViewController *detailController;
     UIButton *dismiss;
-    ProfilePicViewController *picView;
+    ProfilePicViewController *iconView;
     NSTimer *removePicView;
-    int attempt;
+    UIActivityIndicatorView *indicator;
+    NSMutableArray *list;
+    Sender *sender;
 }
 
 @end
@@ -74,7 +76,14 @@
     responseData = [[NSMutableData alloc] init];
     loadedDataSource = NO;
     tags = [[NSMutableArray alloc] init];
-        
+   
+    /*
+    iconView = [[ProfilePicViewController alloc] init];
+    [iconView.view setFrame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height)];
+    [self addChildViewController:iconView];
+    [self.view addSubview:iconView.view];
+    */
+    
     //flashlight
     //_onOff = YES;
 }
@@ -240,19 +249,16 @@
                 NSString *ktQRcode = [[NSString alloc] initWithString:_decodedMessage.text];
                 if (![scannedCodes objectForKey:ktQRcode]) {
                     [AppDelegate KandiAppDelegate].currentQrCode = ktQRcode;
-                    //NSString *deviceToken = [AppDelegate KandiAppDelegate].deviceToken;
                     [scannedCodes setObject:[NSNumber numberWithBool:YES] forKey:ktQRcode];
                     [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:ktQRcode];
-                    [[AppDelegate KandiAppDelegate].network getPreviousOwner:self withQrCode:ktQRcode];
-                    //[self.view addSubview:picView.view];
-                    //NSString *fbidforpic = [AppDelegate KandiAppDelegate].currentQrPicId;
-                    //NSLog(@"scanned qr: %@", ktQRcode);
+                    [[AppDelegate KandiAppDelegate].network getPreviousUserList:self withQrCode:ktQRcode];
+                    //need to fix the backend for getPreviousUserList
+                    NSLog(@"ktQrCode: %@", ktQRcode);
                     _decodedMessage.text = @"";
                 }
             }
             
             [self startOverlayHideTimer];
-          
         }
     }
 }
@@ -272,6 +278,7 @@
                                                    selector:@selector(removeBoundingBox:)
                                                    userInfo:nil
                                                     repeats:NO];
+    
 }
 
 - (void)removeBoundingBox:(id)sender {
@@ -281,6 +288,7 @@
     if (_boundingBox.hidden) {
        // [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate];
     }
+    //[self resetScannedCodesArray];
 }
 
 - (NSArray *)translatePoints:(NSArray *)points fromView:(UIView *)fromView toView:(UIView *)toView {
@@ -327,69 +335,89 @@
                                   options:kNilOptions
                                   error:&error];
     
-    NSDictionary* jsonn = [NSJSONSerialization
-                          JSONObjectWithData:responseData
-                          options:kNilOptions
-                          error:&error];
 
-    
-    if ([jsonn objectForKey:@"success"]) {
-        NSNumber* successful = [jsonn objectForKey:@"success"];
-        if ([successful boolValue]) {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSString* fbidforpic = (NSString*)[jsonn objectForKey:@"fbidforpic"];
-            [defaults setObject:fbidforpic forKey:@"CURRENTQRPICID"];
-            if (fbidforpic != nil) {
-            picView = [[ProfilePicViewController alloc] initWithFacebookId:fbidforpic];
-            [picView.view setFrame:CGRectMake(0, self.view.frame.size.height / 3, self.view.frame.size.width, 150)];
-            [picView setImageUsingFacebookId:fbidforpic];
-            [self addChildViewController:picView];
-            [self.view addSubview:picView.view];
-                removePicView = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(removeProfilePicViewController) userInfo:nil repeats:NO];
-            }
-        }
-    }
-    
     if ([jsonResponse objectForKey:@"success"]) {
         NSNumber* success = [jsonResponse objectForKey:@"success"];
         if ([success boolValue]) {
             NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
             tags = jsonArray;
+            //NSLog(@"jsonArray: %@", jsonArray);
+            int tagsCount = tags.count;
             //NSLog(@"tags: %@", tags);
-            for (int i=0; i<[jsonArray count]; i++) {
-                json = [jsonArray objectAtIndex:i];
-                loadedDataSource = YES;
-                if ([json count]) {
-                    // we'll consider it a success if there's any json
-                    NSDictionary* original = [json objectForKey:ORIGINAL];
-                    NSDictionary* current = [json objectForKey:CURRENT];
+            //NSLog(@"tagscount: %d", tags.count);
                     
-                    NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
-                    NSString* o_userId = [original objectForKey:USER_ID];
-                    NSString* o_placement = [original objectForKey:PLACEMENT];
-                    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
-                    
-                    NSString* c_userId = [current objectForKey:USER_ID];
-                    NSString* c_userName = [current objectForKey:USER_NAME];
-                    NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
-                    
-
+                list = [[NSMutableArray alloc] init];
+            
+                for (json in tags) {
+                    sender = [Sender new];
+                    sender.facebookID = [[json objectForKey:CURRENT] objectForKey:FACEBOOK_ID];
+                    [list addObject:sender.facebookID];
                 }
+                //NSLog(@"list: %@", list);
+            
+                if (tags !=nil) {
+                    iconView = [[ProfilePicViewController alloc] init];
+                    [iconView.view setFrame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height)];
+                    
+                    switch (tagsCount) {
+                        case 1:
+                            //NSLog(@"case 1");
+                            [iconView setImageUsingFacebookIdfor1:list[0]];
+                            break;
+                        case 2:
+                            //NSLog(@"case 2");
+                            [iconView setImageUsingFacebookIdfor1:list[0]];
+                            [iconView setImageUsingFacebookIdfor2:list[1]];
+                            break;
+                            
+                        case 3:
+                            //NSLog(@"case 3");
+                            [iconView setImageUsingFacebookIdfor1:list[0]];
+                            [iconView setImageUsingFacebookIdfor2:list[1]];
+                            [iconView setImageUsingFacebookIdfor3:list[2]];
+                            break;
+                        case 4:
+                            //NSLog(@"case 4");
+                            [iconView setImageUsingFacebookIdfor1:list[0]];
+                            [iconView setImageUsingFacebookIdfor2:list[1]];
+                            [iconView setImageUsingFacebookIdfor3:list[2]];
+                            [iconView setImageUsingFacebookIdfor4:list[3]];
+                            break;
+                        case 5:
+                            //NSLog(@"case 5");
+                            [iconView setImageUsingFacebookIdfor1:list[0]];
+                            [iconView setImageUsingFacebookIdfor2:list[1]];
+                            [iconView setImageUsingFacebookIdfor3:list[2]];
+                            [iconView setImageUsingFacebookIdfor4:list[3]];
+                            [iconView setImageUsingFacebookIdfor5:list[4]];
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                    
+                    [self addChildViewController:iconView];
+                    [self.view addSubview:iconView.view];
+                    removePicView = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(removeProfilePicViewController) userInfo:nil repeats:NO];
             }
         }
     }
-
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 -(void)removeProfilePicViewController {
-    [picView.view removeFromSuperview];
-    [picView removeFromParentViewController];
+    //unless this method is called, qr scanner will not be able to scan again
+    [iconView.view removeFromSuperview];
+    [iconView removeFromParentViewController];
     NSLog(@"scannedCodes: %@", scannedCodes);
     NSString *currentQR = [AppDelegate KandiAppDelegate].currentQrCode;
     [scannedCodes removeObjectForKey:currentQR];
     NSLog(@"scannedCodes after set nil: %@", scannedCodes);
-    
+    [iconView removePic];
+}
+
+-(void)resetScannedCodesArray {
+    NSString *currentQR = [AppDelegate KandiAppDelegate].currentQrCode;
+    [scannedCodes removeObjectForKey:currentQR];
 }
 
 - (void)didReceiveMemoryWarning {

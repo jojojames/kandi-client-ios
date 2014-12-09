@@ -68,7 +68,11 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     */
-     
+    
+    UIImageView *brackets = [[UIImageView alloc] initWithFrame:CGRectMake(35, self.view.frame.size.height - 76, self.view.frame.size.width - 70, 80)];
+    brackets.image = [UIImage imageNamed:@"info"];
+    //[vc1.view addSubview:brackets];
+    
     //buttons on qrscanner
     left = [[UIButton alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height - 60, 50, 50)];
     [left setImage:[UIImage imageNamed:@"left"] forState:UIControlStateNormal];

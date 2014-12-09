@@ -20,6 +20,7 @@
 @synthesize deviceToken;
 @synthesize currentQrPicId;
 
+
 +(AppDelegate*)KandiAppDelegate {
     return (AppDelegate*)[UIApplication sharedApplication].delegate;
 }
@@ -61,7 +62,6 @@
     return currentQrPicId;
 }
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
@@ -93,6 +93,7 @@
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"Push received: %@", userInfo);
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 2;
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{

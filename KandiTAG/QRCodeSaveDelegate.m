@@ -56,8 +56,7 @@
                 NSString* user_id = (NSString*)[json objectForKey:@"user_id"];
                 NSNumber* placement = (NSString*) [json objectForKey:@"placement"];
                 NSString* ownershipId = (NSString*)[json objectForKey:@"ownership_id"];
-                
-                //[self presentSuccess];
+                [self presentSuccess];
             } else {
                 NSString* error = (NSString*) [json objectForKey:@"error"];
                 BOOL limitReached = [json objectForKey:@"limit_reached"];
@@ -65,11 +64,11 @@
                 if (limitReached) {
                     // show an alert telling us the QR limit has been reached
                     //NSLog(@"QRCODE LIMIT REACHED");
-                    //[self presentFailure];
+                    [self presentFailure];
                 }
                 
                 if (alreadyOwned) {
-                    //[self presentAlreadyOwned];
+                    [self presentAlreadyOwned];
                 }
                 
                 //NSLog(@"QRCodeSaveDelegate: connectionDidFinishLoading: %@", error);
@@ -96,7 +95,7 @@
     } else {
      
      */
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:@"You have registered a new KandiTAG" delegate:self cancelButtonTitle:@"Proceed" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:@"You have registered a new KandiTAG" delegate:self cancelButtonTitle:@"Dimiss" otherButtonTitles:nil];
         [alert show];
 
     

@@ -1,8 +1,8 @@
 //
-//  Kandi.h
+//  DetailTableViewController.h
 //  KandiTAG
 //
-//  Created by Jim Chen on 9/28/14.
+//  Created by Jim Chen on 12/8/14.
 //  Copyright (c) 2014 Jim. All rights reserved.
 //
 
@@ -10,8 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "Constants.h"
 
-
-@interface KandiTableViewController : UITableViewController <FBGraphUser, NSURLConnectionDataDelegate>
+@interface DetailTableViewController : UITableViewController  <FBGraphUser, NSURLConnectionDataDelegate>
 -(instancetype)initWithFlag:(DisplayType)flag;
 -(instancetype)initWithFlag:(DisplayType)flag andQRCode:(NSString*)qrCode;
 @property (strong, nonatomic) NSMutableData* responseData;
@@ -40,6 +39,5 @@
 @property (strong, nonatomic) NSDictionary *json;
 
 -(void)removeDetailController;
-
 
 @end

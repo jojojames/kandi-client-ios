@@ -33,6 +33,7 @@
 @property (strong, nonatomic) NSString* deviceToken;
 @property (strong, nonatomic) NSString* currentQrPicId;
 
+
 + (AppDelegate*)KandiAppDelegate;
 -(NSString*)UserId;
 @end

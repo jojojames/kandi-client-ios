@@ -15,6 +15,7 @@
 		1AB423D519F8AC0300914ABF /* QRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB423D419F8AC0300914ABF /* QRScannerViewController.m */; };
 		1AB423DB19F8B63F00914ABF /* KandiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */; };
 		380334A719D9C15000D8A405 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 380334A619D9C15000D8A405 /* PageViewController.m */; };
+		38186C221A366294008B5BDF /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38186C211A366294008B5BDF /* DetailTableViewController.m */; };
 		381A8D1119C0348800AE4336 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 381A8D1019C0348800AE4336 /* FacebookSDK.framework */; };
 		382BEB1F1A0D794D00BFBB50 /* MessagingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 382BEB1E1A0D794D00BFBB50 /* MessagingNavigationController.m */; };
 		382DAC2419F4653A00A077B8 /* QRBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 382DAC2319F4653A00A077B8 /* QRBox.m */; };
@@ -23,6 +24,7 @@
 		3842D4FD19E899A400B11119 /* kandiDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 38A72D5419E8780E00AC5BDE /* kandiDB.sqlite */; };
 		3864FA0419D8CD2800AB72A7 /* KandiTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3864FA0319D8CD2800AB72A7 /* KandiTableViewController.m */; };
 		38699DB01A2657CD00617581 /* Sender.m in Sources */ = {isa = PBXBuildFile; fileRef = 38699DAF1A2657CD00617581 /* Sender.m */; };
+		386DEEE81A364BAA0017936B /* Users.m in Sources */ = {isa = PBXBuildFile; fileRef = 386DEEE71A364BAA0017936B /* Users.m */; };
 		386EAC5019E4DD09008E7C88 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 386EAC4F19E4DD09008E7C88 /* libsqlite3.0.dylib */; };
 		387493F61A0F2B21009F77CC /* MessagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 387493F51A0F2B21009F77CC /* MessagesTableViewController.m */; };
 		387578131A119E6D00B35781 /* MessageSendDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 387578121A119E6D00B35781 /* MessageSendDelegate.m */; };
@@ -80,6 +82,8 @@
 		1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KandiTableViewCell.m; sourceTree = "<group>"; };
 		380334A519D9C15000D8A405 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		380334A619D9C15000D8A405 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		38186C201A366294008B5BDF /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
+		38186C211A366294008B5BDF /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
 		381A8D1019C0348800AE4336 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		382BEB1D1A0D794D00BFBB50 /* MessagingNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingNavigationController.h; sourceTree = "<group>"; };
 		382BEB1E1A0D794D00BFBB50 /* MessagingNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingNavigationController.m; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 		3864FA0319D8CD2800AB72A7 /* KandiTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KandiTableViewController.m; path = ../KandiTableViewController.m; sourceTree = "<group>"; };
 		38699DAE1A2657CD00617581 /* Sender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sender.h; sourceTree = "<group>"; };
 		38699DAF1A2657CD00617581 /* Sender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sender.m; sourceTree = "<group>"; };
+		386DEEE61A364BAA0017936B /* Users.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Users.h; sourceTree = "<group>"; };
+		386DEEE71A364BAA0017936B /* Users.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Users.m; sourceTree = "<group>"; };
 		386EAC4F19E4DD09008E7C88 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		387493F41A0F2B21009F77CC /* MessagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesTableViewController.h; sourceTree = "<group>"; };
 		387493F51A0F2B21009F77CC /* MessagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesTableViewController.m; sourceTree = "<group>"; };
@@ -186,6 +192,8 @@
 				1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */,
 				38C6B1ED1A15B1EF0001A924 /* KandiDetailTableViewCell.h */,
 				38C6B1EE1A15B1EF0001A924 /* KandiDetailTableViewCell.m */,
+				38186C201A366294008B5BDF /* DetailTableViewController.h */,
+				38186C211A366294008B5BDF /* DetailTableViewController.m */,
 			);
 			path = KandiController;
 			sourceTree = "<group>";
@@ -320,6 +328,8 @@
 				1AB3850619FB4D3300243F92 /* QRCodeSaveDelegate.m */,
 				38905A021A327774008C6970 /* ProfilePicViewController.h */,
 				38905A031A327774008C6970 /* ProfilePicViewController.m */,
+				386DEEE61A364BAA0017936B /* Users.h */,
+				386DEEE71A364BAA0017936B /* Users.m */,
 			);
 			name = QRScanner;
 			sourceTree = "<group>";
@@ -521,6 +531,7 @@
 				38C6B1EF1A15B1EF0001A924 /* KandiDetailTableViewCell.m in Sources */,
 				387493F61A0F2B21009F77CC /* MessagesTableViewController.m in Sources */,
 				1AB3851519FCB8C400243F92 /* VersionCheck.m in Sources */,
+				386DEEE81A364BAA0017936B /* Users.m in Sources */,
 				1AB3850719FB4D3300243F92 /* QRCodeSaveDelegate.m in Sources */,
 				388EE16E1A03188D00576705 /* ChatTableViewController.m in Sources */,
 				382DAC2419F4653A00A077B8 /* QRBox.m in Sources */,
@@ -529,6 +540,7 @@
 				380334A719D9C15000D8A405 /* PageViewController.m in Sources */,
 				38F9FA6019C0D3E800EDA64C /* FBLoginViewController.m in Sources */,
 				38B5903119C6AD7E00D27644 /* SettingsViewController.m in Sources */,
+				38186C221A366294008B5BDF /* DetailTableViewController.m in Sources */,
 				38905A041A327774008C6970 /* ProfilePicViewController.m in Sources */,
 				1AB423D219F8A8A300914ABF /* KandiTagNavigationController.m in Sources */,
 				1AB3851219FC854900243F92 /* KandiProfileViewController.m in Sources */,

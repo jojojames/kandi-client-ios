@@ -14,6 +14,7 @@
 #import "MessagesTableViewController.h"
 #import "MessagingNavigationController.h"
 #import "KandiDetailTableViewCell.h"
+#import "DetailTableViewController.h"
 
 @interface KandiTableViewController () <SLExpandableTableViewDatasource, SLExpandableTableViewDelegate> {
     UILabel *loading;
@@ -24,6 +25,7 @@
     ChatTableViewController *chatController;
     MessagesTableViewController *messagingTable;
     UIView *shadedView;
+    DetailTableViewController *detailTableViewController;
 
 }
 
@@ -299,7 +301,10 @@
     switch (displayType) {
         case TAG:
         {
-            detailController = [[KandiTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
+            detailTableViewController = [[DetailTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
+            
+            
+            //detailController = [[KandiTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
             shadedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
             shadedView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:0.7];
             [self.view addSubview:shadedView];
@@ -311,25 +316,24 @@
             
             self.tableView.scrollEnabled = NO;
             
-            detailController.tableView.frame = CGRectInset(self.view.bounds, 40, 100);
-            //detailController.tableView.frame = self.view.frame;
-            //detailController.tableView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:1.0];
-            detailController.tableView.backgroundColor = [UIColor whiteColor];
-            detailController.tableView.layer.cornerRadius = 10.0f;
-            detailController.tableView.layer.borderWidth = 0.0f;
-            //detailController.tableView.layer.borderColor = [UIColor blackColor].CGColor;
-            [self.view addSubview:detailController.tableView];
-            [self addChildViewController:detailController];
-            [detailController didMoveToParentViewController:self];
-            
-            [detailController.tableView reloadData];
+            detailTableViewController.tableView.frame = CGRectInset(self.view.bounds, 40, 100);
+            detailTableViewController.tableView.backgroundColor = [UIColor whiteColor];
+            detailTableViewController.tableView.layer.cornerRadius = 10.0f;
+            detailTableViewController.tableView.layer.borderWidth = 0.0f;
+            [self.view addSubview:detailTableViewController.tableView];
+            [self addChildViewController:detailTableViewController];
+            [detailTableViewController didMoveToParentViewController:self];
+            [detailTableViewController.tableView reloadData];
 
             break;
         }
         case KANDI:
         {
             
-            detailController = [[KandiTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
+            detailTableViewController = [[DetailTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
+            
+            
+            //detailController = [[KandiTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
             shadedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
             shadedView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:0.7];
             [self.view addSubview:shadedView];
@@ -341,6 +345,19 @@
 
             self.tableView.scrollEnabled = NO;
             
+            detailTableViewController.tableView.frame = CGRectInset(self.view.bounds, 40, 100);
+            detailTableViewController.tableView.backgroundColor = [UIColor whiteColor];
+            detailTableViewController.tableView.layer.cornerRadius = 10.0f;
+            detailTableViewController.tableView.layer.borderWidth = 0.0f;
+            [self.view addSubview:detailTableViewController.tableView];
+            [self addChildViewController:detailTableViewController];
+            [detailTableViewController didMoveToParentViewController:self];
+            [detailTableViewController.tableView reloadData];
+            
+            
+            
+            
+            /*
             detailController.tableView.frame = CGRectInset(self.view.bounds, 40, 100);
             //detailController.tableView.frame = self.view.frame;
             //detailController.tableView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:1.0];
@@ -353,6 +370,8 @@
             [detailController didMoveToParentViewController:self];
 
             [detailController.tableView reloadData];
+             
+             */
              
             break;
         }
@@ -461,7 +480,7 @@
         if ([success boolValue]) {
             NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
             tags = jsonArray;
-            NSLog(@"tags: %@", tags);
+            //NSLog(@"tags: %@", tags);
             for (int i=0; i<[jsonArray count]; i++) {
                 json = [jsonArray objectAtIndex:i];
                 loadedDataSource = YES;
@@ -514,6 +533,8 @@
 -(void)removeDetailController {
     [detailController.view removeFromSuperview];
     [detailController removeFromParentViewController];
+    [detailTableViewController.view removeFromSuperview];
+    [detailTableViewController removeFromParentViewController];
     [shadedView removeFromSuperview];
     self.tableView.scrollEnabled = YES;
 }
