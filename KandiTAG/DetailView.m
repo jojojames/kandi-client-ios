@@ -236,7 +236,7 @@
         if ([success boolValue]) {
             NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
             tags = jsonArray;
-            NSLog(@"tags: %@", tags);
+            //NSLog(@"tags: %@", tags);
             
             for (int i=0; i<[jsonArray count]; i++) {
                 json = [jsonArray objectAtIndex:i];

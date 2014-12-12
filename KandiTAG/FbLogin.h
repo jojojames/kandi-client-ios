@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) FBLoginView *loginButton;
 @property (strong, nonatomic) NSString *lblUsername;
+@property (strong, nonatomic) NSString *facebookid;
 @property (weak, nonatomic) FBProfilePictureView *profilePicture;
 @property (strong, nonatomic) PageViewController *pageViewController;
 

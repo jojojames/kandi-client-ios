@@ -12,6 +12,7 @@
 #import "QRScannerViewController.h"
 #import "ProfilePicViewController.h"
 #import "Sender.h"
+#import "Focus.h"
 
 @interface QRScannerViewController () <AVCaptureMetadataOutputObjectsDelegate> {
     AVCaptureVideoPreviewLayer *_previewLayer;
@@ -29,6 +30,7 @@
     UIActivityIndicatorView *indicator;
     NSMutableArray *list;
     Sender *sender;
+    Focus *focus;
 }
 
 @end
@@ -131,6 +133,52 @@
     
     [[AppDelegate KandiAppDelegate].network saveDeviceToken:self];
     
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touchh = [[event allTouches] anyObject];
+    CGPoint touchPoint = [touchh locationInView:touchh.view];
+    [self focus:touchPoint];
+    
+    if (focus)
+    {
+        [focus removeFromSuperview];
+    }
+
+        focus = [[Focus alloc]initWithFrame:CGRectMake(touchPoint.x-40, touchPoint.y-40, 80, 80)];
+        [focus setBackgroundColor:[UIColor clearColor]];
+        [self.view addSubview:focus];
+        [focus setNeedsDisplay];
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:1.5];
+        [focus setAlpha:0.0];
+        [UIView commitAnimations];
+}
+
+- (void) focus:(CGPoint) aPoint;
+{
+    Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+    if (captureDeviceClass != nil) {
+        AVCaptureDevice *device = [captureDeviceClass defaultDeviceWithMediaType:AVMediaTypeVideo];
+        if([device isFocusPointOfInterestSupported] &&
+           [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+            CGRect screenRect = [[UIScreen mainScreen] bounds];
+            double screenWidth = screenRect.size.width;
+            double screenHeight = screenRect.size.height;
+            double focus_x = aPoint.x/screenWidth;
+            double focus_y = aPoint.y/screenHeight;
+            if([device lockForConfiguration:nil]) {
+                [device setFocusPointOfInterest:CGPointMake(focus_x,focus_y)];
+                [device setFocusMode:AVCaptureFocusModeAutoFocus];
+                if ([device isExposureModeSupported:AVCaptureExposureModeAutoExpose]){
+                    [device setExposureMode:AVCaptureExposureModeAutoExpose];
+                }
+                [device unlockForConfiguration];
+            }
+        }
+    }
 }
 
 -(void)buttonPress {

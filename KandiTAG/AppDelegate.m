@@ -65,15 +65,24 @@
 
 -(BOOL)pageScrollEnabled {
     if (!pageScrollEnabled)
-        pageScrollEnabled = [self.defaults stringForKey:@"PAGESCROLLENABLED"];
+        pageScrollEnabled = [self.defaults boolForKey:@"PAGESCROLLENABLED"];
     return pageScrollEnabled;
 }
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
+    {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
+    }
 
-    [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.fbLogin = [[FbLogin alloc] init];

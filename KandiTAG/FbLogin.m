@@ -79,11 +79,12 @@
 -(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)fbuser {
     self.profilePicture.profileID = fbuser.id;
     self.lblUsername = fbuser.name;
+    self.facebookid = fbuser.id;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:self.lblUsername forKey:@"NAME"];
-    [defaults setObject:self.profilePicture.profileID forKey:@"FBID"];
+    [defaults setObject:self.facebookid forKey:@"FBID"];
     
     if (!requestedLogin) {
         responseData = [[NSMutableData alloc] init];

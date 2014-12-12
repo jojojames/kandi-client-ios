@@ -7,11 +7,12 @@
 //
 
 #import "Settings.h"
-#import "FbLogin.h"
+#import "AppDelegate.h"
 
 @interface Settings () {
     FbLogin *fbLogin;
     UIButton *backToScanner;
+    UILabel *nameLabel;
 }
 
 @end
@@ -27,7 +28,7 @@
     
     [self toggleHiddenState:YES];
     self.loginButton.readPermissions = @[@"public_profile", @"email"];
-    loginButton = [[FBLoginView alloc] initWithFrame:CGRectMake(50, self.view.frame.size.height / 1.2, self.view.frame.size.width - 100, 30)];
+    loginButton = [[FBLoginView alloc] initWithFrame:CGRectMake(50, self.view.frame.size.height / 1.25, self.view.frame.size.width - 100, 30)];
     [self.view addSubview:loginButton];
     self.loginButton.delegate = self;
     UINavigationBar *settingBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
@@ -41,8 +42,15 @@
     [backToScanner addTarget:self action:@selector(removeSettingsFromView) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backToScanner];
     
-    self.profilePicture = [[FBProfilePictureView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/3.15, self.view.frame.size.height / 3.75, 110, 110)];
+    self.profilePicture = [[FBProfilePictureView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/3.1, self.view.frame.size.height / 4.3, 110, 110)];
     [self.view addSubview:self.profilePicture];
+    
+    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height / 2.2, self.view.frame.size.width, 30)];
+    nameLabel.text = [AppDelegate KandiAppDelegate].userName;
+    nameLabel.font = [UIFont fontWithName:@"Rancho" size:25];
+    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:nameLabel];
 }
 
 -(void)removeSettingsFromView {

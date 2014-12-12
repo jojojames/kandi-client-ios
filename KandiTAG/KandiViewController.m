@@ -9,7 +9,6 @@
 #import "KandiViewController.h"
 #import "KandiTableViewCell.h"
 #import "AppDelegate.h"
-#import "SeperatorCell.h"
 #import "Sender.h"
 #import "DetailTableViewController.h"
 #import "ChatTableViewController.h"
@@ -600,7 +599,7 @@
         if ([success boolValue]) {
             NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
             tags = jsonArray;
-            NSLog(@"tags: %@", tags);
+            //NSLog(@"tags: %@", tags);
             
             list = [[NSMutableArray alloc] init];
             names = [[NSMutableArray alloc] init];
@@ -613,8 +612,8 @@
                 //[names addObject:sender.userName];
             }
             
-            NSLog(@"list: %@", list);
-            NSLog(@"names: %@", names);
+            //NSLog(@"list: %@", list);
+            //NSLog(@"names: %@", names);
             
             
             for (int i=0; i<[jsonArray count]; i++) {
