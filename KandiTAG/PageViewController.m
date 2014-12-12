@@ -13,15 +13,18 @@
 #import "AppDelegate.h"
 #import "MessagingNavigationController.h"
 #import "KandiTableViewController.h"
+#import "KandiViewController.h"
+#import "Settings.h"
+
 
 @interface PageViewController () {
     UIButton *left;
     UIButton *right;
     UIViewController *vc1;
-    UINavigationController *vc2;
-    UINavigationController *vc3;
-    UINavigationController *vc4;
-    UIViewController *settingsVC;
+    KandiViewController *vc2;
+    KandiViewController *vc3;
+    KandiViewController *vc4;
+    Settings *settingsVC;
     UIButton *settingsgear;
     UIButton *camera;
     UIButton *camera1;
@@ -46,13 +49,13 @@
     
     vc1 = [[QRScannerViewController alloc] init];
     
-    vc2 = [[KandiTagNavigationController alloc] initWithFlag:KANDI];
+    vc2 = [[KandiViewController alloc] initWithFlag:KANDI];
     
-    vc3 = [[KandiTagNavigationController alloc] initWithFlag:TAG];
+    vc3 = [[KandiViewController alloc] initWithFlag:TAG];
     
-    vc4 =[[KandiTagNavigationController alloc] initWithFlag:MESSAGE];
+    vc4 = [[KandiViewController alloc] initWithFlag:MESSAGE];
     
-    settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+    settingsVC = [[Settings alloc] init];
     
     myViewControllers = @[vc1, vc2, vc3, vc4];
     
@@ -192,9 +195,8 @@
 -(void)settings {
     
     settingsVC.view.frame = self.view.bounds;
-    [self.view addSubview:settingsVC.view];
-    [self addChildViewController:settingsVC];
-    [settingsVC didMoveToParentViewController:self];
+    [self presentViewController:settingsVC animated:YES completion:nil];
+
 
     [vc1.view addSubview:left];
     [vc1.view addSubview:right];

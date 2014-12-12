@@ -18,6 +18,8 @@ typedef enum {
 
 #define ROW_HEIGHT 70
 
+#define SCROLL_ROW_HEIGHT 300
+
 #define EXTENDED_ROW_HEIGHT 210.0
 
 #define CHAT_ROW_HEIGHT 50.0

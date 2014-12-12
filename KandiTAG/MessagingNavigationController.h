@@ -12,7 +12,7 @@
 
 @interface MessagingNavigationController : UINavigationController
 
--(instancetype)initWithFlag:(DisplayType)flag;
+//-(instancetype)initWithFlag:(DisplayType)flag;
 
 
 @end

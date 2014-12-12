@@ -6,27 +6,9 @@
 // project.
 
 
-// JSONModel
-#define COCOAPODS_POD_AVAILABLE_JSONModel
-#define COCOAPODS_VERSION_MAJOR_JSONModel 1
-#define COCOAPODS_VERSION_MINOR_JSONModel 0
-#define COCOAPODS_VERSION_PATCH_JSONModel 1
-
-// JSQMessagesViewController
-#define COCOAPODS_POD_AVAILABLE_JSQMessagesViewController
-#define COCOAPODS_VERSION_MAJOR_JSQMessagesViewController 6
-#define COCOAPODS_VERSION_MINOR_JSQMessagesViewController 1
-#define COCOAPODS_VERSION_PATCH_JSQMessagesViewController 0
-
-// JSQSystemSoundPlayer
-#define COCOAPODS_POD_AVAILABLE_JSQSystemSoundPlayer
-#define COCOAPODS_VERSION_MAJOR_JSQSystemSoundPlayer 2
-#define COCOAPODS_VERSION_MINOR_JSQSystemSoundPlayer 0
-#define COCOAPODS_VERSION_PATCH_JSQSystemSoundPlayer 0
-
-// SLExpandableTableView
-#define COCOAPODS_POD_AVAILABLE_SLExpandableTableView
-#define COCOAPODS_VERSION_MAJOR_SLExpandableTableView 1
-#define COCOAPODS_VERSION_MINOR_SLExpandableTableView 2
-#define COCOAPODS_VERSION_PATCH_SLExpandableTableView 3
+// ZFDragableModalTransition
+#define COCOAPODS_POD_AVAILABLE_ZFDragableModalTransition
+#define COCOAPODS_VERSION_MAJOR_ZFDragableModalTransition 0
+#define COCOAPODS_VERSION_MINOR_ZFDragableModalTransition 2
+#define COCOAPODS_VERSION_PATCH_ZFDragableModalTransition 0
 

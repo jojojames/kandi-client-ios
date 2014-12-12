@@ -46,7 +46,7 @@
     self.separatorInset = UIEdgeInsetsMake(0, (self.indentationLevel * self.indentationWidth) + 15, 0, 0);
     self.profileIcon.frame = CGRectMake(8, frame.size.height / 2 - self.profileIcon.frame.size.height / 2, self.profileIcon.frame.size.width, self.profileIcon.frame.size.height);
     self.textLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 5, self.textLabel.frame.origin.y, 170, self.textLabel.frame.size.height);
-    self.textLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:16];
+    self.textLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:14];
     self.profileIcon.layer.cornerRadius = self.profileIcon.frame.size.width / 2;
     // [self.profileIcon layer].cornerRadius = 13.5f;
     self.profileIcon.layer.borderWidth = 2.0f;

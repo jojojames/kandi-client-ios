@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <SLExpandableTableView.h>
 #import "Constants.h"
 
 @interface KandiTableViewCell : UITableViewCell

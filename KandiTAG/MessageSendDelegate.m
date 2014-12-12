@@ -50,14 +50,14 @@
             NSNumber* success = [json objectForKey:@"success"];
             if ([success boolValue]) {
                 // QRCode was saved properly
-                NSString* qrCodeId = (NSString*)[json objectForKey:@"qrcode_id"];
-                NSString* qrCode = (NSString*)[json objectForKey:@"qrcode"];
-                NSString* user_id = (NSString*)[json objectForKey:@"user_id"];
-                NSNumber* placement = (NSString*) [json objectForKey:@"placement"];
-                NSString* ownershipId = (NSString*)[json objectForKey:@"ownership_id"];
+                //NSString* qrCodeId = (NSString*)[json objectForKey:@"qrcode_id"];
+                //NSString* qrCode = (NSString*)[json objectForKey:@"qrcode"];
+                //NSString* user_id = (NSString*)[json objectForKey:@"user_id"];
+                //NSNumber* placement = (NSString*) [json objectForKey:@"placement"];
+                //NSString* ownershipId = (NSString*)[json objectForKey:@"ownership_id"];
                 
                 //strings for messages
-                NSString *message = (NSString *)[json objectForKey:@"message"];
+                //NSString *message = (NSString *)[json objectForKey:@"message"];
                 
                 [self presentSuccess];
             } else {

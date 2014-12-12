@@ -20,6 +20,7 @@
     MessagingNavigationController *messagingNavController;
     UIButton *dismiss;
     KandiDetailTableViewCell *cell;
+    UIView *shadedView;
 }
 
 @end
@@ -158,15 +159,15 @@
     //these are the detail view cells, the expanded view
     
     json = [tags objectAtIndex:indexPath.row];
-    NSDictionary* original = [json objectForKey:ORIGINAL];
+    //NSDictionary* original = [json objectForKey:ORIGINAL];
     NSDictionary* current = [json objectForKey:CURRENT];
     
-    NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
-    NSString* o_userId = [original objectForKey:USER_ID];
-    NSString* o_placement = [original objectForKey:PLACEMENT];
-    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
+    //NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
+    //NSString* o_userId = [original objectForKey:USER_ID];
+    //NSString* o_placement = [original objectForKey:PLACEMENT];
+    //NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
     
-    NSString* c_userId = [current objectForKey:USER_ID];
+   //NSString* c_userId = [current objectForKey:USER_ID];
     NSString* c_userName = [current objectForKey:USER_NAME];
     NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
     
@@ -189,37 +190,34 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //this is for the cells leading up to the messaging
     json = [tags objectAtIndex:indexPath.row];
-    NSDictionary* original = [json objectForKey:ORIGINAL];
+    //NSDictionary* original = [json objectForKey:ORIGINAL];
     NSDictionary* current = [json objectForKey:CURRENT];
-    NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
-    NSDictionary* convo = [json objectForKey:CONVO];
+    //NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
+    //NSDictionary* convo = [json objectForKey:CONVO];
     
-    NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
-    NSString* o_userId = [original objectForKey:USER_ID];
-    NSString* o_placement = [original objectForKey:PLACEMENT];
-    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
+    //NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
+    //NSString* o_userId = [original objectForKey:USER_ID];
+    //NSString* o_placement = [original objectForKey:PLACEMENT];
+    //NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
     
-    NSString* c_userId = [current objectForKey:USER_ID];
+    //NSString* c_userId = [current objectForKey:USER_ID];
     NSString* c_userName = [current objectForKey:USER_NAME];
     NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
     
-    NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
-    NSString* mh_sender = [messagehistory objectForKey:SENDER];
-    NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
-    NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
+    //NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
+    //NSString* mh_sender = [messagehistory objectForKey:SENDER];
+    //NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
+    //NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
     
-    NSString* c_partyA = [convo objectForKey:PARTYA];
-    NSString* c_partyB = [convo objectForKey:PARTYB];
-    NSString* c_message = [convo objectForKey:MESSAGE_KT];
-    NSString* c_nameA = [convo objectForKey:NAMEA];
-    NSString* c_nameB = [convo objectForKey:NAMEB];
+    //NSString* c_partyA = [convo objectForKey:PARTYA];
+    //NSString* c_partyB = [convo objectForKey:PARTYB];
+    //NSString* c_message = [convo objectForKey:MESSAGE_KT];
+    //NSString* c_nameA = [convo objectForKey:NAMEA];
+    //NSString* c_nameB = [convo objectForKey:NAMEB];
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-    NSLog(@"cell selected");
-    
+        
     NSString *facebookId = [AppDelegate KandiAppDelegate].facebookId;
     
     chatController = [[ChatTableViewController alloc] initWithFacebookId:c_facebookId andUserName:c_userName];
@@ -229,7 +227,7 @@
         
         messagingNavController = [[MessagingNavigationController alloc] init];
         
-        [self presentViewController:messagingNavController animated:NO completion:nil];
+        [self presentViewController:messagingNavController animated:YES completion:nil];
         
         [messagingNavController pushViewController:chatController animated:NO];
         
@@ -242,6 +240,7 @@
 
 -(void)removeMessagingController {
     [messagingNavController dismissViewControllerAnimated:YES completion:nil];
+    messagingNavController.presentingViewController.view.hidden = YES;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -276,7 +275,6 @@
         if ([success boolValue]) {
             NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
             tags = jsonArray;
-            NSLog(@"tags inside DetailTVC: %@", tags);
             for (int i=0; i<[jsonArray count]; i++) {
                 json = [jsonArray objectAtIndex:i];
                 loadedDataSource = YES;
@@ -285,14 +283,14 @@
                     NSDictionary* original = [json objectForKey:ORIGINAL];
                     NSDictionary* current = [json objectForKey:CURRENT];
                     
-                    NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
-                    NSString* o_userId = [original objectForKey:USER_ID];
-                    NSString* o_placement = [original objectForKey:PLACEMENT];
-                    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
+                    //NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
+                    //NSString* o_userId = [original objectForKey:USER_ID];
+                    //NSString* o_placement = [original objectForKey:PLACEMENT];
+                    //NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
                     
-                    NSString* c_userId = [current objectForKey:USER_ID];
-                    NSString* c_userName = [current objectForKey:USER_NAME];
-                    NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
+                    //NSString* c_userId = [current objectForKey:USER_ID];
+                    //NSString* c_userName = [current objectForKey:USER_NAME];
+                    //NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
 
                 }
             }
@@ -309,59 +307,5 @@
     [self.refreshControl endRefreshing];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

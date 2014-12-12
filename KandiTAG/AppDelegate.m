@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "KandiTableViewController.h"
+#import "VersionCheck.h"
 
 @implementation AppDelegate
 @synthesize network;
@@ -19,7 +20,7 @@
 @synthesize currentQrCode;
 @synthesize deviceToken;
 @synthesize currentQrPicId;
-
+@synthesize pageScrollEnabled;
 
 +(AppDelegate*)KandiAppDelegate {
     return (AppDelegate*)[UIApplication sharedApplication].delegate;
@@ -62,16 +63,24 @@
     return currentQrPicId;
 }
 
+-(BOOL)pageScrollEnabled {
+    if (!pageScrollEnabled)
+        pageScrollEnabled = [self.defaults stringForKey:@"PAGESCROLLENABLED"];
+    return pageScrollEnabled;
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+
     [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.pageViewController = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
-    self.fbLoginViewController = [storyboard instantiateViewControllerWithIdentifier:@"FBLoginViewController"];
-    self.window.rootViewController = self.fbLoginViewController;
+    self.fbLogin = [[FbLogin alloc] init];
+    self.window.rootViewController = self.fbLogin;
     [self.window makeKeyAndVisible];
+    
+    pageScrollEnabled = YES;
     
     [FBLoginView class];
     [FBProfilePictureView class];

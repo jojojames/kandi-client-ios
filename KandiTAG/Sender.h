@@ -11,5 +11,6 @@
 @interface Sender : NSObject
 
 @property (nonatomic, strong) NSString *facebookID;
+@property (nonatomic, strong) NSString *userName;
 
 @end

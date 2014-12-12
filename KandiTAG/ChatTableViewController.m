@@ -281,14 +281,14 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     json = [messages objectAtIndex:indexPath.row];
-    NSDictionary* original = [json objectForKey:ORIGINAL];
-    NSDictionary* current = [json objectForKey:CURRENT];
+    //NSDictionary* original = [json objectForKey:ORIGINAL];
+    //NSDictionary* current = [json objectForKey:CURRENT];
     NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
     
     NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
-    NSString* mh_sender = [messagehistory objectForKey:SENDER];
-    NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
-    NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
+    //NSString* mh_sender = [messagehistory objectForKey:SENDER];
+    //NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
+    //NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
     
     NSString *cellIdentifier = @"ChatTableViewCell";
     
@@ -365,23 +365,23 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
                 loadedDataSource = YES;
                 if ([json count]) {
                     // we'll consider it a success if there's any json
-                    NSDictionary* original = [json objectForKey:ORIGINAL];
-                    NSDictionary* current = [json objectForKey:CURRENT];
-                    NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
+                    //NSDictionary* original = [json objectForKey:ORIGINAL];
+                    //NSDictionary* current = [json objectForKey:CURRENT];
+                    //NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
                     
-                    NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
-                    NSString* o_userId = [original objectForKey:USER_ID];
-                    NSString* o_placement = [original objectForKey:PLACEMENT];
-                    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
+                    //NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
+                    //NSString* o_userId = [original objectForKey:USER_ID];
+                    //NSString* o_placement = [original objectForKey:PLACEMENT];
+                    //NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
                     
-                    NSString* c_userId = [current objectForKey:USER_ID];
-                    NSString* c_userName = [current objectForKey:USER_NAME];
-                    NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
+                    //NSString* c_userId = [current objectForKey:USER_ID];
+                    //NSString* c_userName = [current objectForKey:USER_NAME];
+                    //NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
                     
-                    NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
-                    NSString* mh_sender = [messagehistory objectForKey:SENDER];
-                    NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
-                    NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
+                    //NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
+                    //NSString* mh_sender = [messagehistory objectForKey:SENDER];
+                    //NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
+                    //NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
                     
                     list = [[NSMutableArray alloc] init];
 

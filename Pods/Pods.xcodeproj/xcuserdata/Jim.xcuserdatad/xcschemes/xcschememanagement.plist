@@ -4,22 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-JSONModel.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-JSQMessagesViewController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-JSQSystemSoundPlayer.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-SLExpandableTableView.xcscheme</key>
+		<key>Pods-ZFDragableModalTransition.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,27 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>740CB41ED01014EA44839D7C</key>
+		<key>36B3CFC9A62C3D130013FC43</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>963BB5997548B56F29FCE2FE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A4259802D4D00688CFC64E92</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BB4BE390932E7EE8A816F945</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CAB898219899F0F51701419C</key>
+		<key>EACC7DB49168ABED3F68F759</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -18,6 +18,8 @@
     UIButton *removeAdd;
     UIButton *saveKandi;
     UITextField *bio;
+    UILabel *DoubleTapLabel;
+    UIButton *DoubleTapSwitch;
 }
 
 @end
@@ -35,10 +37,17 @@
     self.loginButton.readPermissions = @[@"public_profile", @"email"];
     self.loginButton.delegate = self;
     UINavigationBar *settingBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-    UINavigationItem *settingsTitle = [[UINavigationItem alloc] initWithTitle:@"SETTINGS"];
-    [settingBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"ChalkboardSE-Bold" size:21], NSFontAttributeName , [UIColor blackColor], NSForegroundColorAttributeName, nil]];
+    UINavigationItem *settingsTitle = [[UINavigationItem alloc] initWithTitle:@"Settings"];
+    [settingBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Rancho" size:25], NSFontAttributeName , [UIColor blackColor], NSForegroundColorAttributeName, nil]];
     [settingBar pushNavigationItem:settingsTitle animated:NO];
     [self.view addSubview:settingBar];
+    
+    DoubleTapLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height / 2, self.view.frame.size.width, 35)];
+    DoubleTapLabel.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:0.5];
+    DoubleTapLabel.text = @" Double Tap To Turn On Flashlight";
+    DoubleTapLabel.textAlignment = NSTextAlignmentLeft;
+    DoubleTapLabel.font = [UIFont fontWithName:@"DINCondensed-Bold" size:20];
+    //[self.view addSubview:DoubleTapLabel];
     
     backToScanner = [[UIButton alloc] initWithFrame:CGRectMake(15, 25, 30, 30)];
     [backToScanner setImage:[UIImage imageNamed:@"qrScannerButton"] forState:UIControlStateNormal];
@@ -49,11 +58,12 @@
     [addKandi setImage:[UIImage imageNamed:@"addButton"] forState:UIControlStateNormal];
     [addKandi addTarget:self action:@selector(addKandiTAG) forControlEvents:UIControlEventTouchUpInside];
     //[self.view addSubview:addKandi];
+    //add this after release
 }
 
 
 -(void)removeSettingsFromView {
-    [self.view removeFromSuperview];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)addKandiTAG {

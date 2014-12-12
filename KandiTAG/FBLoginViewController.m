@@ -13,6 +13,7 @@
 
 @implementation FBLoginViewController {
     UIImageView *background;
+    PageViewController *pageViewController;
 }
 @synthesize responseData;
 @synthesize requestedLogin;
@@ -37,6 +38,7 @@
         [self.view addSubview:background];
         [self.view addSubview:self.loginButton];
     }
+    pageViewController = [[PageViewController alloc] init];
 }
 
 -(void)toggleHiddenState:(BOOL)shouldHide {
@@ -52,13 +54,15 @@
     self.lblLoginStatus.text = @"Welcome!";
     [self toggleHiddenState:YES];
     if (FBSession.activeSession.isOpen) {
-        [self performSegueWithIdentifier:@"toApp" sender:self];
+        [self presentViewController:pageViewController animated:NO completion:nil];
+        //[self performSegueWithIdentifier:@"toApp" sender:self];
     }
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     if (FBSession.activeSession.isOpen) {
-        [self performSegueWithIdentifier:@"toApp" sender:self];
+        [self presentViewController:pageViewController animated:NO completion:nil];
+        //[self performSegueWithIdentifier:@"toApp" sender:self];
     }
 }
 

@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
-
-#import "FBLoginViewController.h"
+#import "FbLogin.h"
 #import "NetworkUtil.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -19,7 +18,7 @@
 
 @property (strong, nonatomic) NSString *databasePath;
 
-@property (strong, nonatomic) FBLoginViewController *fbLoginViewController;
+@property (strong, nonatomic) FbLogin *fbLogin;
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 
@@ -33,6 +32,7 @@
 @property (strong, nonatomic) NSString* deviceToken;
 @property (strong, nonatomic) NSString* currentQrPicId;
 
+@property (nonatomic) BOOL pageScrollEnabled;
 
 + (AppDelegate*)KandiAppDelegate;
 -(NSString*)UserId;

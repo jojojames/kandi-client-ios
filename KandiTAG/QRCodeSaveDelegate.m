@@ -51,11 +51,11 @@
             NSNumber* success = [json objectForKey:@"success"];
             if ([success boolValue]) {
                 // QRCode was saved properly
-                NSString* qrCodeId = (NSString*)[json objectForKey:@"qrcode_id"];
-                NSString* qrCode = (NSString*)[json objectForKey:@"qrcode"];
-                NSString* user_id = (NSString*)[json objectForKey:@"user_id"];
-                NSNumber* placement = (NSString*) [json objectForKey:@"placement"];
-                NSString* ownershipId = (NSString*)[json objectForKey:@"ownership_id"];
+                //NSString* qrCodeId = (NSString*)[json objectForKey:@"qrcode_id"];
+                //NSString* qrCode = (NSString*)[json objectForKey:@"qrcode"];
+                //NSString* user_id = (NSString*)[json objectForKey:@"user_id"];
+                //NSNumber* placement = (NSString*) [json objectForKey:@"placement"];
+                //NSString* ownershipId = (NSString*)[json objectForKey:@"ownership_id"];
                 [self presentSuccess];
             } else {
                 NSString* error = (NSString*) [json objectForKey:@"error"];
@@ -97,7 +97,7 @@
      */
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:@"You have registered a new KandiTAG" delegate:self cancelButtonTitle:@"Dimiss" otherButtonTitles:nil];
         [alert show];
-
+    
     
   /*  }  */
 }

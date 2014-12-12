@@ -56,6 +56,7 @@
     if (self) {
         qrCodeSaveDelegate = [[QRCodeSaveDelegate alloc] initWithController:self];
         scannedCodes = [[NSMutableDictionary alloc] init];
+        [self startSession];
     }
     return self;
 }
@@ -67,7 +68,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self startSession];
+    //[self startSession];
     
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonPress)];
     doubleTap.numberOfTapsRequired = 2;
@@ -76,6 +77,22 @@
     responseData = [[NSMutableData alloc] init];
     loadedDataSource = NO;
     tags = [[NSMutableArray alloc] init];
+    
+
+    /*
+     
+     //this is for checking the list of available fonts
+    
+    NSArray *fontFamilies = [UIFont familyNames];
+    for (int i = 0; i < [fontFamilies count]; i++)
+    {
+        NSString *fontFamily = [fontFamilies objectAtIndex:i];
+        NSArray *fontNames = [UIFont fontNamesForFamilyName:[fontFamilies objectAtIndex:i]];
+        NSLog (@"%@: %@", fontFamily, fontNames);
+    }
+     
+     */
+     
    
     /*
     iconView = [[ProfilePicViewController alloc] init];
@@ -88,11 +105,29 @@
     //_onOff = YES;
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if (![session isRunning])
+        {
+            [session startRunning];
+        }
+    });
+}
+
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
-    
-    [session startRunning];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if (![session isRunning])
+        {
+            [session startRunning];
+        }
+    });
     
     [[AppDelegate KandiAppDelegate].network saveDeviceToken:self];
     
@@ -405,14 +440,36 @@
 }
 
 -(void)removeProfilePicViewController {
-    //unless this method is called, qr scanner will not be able to scan again
-    [iconView.view removeFromSuperview];
-    [iconView removeFromParentViewController];
+    NSTimer* one = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(removeProfilePic1) userInfo:nil repeats:NO];
+    NSTimer* two = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(removeProfilePic2) userInfo:nil repeats:NO];
+    NSTimer* three = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(removeProfilePic3) userInfo:nil repeats:NO];
+    NSTimer* four = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(removeProfilePic4) userInfo:nil repeats:NO];
+    NSTimer* five = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(removeProfilePic5) userInfo:nil repeats:NO];
+    NSTimer* final = [NSTimer scheduledTimerWithTimeInterval:2.6 target:self selector:@selector(removeProfilePicViewControllerFromSuperView) userInfo:nil repeats:NO];
     NSLog(@"scannedCodes: %@", scannedCodes);
     NSString *currentQR = [AppDelegate KandiAppDelegate].currentQrCode;
     [scannedCodes removeObjectForKey:currentQR];
     NSLog(@"scannedCodes after set nil: %@", scannedCodes);
-    [iconView removePic];
+}
+
+-(void)removeProfilePic1 {
+    [iconView.profileIcon1 removeFromSuperview];
+}
+-(void)removeProfilePic2 {
+    [iconView.profileIcon2 removeFromSuperview];
+}
+-(void)removeProfilePic3 {
+    [iconView.profileIcon3 removeFromSuperview];
+}
+-(void)removeProfilePic4 {
+    [iconView.profileIcon4 removeFromSuperview];
+}
+-(void)removeProfilePic5 {
+    [iconView.profileIcon5 removeFromSuperview];
+}
+-(void)removeProfilePicViewControllerFromSuperView {
+    [iconView.view removeFromSuperview];
+    [iconView removeFromParentViewController];
 }
 
 -(void)resetScannedCodesArray {

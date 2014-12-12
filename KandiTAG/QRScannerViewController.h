@@ -22,4 +22,6 @@
 
 -(void)buttonPress;
 
+-(instancetype)init;
+
 @end

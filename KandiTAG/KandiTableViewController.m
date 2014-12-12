@@ -15,8 +15,11 @@
 #import "MessagingNavigationController.h"
 #import "KandiDetailTableViewCell.h"
 #import "DetailTableViewController.h"
+#import "ZFModalTransitionAnimator.h"
+#import "Animator.h"
+#import "Interactive.h"
 
-@interface KandiTableViewController () <SLExpandableTableViewDatasource, SLExpandableTableViewDelegate> {
+@interface KandiTableViewController () {
     UILabel *loading;
     UIWebView *profile;
     UIButton *dismiss;
@@ -26,7 +29,7 @@
     MessagesTableViewController *messagingTable;
     UIView *shadedView;
     DetailTableViewController *detailTableViewController;
-
+    Animator *animator;
 }
 
 @end
@@ -39,6 +42,7 @@
 @synthesize selectedQrCodeId;
 @synthesize indicator;
 @synthesize json;
+@synthesize collectionView;
 
 #define ORIGINAL @"original"
 #define CURRENT @"current"
@@ -80,27 +84,12 @@
     return self;
 }
 
-/*
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    if (self = [super initWithStyle:style]) {
-        
-        _firstSectionsArray = @[ @"Section 0 Row 0", @"Section 0 Row 1", @"Section 0 Row 2", @"Section 0 Row 3" ];
-        _secondSectionsArray = @[ @"Section 1 Row 0", @"Section 1 Row 1", @"Section 1 Row 2", @"Section 1 Row 3" ];
-        _detailArray = @[_firstSectionsArray, _secondSectionsArray];
-        _expandableSections = [NSMutableIndexSet indexSet];
-    }
-    return self;
-}
- 
- */
-
 -(void)viewDidLoad {
     [super viewDidLoad];
     
     [self.tableView registerClass:[KandiTableViewCell class] forCellReuseIdentifier:@"KandiTableViewCell"];
     [self.tableView registerClass:[KandiDetailTableViewCell class] forCellReuseIdentifier:@"KandiDetailTableViewCell"];
+    //self.tableView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:0.7];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
     view.backgroundColor = [UIColor clearColor];
     [self.tableView setTableHeaderView:view];
@@ -108,7 +97,7 @@
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor clearColor];//[UIColor colorWithRed:255.0f/255.0 green:250.0f/255.0 blue:104.0f/255.0 alpha:1.0f];
-    self.refreshControl.tintColor = [UIColor colorWithRed:50.0f/255.0 green:197.0f/255.0 blue:244.0f/255.0 alpha:1.0f];
+    self.refreshControl.tintColor = [UIColor colorWithRed:200.0f/255.0 green:225.0f/255.0 blue:244.0f/255.0 alpha:1.0f];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMM d YYYY, h:mm a"];
     NSString *title = [NSString stringWithFormat:@"Last Update: %@", [formatter stringFromDate:[NSDate date]]];
@@ -151,13 +140,13 @@
     
     switch (displayType) {
         case TAG:
-            self.title = @"TAG";
+            self.title = @"Tag";
             [[AppDelegate KandiAppDelegate].network getCurrentTags:self];
             //[self.view addSubview:loading];
             //[indicator startAnimating];
             break;
         case KANDI:
-            self.title = @"KANDI";
+            self.title = @"Kandi";
             [[AppDelegate KandiAppDelegate].network getOriginalTags:self];
            //[self.view addSubview:loading];
            //[indicator startAnimating];
@@ -170,7 +159,7 @@
             //[indicator startAnimating];
             break;
         case MESSAGE:
-            self.title = @"MESSAGE";
+            self.title = @"Message";
             [[AppDelegate KandiAppDelegate].network getAllMessages:self];
         default:
             break;
@@ -190,6 +179,31 @@
         return 0;
 }
 
+/*
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    //1. Setup the CATransform3D structure
+    CATransform3D rotation;
+    rotation = CATransform3DMakeRotation( (90.0*M_PI)/180, 0.0, 0.7, 0.4);
+    rotation.m34 = 1.0/ -600;
+    
+    
+    //2. Define the initial state (Before the animation)
+    cell.layer.shadowColor = [[UIColor blackColor]CGColor];
+    cell.layer.shadowOffset = CGSizeMake(10, 10);
+    cell.alpha = 0;
+    
+    cell.layer.transform = rotation;
+    cell.layer.anchorPoint = CGPointMake(0, 0.5);
+    
+    //3. Define the final state (After the animation) and commit the animation
+    [UIView beginAnimations:@"rotation" context:NULL];
+    [UIView setAnimationDuration:0.8];
+    cell.layer.transform = CATransform3DIdentity;
+    cell.alpha = 1;
+    cell.layer.shadowOffset = CGSizeMake(0, 0);
+    [UIView commitAnimations];
+}
+*/
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //these are the detail view cells, the expanded view
@@ -197,22 +211,22 @@
     json = [tags objectAtIndex:indexPath.row];
     NSDictionary* original = [json objectForKey:ORIGINAL];
     NSDictionary* current = [json objectForKey:CURRENT];
-    NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
+    //NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
     NSDictionary* convo = [json objectForKey:CONVO];
     
     NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
-    NSString* o_userId = [original objectForKey:USER_ID];
-    NSString* o_placement = [original objectForKey:PLACEMENT];
-    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
+    //NSString* o_userId = [original objectForKey:USER_ID];
+    //NSString* o_placement = [original objectForKey:PLACEMENT];
+    //NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
     
-    NSString* c_userId = [current objectForKey:USER_ID];
+    //NSString* c_userId = [current objectForKey:USER_ID];
     NSString* c_userName = [current objectForKey:USER_NAME];
     NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
     
-    NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
-    NSString* mh_sender = [messagehistory objectForKey:SENDER];
-    NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
-    NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
+    //NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
+    //NSString* mh_sender = [messagehistory objectForKey:SENDER];
+    //NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
+    //NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
     
     NSString* c_partyA = [convo objectForKey:PARTYA];
     NSString* c_partyB = [convo objectForKey:PARTYB];
@@ -256,6 +270,7 @@
         default:
             cell.textLabel.text = c_userName;
             [cell setImageUsingFacebookId:c_facebookId];
+            cell.detailTextLabel.text = o_qrcodeId;
 
             break;
     }
@@ -272,26 +287,26 @@
     json = [tags objectAtIndex:indexPath.row];
     NSDictionary* original = [json objectForKey:ORIGINAL];
     NSDictionary* current = [json objectForKey:CURRENT];
-    NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
+    //NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
     NSDictionary* convo = [json objectForKey:CONVO];
     
     NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
-    NSString* o_userId = [original objectForKey:USER_ID];
-    NSString* o_placement = [original objectForKey:PLACEMENT];
-    NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
+    //NSString* o_userId = [original objectForKey:USER_ID];
+    //NSString* o_placement = [original objectForKey:PLACEMENT];
+    //NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
     
-    NSString* c_userId = [current objectForKey:USER_ID];
+    //NSString* c_userId = [current objectForKey:USER_ID];
     NSString* c_userName = [current objectForKey:USER_NAME];
     NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
     
-    NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
-    NSString* mh_sender = [messagehistory objectForKey:SENDER];
-    NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
-    NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
+    //NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
+    //NSString* mh_sender = [messagehistory objectForKey:SENDER];
+    //NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
+    //NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
     
     NSString* c_partyA = [convo objectForKey:PARTYA];
     NSString* c_partyB = [convo objectForKey:PARTYB];
-    NSString* c_message = [convo objectForKey:MESSAGE_KT];
+    //NSString* c_message = [convo objectForKey:MESSAGE_KT];
     NSString* c_nameA = [convo objectForKey:NAMEA];
     NSString* c_nameB = [convo objectForKey:NAMEB];
     
@@ -330,6 +345,28 @@
         case KANDI:
         {
             
+            shadedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+            shadedView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:0.7];
+            //[self.view addSubview:shadedView];
+            dismiss = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+            [dismiss addTarget:self action:@selector(removeViewController) forControlEvents:UIControlEventTouchUpInside];
+            dismiss.backgroundColor = [UIColor clearColor];
+            //[shadedView addSubview:dismiss];
+            
+            detailTableViewController = [[DetailTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
+            detailTableViewController.tableView.scrollEnabled = NO;
+            self.tableView.scrollEnabled = NO;
+
+            //detailTableViewController.tableView.backgroundColor = [UIColor blackColor];
+            detailTableViewController.transitioningDelegate = self;
+            detailTableViewController.modalPresentationStyle = UIModalPresentationCustom;
+            [self presentViewController:detailTableViewController animated:YES completion:^ {
+                [self call];
+            }];
+            
+            
+            /*
+            
             detailTableViewController = [[DetailTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
             
             
@@ -354,7 +391,7 @@
             [detailTableViewController didMoveToParentViewController:self];
             [detailTableViewController.tableView reloadData];
             
-            
+            */
             
             
             /*
@@ -411,7 +448,7 @@
                     
                     messagingNavController = [[MessagingNavigationController alloc] init];
                     
-                    [self presentViewController:messagingNavController animated:NO completion:nil];
+                    [self presentViewController:messagingNavController animated:YES completion:nil];
                     
                     [messagingNavController pushViewController:chatController animated:NO];
                     
@@ -429,7 +466,7 @@
                     
                     messagingNavController = [[MessagingNavigationController alloc] init];
                     
-                    [self presentViewController:messagingNavController animated:NO completion:nil];
+                    [self presentViewController:messagingNavController animated:YES completion:nil];
                     
                     [messagingNavController pushViewController:chatController animated:NO];
                     
@@ -446,6 +483,10 @@
             break;
 
     }
+}
+
+-(void)call {
+    NSLog(@"called");
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -491,6 +532,8 @@
                     NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
                     NSDictionary* convo = [json objectForKey:CONVO];
                     
+                    /*
+                    
                     NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
                     NSString* o_userId = [original objectForKey:USER_ID];
                     NSString* o_placement = [original objectForKey:PLACEMENT];
@@ -510,6 +553,8 @@
                     NSString* c_message = [convo objectForKey:MESSAGE_KT];
                     NSString* c_nameA = [convo objectForKey:NAMEA];
                     NSString* c_nameB = [convo objectForKey:NAMEB];
+                     
+                     */
                 }
             }
             
@@ -527,12 +572,36 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
+#pragma mark - Transitions
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
+                                                                  presentingController:(UIViewController *)presenting
+                                                                      sourceController:(UIViewController *)source {
+    
+    animator = [Animator new];
+    animator.presenting = YES;
+    return animator;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    animator = [Animator new];
+    return animator;
+}
+
+
+
+
 
 #pragma mark - extras
 
+-(void)removeViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [shadedView removeFromSuperview];
+    self.tableView.scrollEnabled = YES;
+    NSLog(@"removeViewController");
+}
+
 -(void)removeDetailController {
-    [detailController.view removeFromSuperview];
-    [detailController removeFromParentViewController];
     [detailTableViewController.view removeFromSuperview];
     [detailTableViewController removeFromParentViewController];
     [shadedView removeFromSuperview];
