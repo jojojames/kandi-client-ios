@@ -185,24 +185,27 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         [[AppDelegate KandiAppDelegate].network getMessageExchange:self withRecipient:self.facebookId];
     }
     messageTextField.text = nil;
-    //[tableView reloadData];
-    //[tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-
-    //[tableView beginUpdates];
-    CGFloat height = self.tableView.contentSize.height - self.tableView.bounds.size.height;
-    [self.tableView setContentOffset:CGPointMake(0, height) animated:YES];
-    //[tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX) animated:NO];
+    
+    [UIView setAnimationsEnabled:NO];
+    [tableView beginUpdates];
+    [tableView endUpdates];
+    [UIView setAnimationsEnabled:YES];
     
 }
 
 -(void)registerForKeyboardNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector: @selector(keyPressed:)
+                                                 name: UITextFieldTextDidChangeNotification
+                                               object: nil];
 }
 
 -(void)deregisterFromKeyboardNotifications {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidEndEditingNotification object:nil];
 }
 
 -(void)keyboardWillShow:(NSNotification*)notification {
@@ -229,6 +232,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [send setFrame:CGRectMake(self.view.frame.size.width - 65, self.view.frame.size.height - 32 , 57, 25)];
 
 }
+
 
 -(void)moveControls:(NSNotification*)notification up:(BOOL)up {
     NSDictionary *userInfo = [notification userInfo];

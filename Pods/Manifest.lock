@@ -1,10 +1,17 @@
 PODS:
+  - FMDB (2.4):
+    - FMDB/standard
+  - FMDB/common (2.4)
+  - FMDB/standard (2.4):
+    - FMDB/common
   - ZFDragableModalTransition (0.2)
 
 DEPENDENCIES:
+  - FMDB
   - ZFDragableModalTransition
 
 SPEC CHECKSUMS:
+  FMDB: 0b2fa25e5264ef177973c0cb8c02c711107979aa
   ZFDragableModalTransition: 734279090d537b1f701b6efdccd41b0f78503de9
 
 COCOAPODS: 0.34.4

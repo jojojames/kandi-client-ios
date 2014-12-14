@@ -28,7 +28,7 @@
 -(instancetype)init {
     self = [super init];
     if (self) {
-        NSLog(@"FbLogin Initialied");
+        NSLog(@"FbLogin Initialized");
     }
     
     return self;

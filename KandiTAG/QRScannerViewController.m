@@ -67,6 +67,7 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -146,13 +147,13 @@
         [focus removeFromSuperview];
     }
 
-        focus = [[Focus alloc]initWithFrame:CGRectMake(touchPoint.x-40, touchPoint.y-40, 80, 80)];
+        focus = [[Focus alloc]initWithFrame:CGRectMake(touchPoint.x-40, touchPoint.y-40, 75, 75)];
         [focus setBackgroundColor:[UIColor clearColor]];
         [self.view addSubview:focus];
         [focus setNeedsDisplay];
         
         [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:1.5];
+        [UIView setAnimationDuration:0.8];
         [focus setAlpha:0.0];
         [UIView commitAnimations];
 }

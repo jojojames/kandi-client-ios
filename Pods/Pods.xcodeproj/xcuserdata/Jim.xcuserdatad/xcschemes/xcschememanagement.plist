@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-FMDB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-ZFDragableModalTransition.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>36B3CFC9A62C3D130013FC43</key>
+		<key>2042FD72375A9696FB7CD8D8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EACC7DB49168ABED3F68F759</key>
+		<key>9B7E2C1F9D72EFAA6B7827B9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB243B3C36A553845E4C894E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

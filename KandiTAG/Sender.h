@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) NSString *facebookID;
 @property (nonatomic, strong) NSString *userName;
+@property (nonatomic) NSInteger placement;
 
 @end

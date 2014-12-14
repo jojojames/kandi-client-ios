@@ -83,13 +83,12 @@
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
 
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.fbLogin = [[FbLogin alloc] init];
     self.window.rootViewController = self.fbLogin;
     [self.window makeKeyAndVisible];
     
-    pageScrollEnabled = YES;
+    //pageScrollEnabled = YES;
     
     [FBLoginView class];
     [FBProfilePictureView class];

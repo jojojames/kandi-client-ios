@@ -15,6 +15,7 @@
 
 @implementation DetailView {
     BOOL isfirstTimeTransform;
+    UICollectionViewCell *cell;
 }
 
 @synthesize responseData;
@@ -45,7 +46,7 @@
 #define NAMEA @"nameA"
 #define NAMEB @"nameB"
 
-#define TRANSFORM_CELL_VALUE CGAffineTransformMakeScale(0.8, 0.8)
+#define TRANSFORM_CELL_VALUE CGAffineTransformMakeScale(0.5, 0.5)
 #define ANIMATION_SPEED 0.2
 
 
@@ -84,13 +85,34 @@
     collectionView.delegate = self;
     collectionView.dataSource = self;
     [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
-    collectionView.pagingEnabled = YES;
-    // Do any additional setup after loading the view.
+    collectionView.pagingEnabled = NO;
+    
+    //[collectionView setContentInset:UIEdgeInsetsMake(0, self.view.frame.size.width / 4, 0, self.view.frame.size.width / 5)];
+    
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    
+    
+    [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
+    swipeGesture.direction = UISwipeGestureRecognizerDirectionUp;
+    [collectionView addGestureRecognizer:swipeGesture];
+    
+    collectionView.center = self.view.center;
+    
+}
+
+-(void)handleSwipeGesture {
+    NSIndexPath *indexPath = [collectionView indexPathForCell:cell];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return tags.count;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(0, 100, 0, 100);
 }
 
 
@@ -124,7 +146,7 @@
     NSString* c_nameB = [convo objectForKey:NAMEB];
 
     
-    UICollectionViewCell *cell=[self.collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+    cell=[self.collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
     
     if (indexPath.row == 0 && isfirstTimeTransform) { // make a bool and set YES initially, this check will prevent fist load transform
         isfirstTimeTransform = NO;
@@ -137,9 +159,10 @@
     cell.layer.borderWidth = 3.0f;
     cell.layer.cornerRadius = cell.frame.size.width/2;
     cell.layer.masksToBounds = YES;
+    cell.clipsToBounds = YES;
     
-    UIImageView *userPic = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
-    NSURL *profilePictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=150&height=150", c_facebookId]];
+    UIImageView *userPic = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
+    NSURL *profilePictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=160&height=160", c_facebookId]];
     NSData *picData = [NSData dataWithContentsOfURL:profilePictureURL];
     userPic.image = [UIImage imageWithData:picData];
     
@@ -148,16 +171,24 @@
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Selected Image is Item %d",indexPath.row);
+    cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.row  inSection:0]];
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(150, 150);
+    return CGSizeMake(160, 160);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 0;
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
     
-    float pageWidth = 480 + 50; // width + space
-    
+    float pageWidth = 80 + 100; // width + space
     float currentOffset = scrollView.contentOffset.x;
     float targetOffset = targetContentOffset->x;
     float newTargetOffset = 0;
@@ -169,32 +200,47 @@
     
     if (newTargetOffset < 0)
         newTargetOffset = 0;
-    else if (newTargetOffset > scrollView.contentSize.width)
-        newTargetOffset = scrollView.contentSize.width;
-    
+    else if (newTargetOffset > scrollView.contentSize.height)
+        newTargetOffset = scrollView.contentSize.height;
     targetContentOffset->x = currentOffset;
-    [scrollView setContentOffset:CGPointMake(newTargetOffset, 0) animated:YES];
+    [scrollView setContentOffset:CGPointMake(currentOffset, 0) animated:YES];
     
-    int index = newTargetOffset / pageWidth;
+    int index = currentOffset / pageWidth;
     
     if (index == 0) { // If first index
-        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index  inSection:0]];
+        cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index  inSection:0]];
+        //cell.layer.borderWidth = 3.0f;
+        //cell.layer.cornerRadius = cell.frame.size.width/2;
+        //cell.layer.masksToBounds = YES;
+        //cell.clipsToBounds = YES;
         
         [UIView animateWithDuration:ANIMATION_SPEED animations:^{
             cell.transform = CGAffineTransformIdentity;
         }];
         cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index + 1  inSection:0]];
+        //cell.layer.borderWidth = 3.0f;
+        //cell.layer.cornerRadius = cell.frame.size.width/2;
+        //cell.layer.masksToBounds = YES;
+        //cell.clipsToBounds = YES;
         [UIView animateWithDuration:ANIMATION_SPEED animations:^{
             cell.transform = TRANSFORM_CELL_VALUE;
         }];
     }else{
-        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+        cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+        //cell.layer.borderWidth = 3.0f;
+        //cell.layer.cornerRadius = cell.frame.size.width/2;
+        //cell.layer.masksToBounds = YES;
+        //cell.clipsToBounds = YES;
         [UIView animateWithDuration:ANIMATION_SPEED animations:^{
             cell.transform = CGAffineTransformIdentity;
         }];
         
         index --; // left
         cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+        //cell.layer.borderWidth = 3.0f;
+        //cell.layer.cornerRadius = cell.frame.size.width/2;
+        //cell.layer.masksToBounds = YES;
+        //cell.clipsToBounds = YES;
         [UIView animateWithDuration:ANIMATION_SPEED animations:^{
             cell.transform = TRANSFORM_CELL_VALUE;
         }];
@@ -202,6 +248,10 @@
         index ++;
         index ++; // right
         cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+        //cell.layer.borderWidth = 3.0f;
+        //cell.layer.cornerRadius = cell.frame.size.width/2;
+        //cell.layer.masksToBounds = YES;
+        //cell.clipsToBounds = YES;
         [UIView animateWithDuration:ANIMATION_SPEED animations:^{
             cell.transform = TRANSFORM_CELL_VALUE;
         }];
@@ -276,7 +326,7 @@
             
             if (loadedDataSource)
                 [collectionView reloadData];
-            NSLog(@"tableView reloadData");
+            NSLog(@"detailView tableView reloadData");
         } else {
             // NSString* error = [jsonResponse objectForKey:@"error"];
             //NSLog(@"%@", error);

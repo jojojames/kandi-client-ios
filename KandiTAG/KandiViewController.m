@@ -14,6 +14,7 @@
 #import "ChatTableViewController.h"
 #import "MessagingNavigationController.h"
 #import "DetailView.h"
+#import "DetailPageController.h"
 
 @interface KandiViewController () {
     NSMutableArray *list;
@@ -32,6 +33,7 @@
     UIView *top;
     UIView *circle;
     UIButton *pullTableUp;
+    DetailPageController *detailPageController;
 }
 
 @end
@@ -134,6 +136,7 @@
             title.textColor = [UIColor colorWithRed:176.0/255.0 green:224.0/255.0 blue:230.0/255.0 alpha:1];
             [self.view addSubview:top];
             [self.view addSubview:circle];
+            circle.hidden = YES;
             [self.view addSubview:title];
             [self.view addSubview:pullTableUp];
             break;
@@ -150,6 +153,7 @@
             title.textColor = [UIColor colorWithRed:176.0/255.0 green:224.0/255.0 blue:230.0/255.0 alpha:1];
             [self.view addSubview:top];
             [self.view addSubview:circle];
+            circle.hidden = YES;
             [self.view addSubview:title];
             [self.view addSubview:pullTableUp];
             break;
@@ -165,7 +169,7 @@
             [title setFont:[UIFont fontWithName:@"Rancho" size:35]];
             title.textColor = [UIColor colorWithRed:176.0/255.0 green:224.0/255.0 blue:230.0/255.0 alpha:1];
             [self.view addSubview:top];
-            [self.view addSubview:circle];
+            //[self.view addSubview:circle];
             [self.view addSubview:title];
             break;
             
@@ -193,8 +197,9 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-
     
+    [super viewWillAppear:animated];
+
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     
     
@@ -375,10 +380,14 @@
         {
             [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationCurveEaseOut animations:^{ [self.tableView setFrame:CGRectMake(10, self.view.frame.size.height / 2.2, self.view.frame.size.width - 10, self.view.frame.size.height)]; [white setFrame:CGRectMake(0, self.view.frame.size.height/2.2, self.view.frame.size.width, self.view.frame.size.height)];} completion:nil];
             
-            NSTimer *addDetailView = [NSTimer scheduledTimerWithTimeInterval:1.1 target:self selector:@selector(addDetailView) userInfo:nil repeats:NO];
+            NSTimer *addDetailView = [NSTimer scheduledTimerWithTimeInterval:1.1 target:self selector:@selector(addDetailPageController) userInfo:nil repeats:NO];
             detailView = [[DetailView alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
             detailView.view.frame = CGRectMake(0, 66, self.view.frame.size.width, 190);
             detailView.view.backgroundColor = [UIColor clearColor];
+            
+            detailPageController = [[DetailPageController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId andTransitionStyle:UIPageViewControllerTransitionStyleScroll];
+            detailPageController.view.frame = CGRectMake(0, 66, self.view.frame.size.width, 190);
+            detailPageController.view.backgroundColor = [UIColor clearColor];
             
             
             /*
@@ -415,10 +424,14 @@
             
             [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationCurveEaseOut animations:^{ [self.tableView setFrame:CGRectMake(10, self.view.frame.size.height / 2.2, self.view.frame.size.width - 10, self.view.frame.size.height)]; [white setFrame:CGRectMake(0, self.view.frame.size.height/2.2, self.view.frame.size.width, self.view.frame.size.height)];} completion:nil];
             
-            NSTimer *addDetailView = [NSTimer scheduledTimerWithTimeInterval:1.1 target:self selector:@selector(addDetailView) userInfo:nil repeats:NO];
+            NSTimer *addDetailView = [NSTimer scheduledTimerWithTimeInterval:1.1 target:self selector:@selector(addDetailPageController) userInfo:nil repeats:NO];
             detailView = [[DetailView alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
             detailView.view.frame = CGRectMake(0, 66, self.view.frame.size.width, 190);
             detailView.view.backgroundColor = [UIColor clearColor];
+            
+            detailPageController = [[DetailPageController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId andTransitionStyle:UIPageViewControllerTransitionStyleScroll];
+            detailPageController.view.frame = CGRectMake(0, 66, self.view.frame.size.width, 190);
+            detailPageController.view.backgroundColor = [UIColor clearColor];
             
             /*
             
@@ -681,8 +694,15 @@
 }
 
 -(void)pullTableUp {
-    [detailView.view removeFromSuperview];
+    circle.hidden = YES;
+    [detailPageController.view removeFromSuperview];
+    //[detailView.view removeFromSuperview];
     [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationCurveEaseIn animations:^{ [self.tableView setFrame:CGRectMake(10, 66, self.view.frame.size.width - 10, self.view.frame.size.height)]; [white setFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height)];} completion:nil];
+}
+
+-(void)addDetailPageController {
+    circle.hidden = NO;
+    [self.view addSubview:detailPageController.view];
 }
 
 -(void)addDetailView {
