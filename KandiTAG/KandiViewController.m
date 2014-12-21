@@ -410,6 +410,7 @@
     switch (displayType) {
         case TAG:
         {
+            /*
             
             detailView = [[DetailView alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
             detailView.view.frame = CGRectMake(0, 66, self.view.frame.size.width, 190);
@@ -423,6 +424,12 @@
 
             
             [UIView animateWithDuration:0.6 delay:0.1 options:UIViewAnimationCurveEaseOut animations:^{ [self.tableView setFrame:CGRectMake(0, self.view.frame.size.height / 2.2, self.view.frame.size.width, self.view.frame.size.height - self.view.frame.size.height/2.2)]; [white setFrame:CGRectMake(0, self.view.frame.size.height/2.2, self.view.frame.size.width, self.view.frame.size.height)];} completion:nil];
+             
+             */
+            
+            profileViewController = [[ProfileViewController alloc] initWithUserName:c_userName andFbId:c_facebookId andController:self];
+            profileViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+            [self presentViewController:profileViewController animated:YES completion:nil];
 
             break;
         }
@@ -557,7 +564,7 @@
         if ([success boolValue]) {
             NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
             tags = jsonArray;
-            NSLog(@"tags: %@", tags);
+            //NSLog(@"tags: %@", tags);
             
             list = [[NSMutableArray alloc] init];
             names = [[NSMutableArray alloc] init];

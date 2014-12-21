@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProfileViewController : UIViewController <NSURLConnectionDataDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ProfileViewController : UIViewController <NSURLConnectionDataDelegate, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 -(instancetype)initWithUserName:(NSString*)username andFbId:(NSString*)fbid andController:(UIViewController*)parent;
 
@@ -25,5 +25,10 @@
 @property (nonatomic) BOOL loadedDataSource;
 @property (strong, nonatomic) NSMutableArray* tags;
 @property (strong, nonatomic) NSDictionary *json;
+
+@property (strong, nonatomic) UICollectionView *following;
+@property (strong, nonatomic) UICollectionView *followers;
+
+@property (nonatomic, retain) UICollectionViewLayout *collectionViewLayout;
 
 @end

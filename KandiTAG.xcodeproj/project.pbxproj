@@ -17,6 +17,7 @@
 		380334A719D9C15000D8A405 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 380334A619D9C15000D8A405 /* PageViewController.m */; };
 		380BC3BD1A402F100055A2B4 /* WPAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 380BC3BC1A402F100055A2B4 /* WPAnnotation.m */; };
 		380BC3BF1A403E720055A2B4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380BC3BE1A403E720055A2B4 /* CoreLocation.framework */; };
+		3810B78C1A478E09008B7596 /* FollowCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3810B78B1A478E09008B7596 /* FollowCollectionViewController.m */; };
 		38186C221A366294008B5BDF /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38186C211A366294008B5BDF /* DetailTableViewController.m */; };
 		381A8D1119C0348800AE4336 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 381A8D1019C0348800AE4336 /* FacebookSDK.framework */; };
 		381D24221A3AC39900015BC5 /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 381D24211A3AC39900015BC5 /* DetailView.m */; };
@@ -105,6 +106,8 @@
 		380BC3BB1A402F100055A2B4 /* WPAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPAnnotation.h; sourceTree = "<group>"; };
 		380BC3BC1A402F100055A2B4 /* WPAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPAnnotation.m; sourceTree = "<group>"; };
 		380BC3BE1A403E720055A2B4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3810B78A1A478E09008B7596 /* FollowCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowCollectionViewController.h; sourceTree = "<group>"; };
+		3810B78B1A478E09008B7596 /* FollowCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowCollectionViewController.m; sourceTree = "<group>"; };
 		38186C201A366294008B5BDF /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
 		38186C211A366294008B5BDF /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
 		381A8D1019C0348800AE4336 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -515,6 +518,8 @@
 			children = (
 				38E85AD51A41703400163235 /* ProfileViewController.h */,
 				38E85AD61A41703400163235 /* ProfileViewController.m */,
+				3810B78A1A478E09008B7596 /* FollowCollectionViewController.h */,
+				3810B78B1A478E09008B7596 /* FollowCollectionViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -747,6 +752,7 @@
 				387578131A119E6D00B35781 /* MessageSendDelegate.m in Sources */,
 				380334A719D9C15000D8A405 /* PageViewController.m in Sources */,
 				38E85AD31A416E3500163235 /* FeedViewController.m in Sources */,
+				3810B78C1A478E09008B7596 /* FollowCollectionViewController.m in Sources */,
 				386422971A3C515200F37D33 /* DetailViewController.m in Sources */,
 				38D3E9921A38DC9700B0FB49 /* NavigationControllerDelegate.m in Sources */,
 				38F9FA6019C0D3E800EDA64C /* FBLoginViewController.m in Sources */,

@@ -34,6 +34,7 @@
     UIButton *seeAllFollowers;
     UILabel *seeFollowers;
     UILabel *seeFollowing;
+    UICollectionViewCell *cell;
 }
 
 @synthesize hasImage;
@@ -151,12 +152,22 @@
     [seeAllFollowing addTarget:self action:@selector(seeAllFollowing) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView addSubview:seeAllFollowing];
     
+    self.collectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
+    [self.following registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+    [self.followers registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+
+
+
+    self.following = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50) collectionViewLayout:self.collectionViewLayout];
+    self.following.backgroundColor = [UIColor greenColor];
+    
     followers = [[UIView alloc] initWithFrame:CGRectMake(0, gallery.frame.origin.y + 282, self.view.frame.size.width, 50)];
     followers.backgroundColor = [UIColor grayColor];
     [self.tableView addSubview:followers];
     
     following = [[UIView alloc] initWithFrame:CGRectMake(0, gallery.frame.origin.y + 359, self.view.frame.size.width, 50)];
     following.backgroundColor = [UIColor grayColor];
+    [following addSubview:self.following];
     [self.tableView addSubview:following];
     
 }
@@ -203,6 +214,69 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - collection view
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return tags.count;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(0, 100, 0, 100);
+}
+
+
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    json = [tags objectAtIndex:indexPath.row];
+    //NSDictionary* original = [json objectForKey:ORIGINAL];
+   // NSDictionary* current = [json objectForKey:CURRENT];
+    //NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
+   // NSDictionary* convo = [json objectForKey:CONVO];
+    
+    //NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
+    //NSString* o_userId = [original objectForKey:USER_ID];
+    //NSString* o_placement = [original objectForKey:PLACEMENT];
+    //NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
+    
+    //NSString* c_userId = [current objectForKey:USER_ID];
+    //NSString* c_userName = [current objectForKey:USER_NAME];
+    //NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
+    
+    //NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
+    //NSString* mh_sender = [messagehistory objectForKey:SENDER];
+    //NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
+    //NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
+    
+    //cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(-5, -10, 170, cell.bounds.size.height + 40)];
+    //cellLabel.backgroundColor = [UIColor whiteColor];
+    //cellLabel.tag = 200;
+    
+    //nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, cell.bounds.size.height - 5, 170, 35)];
+    //nameLabel.text = c_userName;
+    //nameLabel.textAlignment = NSTextAlignmentCenter;
+    
+    cell = [self.followers dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+    
+    cell.backgroundColor=[UIColor clearColor];
+    cell.layer.borderColor = [UIColor whiteColor].CGColor;
+    cell.layer.borderWidth = 3.0f;
+    
+    UIImageView *userPic = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
+    NSURL *profilePictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=160&height=160", c_facebookId]];
+    NSData *picData = [NSData dataWithContentsOfURL:profilePictureURL];
+    userPic.image = [UIImage imageWithData:picData];
+    
+   // [cell.contentView addSubview:cellLabel];
+   // [cell.contentView addSubview:nameLabel];
+    [cell.contentView addSubview:userPic];
+
+    
+    return cell;
+}
+
 
 #pragma mark NSURLConnectionDataDelegate
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
