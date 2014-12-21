@@ -30,4 +30,11 @@
 -(void)getPreviousOwner:(id<NSURLConnectionDataDelegate>) netdelegate withQrCode:(NSString*)code;
 -(void)getPreviousUserList:(id<NSURLConnectionDataDelegate>) netdelegate withQrCode:(NSString*)code;
 
+-(void)createFollowCollection:(id<NSURLConnectionDataDelegate>) netdelegate;
+
+-(void)getFollowing:(id<NSURLConnectionDataDelegate>) netdelegate;
+-(void)getFollowers:(id<NSURLConnectionDataDelegate>) netdelegate;
+
+-(void)saveQr:(id<NSURLConnectionDataDelegate>) netdelegate withQrCode:(NSString*)code;
+
 @end

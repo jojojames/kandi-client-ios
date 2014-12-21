@@ -10,8 +10,9 @@
 #import "MessageSendDelegate.h"
 #import "Sender.h"
 #import <SIOSocket/SIOSocket.h>
+#import "GCDAsyncSocket.h"
 
-@interface ChatTableViewController : UIViewController <NSURLConnectionDataDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSStreamDelegate>
+@interface ChatTableViewController : UIViewController <NSURLConnectionDataDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSStreamDelegate, GCDAsyncSocketDelegate>
 
 
 -(instancetype)initWithFacebookId:(NSString*)_facebookId andUserName:(NSString *)_userName;

@@ -81,7 +81,6 @@
     loadedDataSource = NO;
     tags = [[NSMutableArray alloc] init];
     
-
     /*
      
      //this is for checking the list of available fonts
@@ -133,6 +132,10 @@
     });
     
     [[AppDelegate KandiAppDelegate].network saveDeviceToken:self];
+    [[AppDelegate KandiAppDelegate].network getFollowers:self];
+    [[AppDelegate KandiAppDelegate].network getFollowing:self];
+    //[[AppDelegate KandiAppDelegate].network createFollowCollection:self];
+
     
 }
 
@@ -335,8 +338,10 @@
                     [AppDelegate KandiAppDelegate].currentQrCode = ktQRcode;
                     [scannedCodes setObject:[NSNumber numberWithBool:YES] forKey:ktQRcode];
                     [[AppDelegate KandiAppDelegate].network saveQrCode:qrCodeSaveDelegate withCode:ktQRcode];
-                    [[AppDelegate KandiAppDelegate].network getPreviousUserList:self withQrCode:ktQRcode];
+                    //[[AppDelegate KandiAppDelegate].network getPreviousUserList:self withQrCode:ktQRcode];
+                    //[[AppDelegate KandiAppDelegate].network saveQr:qrCodeSaveDelegate withQrCode:ktQRcode];
                     //need to fix the backend for getPreviousUserList
+                    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(resetScannedCodesArray) userInfo:nil repeats:NO];
                     NSLog(@"ktQrCode: %@", ktQRcode);
                     _decodedMessage.text = @"";
                 }
@@ -425,23 +430,23 @@
         if ([success boolValue]) {
             NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
             tags = jsonArray;
-            //NSLog(@"jsonArray: %@", jsonArray);
+            NSLog(@"jsonArray: %@", jsonArray);
             int tagsCount = tags.count;
             //NSLog(@"tags: %@", tags);
             //NSLog(@"tagscount: %d", tags.count);
                     
-                list = [[NSMutableArray alloc] init];
+            //    list = [[NSMutableArray alloc] init];
             
-                for (json in tags) {
-                    sender = [Sender new];
-                    sender.facebookID = [[json objectForKey:CURRENT] objectForKey:FACEBOOK_ID];
-                    [list addObject:sender.facebookID];
-                }
+             //   for (json in tags) {
+             //       sender = [Sender new];
+             //       sender.facebookID = [[json objectForKey:CURRENT] objectForKey:FACEBOOK_ID];
+             //       [list addObject:sender.facebookID];
+             //   }
                 //NSLog(@"list: %@", list);
             
-                if (tags !=nil) {
-                    iconView = [[ProfilePicViewController alloc] init];
-                    [iconView.view setFrame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height)];
+          //      if (tags !=nil) {
+          //          iconView = [[ProfilePicViewController alloc] init];
+           //         [iconView.view setFrame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height)];
                     
                     /*
                     
@@ -487,7 +492,7 @@
                     removePicView = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(removeProfilePicViewController) userInfo:nil repeats:NO];
                      
                      */
-            }
+          //  }
         }
     }
 }

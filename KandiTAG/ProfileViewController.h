@@ -19,4 +19,11 @@
 
 @property (nonatomic, strong) UIViewController *controller;
 
+@property (nonatomic) BOOL hasImage;
+
+@property (strong, nonatomic) NSMutableData* responseData;
+@property (nonatomic) BOOL loadedDataSource;
+@property (strong, nonatomic) NSMutableArray* tags;
+@property (strong, nonatomic) NSDictionary *json;
+
 @end

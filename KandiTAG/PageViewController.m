@@ -57,7 +57,9 @@
     
     vc2 = [[KandiViewController alloc] initWithFlag:KANDI];
     
-    vc3 = [[KandiViewController alloc] initWithFlag:FEED];
+   // vc3 = [[KandiViewController alloc] initWithFlag:FEED];
+    
+    vc3 = [[KandiViewController alloc] initWithFlag:TAG];
     
     //vc3 = [[FeedViewController alloc] initWithFlag:FEED];
     

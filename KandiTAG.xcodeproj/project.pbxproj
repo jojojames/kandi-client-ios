@@ -61,6 +61,7 @@
 		38D3E9921A38DC9700B0FB49 /* NavigationControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D3E9911A38DC9700B0FB49 /* NavigationControllerDelegate.m */; };
 		38D3E9951A38F4CB00B0FB49 /* Interactive.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D3E9941A38F4CB00B0FB49 /* Interactive.m */; };
 		38D3E9981A38F75700B0FB49 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D3E9971A38F75700B0FB49 /* ContainerViewController.m */; };
+		38E210D01A465BAF0036B6DC /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E210CF1A465BAF0036B6DC /* GCDAsyncSocket.m */; };
 		38E538D41A3E36BE008366AE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38E538D31A3E36BE008366AE /* MediaPlayer.framework */; };
 		38E85AD31A416E3500163235 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E85AD21A416E3500163235 /* FeedViewController.m */; };
 		38E85AD71A41703400163235 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E85AD61A41703400163235 /* ProfileViewController.m */; };
@@ -178,6 +179,8 @@
 		38D3E9941A38F4CB00B0FB49 /* Interactive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Interactive.m; sourceTree = "<group>"; };
 		38D3E9961A38F75700B0FB49 /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
 		38D3E9971A38F75700B0FB49 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
+		38E210CE1A465BAF0036B6DC /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		38E210CF1A465BAF0036B6DC /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		38E538D31A3E36BE008366AE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		38E85AD11A416E3400163235 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		38E85AD21A416E3500163235 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
@@ -344,6 +347,7 @@
 		388BD26219BEB98100ED1571 /* KandiTAG */ = {
 			isa = PBXGroup;
 			children = (
+				38E210CD1A465B6C0036B6DC /* Socket */,
 				388BD26E19BEB98100ED1571 /* Main.storyboard */,
 				38E85AD41A41701900163235 /* Profile */,
 				38E85AD01A416E1C00163235 /* Feed */,
@@ -486,6 +490,15 @@
 				1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		38E210CD1A465B6C0036B6DC /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				38E210CE1A465BAF0036B6DC /* GCDAsyncSocket.h */,
+				38E210CF1A465BAF0036B6DC /* GCDAsyncSocket.m */,
+			);
+			name = Socket;
 			sourceTree = "<group>";
 		};
 		38E85AD01A416E1C00163235 /* Feed */ = {
@@ -715,6 +728,7 @@
 				383FFFAA1A098D2100E6F5E6 /* ChatTableViewCell.m in Sources */,
 				1AB3850419FB25F600243F92 /* NetworkUtil.m in Sources */,
 				3864FA0419D8CD2800AB72A7 /* KandiTableViewController.m in Sources */,
+				38E210D01A465BAF0036B6DC /* GCDAsyncSocket.m in Sources */,
 				1AB423DB19F8B63F00914ABF /* KandiTableViewCell.m in Sources */,
 				380BC3BD1A402F100055A2B4 /* WPAnnotation.m in Sources */,
 				38C6B1EF1A15B1EF0001A924 /* KandiDetailTableViewCell.m in Sources */,
@@ -907,6 +921,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};

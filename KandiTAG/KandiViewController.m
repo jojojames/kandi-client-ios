@@ -144,14 +144,14 @@
             [self.view addSubview:title];
             [self.view addSubview:pullTableUp];
             break;
-        case FEED:
+        case TAG:
             backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
             backgroundImage.image = [UIImage imageNamed:@"tagBackground"];
             //[self.view addSubview:backgroundImage];
             [self.view addSubview:white];
             [white addSubview:blur];
             title = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, self.view.frame.size.width, 50)];
-            title.text = @"Feed";
+            title.text = @"Tag";
             [title setTextAlignment:NSTextAlignmentCenter];
             [title setFont:[UIFont fontWithName:@"Rancho" size:35]];
             title.textColor = [UIColor colorWithRed:176.0/255.0 green:224.0/255.0 blue:230.0/255.0 alpha:1];
@@ -557,7 +557,7 @@
         if ([success boolValue]) {
             NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
             tags = jsonArray;
-            //NSLog(@"tags: %@", tags);
+            NSLog(@"tags: %@", tags);
             
             list = [[NSMutableArray alloc] init];
             names = [[NSMutableArray alloc] init];

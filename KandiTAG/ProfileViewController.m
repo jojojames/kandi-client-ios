@@ -9,6 +9,7 @@
 #import "ProfileViewController.h"
 #import "ChatTableViewController.h"
 #import "MessagingNavigationController.h"
+#import <AppDelegate.h>
 
 @interface ProfileViewController ()
 
@@ -35,6 +36,11 @@
     UILabel *seeFollowing;
 }
 
+@synthesize hasImage;
+@synthesize loadedDataSource;
+@synthesize responseData;
+@synthesize tags;
+@synthesize json;
 
 -(instancetype)initWithUserName:(NSString *)username andFbId:(NSString *)fbid andController:(UIViewController *)parent {
     self = [super init];
@@ -42,6 +48,7 @@
         self.userName = username;
         self.fbID = fbid;
         self.controller = parent;
+        hasImage = NO;
     }
     return self;
 }
@@ -76,6 +83,7 @@
     [dismiss setImage:[UIImage imageNamed:@"dismissProfile"] forState:UIControlStateNormal];
     [dismiss addTarget:self action:@selector(dismissProfileViewController) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView addSubview:dismiss];
+    
     
     gallery = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 180)];
     gallery.backgroundColor = [UIColor grayColor];
@@ -195,6 +203,105 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark NSURLConnectionDataDelegate
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    [responseData setLength:0];
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [responseData appendData:data];
+}
+
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    //if we get any connection error manage it here
+    //for example use alert view to say no internet connection
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSError* error;
+    
+    // response data for the kandi REST calls always comes back as an array
+    NSDictionary* jsonResponse = [NSJSONSerialization
+                                  JSONObjectWithData:responseData
+                                  options:kNilOptions
+                                  error:&error];
+    
+    if ([jsonResponse objectForKey:@"success"]) {
+        NSNumber* success = [jsonResponse objectForKey:@"success"];
+        if ([success boolValue]) {
+            NSMutableArray* jsonArray = [jsonResponse objectForKey:@"followers"];
+            tags = jsonArray;
+            NSLog(@"tags: %@", tags);
+            //tags = jsonArray;
+            //NSLog(@"tags: %@", tags);
+            
+            //list = [[NSMutableArray alloc] init];
+            //names = [[NSMutableArray alloc] init];
+            
+         //   for (json in tags) {
+         //       sender = [Sender new];
+         //       sender.facebookID = [[json objectForKey:CURRENT] objectForKey:FACEBOOK_ID];
+         //       sender.userName = [[json objectForKey:CURRENT] objectForKey:USER_NAME];
+                //[list addObject:sender.facebookID];
+                //[names addObject:sender.userName];
+         //   }
+            
+            //NSLog(@"list: %@", list);
+            //NSLog(@"names: %@", names);
+            
+            
+            for (int i=0; i<[jsonArray count]; i++) {
+                json = [jsonArray objectAtIndex:i];
+                loadedDataSource = YES;
+                if ([json count]) {
+                    // we'll consider it a success if there's any json
+//                    NSDictionary* original = [json objectForKey:ORIGINAL];
+ //                   NSDictionary* current = [json objectForKey:CURRENT];
+  //                  NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
+   //                 NSDictionary* convo = [json objectForKey:CONVO];
+                    
+                    /*
+                     
+                     NSString* o_qrcodeId = [original objectForKey:QRCODE_ID];
+                     NSString* o_userId = [original objectForKey:USER_ID];
+                     NSString* o_placement = [original objectForKey:PLACEMENT];
+                     NSString* o_ownershipId = [original objectForKey:OWNERSHIP_ID];
+                     
+                     NSString* c_userId = [current objectForKey:USER_ID];
+                     NSString* c_userName = [current objectForKey:USER_NAME];
+                     NSString* c_facebookId = [current objectForKey:FACEBOOK_ID];
+                     
+                     NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
+                     NSString* mh_sender = [messagehistory objectForKey:SENDER];
+                     NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
+                     NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
+                     
+                     NSString* c_partyA = [convo objectForKey:PARTYA];
+                     NSString* c_partyB = [convo objectForKey:PARTYB];
+                     NSString* c_message = [convo objectForKey:MESSAGE_KT];
+                     NSString* c_nameA = [convo objectForKey:NAMEA];
+                     NSString* c_nameB = [convo objectForKey:NAMEB];
+                     
+                     */
+                }
+            }
+            
+            if (loadedDataSource)
+                //[tableView reloadData];
+            NSLog(@"KandiViewController.tableView reloadData");
+        } else {
+            // NSString* error = [jsonResponse objectForKey:@"error"];
+            //NSLog(@"%@", error);
+        }
+    }
+    
+    //[indicator stopAnimating];
+    //[self hideLoading];
+    //[self.refreshControl endRefreshing];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
 
 /*
 #pragma mark - Navigation

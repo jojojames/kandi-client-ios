@@ -72,6 +72,62 @@
     [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
 }
 
+-(void)createFollowCollection:(id<NSURLConnectionDataDelegate>)netdelegate {
+    NSLog(@"createFollowCollection");
+    NSString *userID = [AppDelegate KandiAppDelegate].mainUserId;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:userID forKey:@"userID"];
+    NSError *error;
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONReadingAllowFragments error:&error];
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/follow", host];
+    [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
+
+}
+
+-(void)getFollowers:(id<NSURLConnectionDataDelegate>)netdelegate {
+    NSLog(@"getFollowers");
+    NSString *userID = [AppDelegate KandiAppDelegate].mainUserId;
+    if (!userID)
+        return;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:userID forKey:@"user_id"];
+    NSError *error;
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONReadingAllowFragments error:&error];
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/followers", host];
+    [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
+}
+
+-(void)getFollowing:(id<NSURLConnectionDataDelegate>)netdelegate {
+    NSLog(@"getFollowing");
+    NSString *userID = [AppDelegate KandiAppDelegate].mainUserId;
+    if (!userID)
+        return;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:userID forKey:@"user_id"];
+    NSError *error;
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONReadingAllowFragments error:&error];
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/following", host];
+    [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
+}
+
+-(void)saveQr:(id<NSURLConnectionDataDelegate>)netdelegate withQrCode:(NSString *)code {
+    NSLog(@"saveQr");
+    NSString *user_id = [AppDelegate KandiAppDelegate].mainUserId;
+    NSString *username = [AppDelegate KandiAppDelegate].userName;
+    if (!code) {
+        return;
+    }
+    
+    NSError *error;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:code forKey:@"qrcode"];
+    [dict setObject:user_id forKey:@"user_id"];
+    [dict setObject:username forKey:@"username"];
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONReadingAllowFragments error:&error];
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/qrcodes", host];
+    [self postRequestWithURL:requestUrl andData:requestData withDelegate:netdelegate];
+}
+
 -(void)saveQrCode:(id<NSURLConnectionDataDelegate>) netdelegate {
     NSString* qrCode = [AppDelegate KandiAppDelegate].currentQrCode;
     [self saveQrCode:netdelegate withCode:qrCode];
