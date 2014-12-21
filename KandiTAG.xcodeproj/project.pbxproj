@@ -15,6 +15,8 @@
 		1AB423D519F8AC0300914ABF /* QRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB423D419F8AC0300914ABF /* QRScannerViewController.m */; };
 		1AB423DB19F8B63F00914ABF /* KandiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */; };
 		380334A719D9C15000D8A405 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 380334A619D9C15000D8A405 /* PageViewController.m */; };
+		380BC3BD1A402F100055A2B4 /* WPAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 380BC3BC1A402F100055A2B4 /* WPAnnotation.m */; };
+		380BC3BF1A403E720055A2B4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380BC3BE1A403E720055A2B4 /* CoreLocation.framework */; };
 		38186C221A366294008B5BDF /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38186C211A366294008B5BDF /* DetailTableViewController.m */; };
 		381A8D1119C0348800AE4336 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 381A8D1019C0348800AE4336 /* FacebookSDK.framework */; };
 		381D24221A3AC39900015BC5 /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 381D24211A3AC39900015BC5 /* DetailView.m */; };
@@ -51,6 +53,8 @@
 		38905A041A327774008C6970 /* ProfilePicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38905A031A327774008C6970 /* ProfilePicViewController.m */; };
 		3892C9AB1A2AAF40006DB300 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 3892C9AA1A2AAF40006DB300 /* Message.m */; };
 		389B6A761A23C8E9006F15CC /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 389B6A751A23C8E9006F15CC /* MessageTableViewCell.m */; };
+		38B224281A402966004E3DF3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B224271A402966004E3DF3 /* MapViewController.m */; };
+		38B2242A1A402B9E004E3DF3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B224291A402B9E004E3DF3 /* MapKit.framework */; };
 		38B5903119C6AD7E00D27644 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B5903019C6AD7E00D27644 /* SettingsViewController.m */; };
 		38C6B1EF1A15B1EF0001A924 /* KandiDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C6B1EE1A15B1EF0001A924 /* KandiDetailTableViewCell.m */; };
 		38D3E98F1A38DC9100B0FB49 /* Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D3E98E1A38DC9100B0FB49 /* Animator.m */; };
@@ -58,10 +62,13 @@
 		38D3E9951A38F4CB00B0FB49 /* Interactive.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D3E9941A38F4CB00B0FB49 /* Interactive.m */; };
 		38D3E9981A38F75700B0FB49 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D3E9971A38F75700B0FB49 /* ContainerViewController.m */; };
 		38E538D41A3E36BE008366AE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38E538D31A3E36BE008366AE /* MediaPlayer.framework */; };
+		38E85AD31A416E3500163235 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E85AD21A416E3500163235 /* FeedViewController.m */; };
+		38E85AD71A41703400163235 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E85AD61A41703400163235 /* ProfileViewController.m */; };
 		38F509D61A3B8EA8005E9AD7 /* FbLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F509D51A3B8EA8005E9AD7 /* FbLogin.m */; };
 		38F509D91A3B924B005E9AD7 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F509D81A3B924B005E9AD7 /* Settings.m */; };
 		38F9FA6019C0D3E800EDA64C /* FBLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F9FA5F19C0D3E800EDA64C /* FBLoginViewController.m */; };
 		38FF7C861A04496200892539 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38FF7C851A04496200892539 /* QuartzCore.framework */; };
+		802FEBDAF7F18AAE87E20994 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F65C92E703ECC69988312C /* libPods.a */; };
 		FBFD4A5A55A8BCE711C2501A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F65C92E703ECC69988312C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -90,10 +97,13 @@
 		1AB423D119F8A8A300914ABF /* KandiTagNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KandiTagNavigationController.m; sourceTree = "<group>"; };
 		1AB423D319F8AC0300914ABF /* QRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScannerViewController.h; sourceTree = "<group>"; };
 		1AB423D419F8AC0300914ABF /* QRScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRScannerViewController.m; sourceTree = "<group>"; };
-		1AB423D919F8B63F00914ABF /* KandiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KandiTableViewCell.h; sourceTree = "<group>"; };
-		1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KandiTableViewCell.m; sourceTree = "<group>"; };
+		1AB423D919F8B63F00914ABF /* KandiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KandiTableViewCell.h; path = KandiController/KandiTableViewCell.h; sourceTree = "<group>"; };
+		1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KandiTableViewCell.m; path = KandiController/KandiTableViewCell.m; sourceTree = "<group>"; };
 		380334A519D9C15000D8A405 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		380334A619D9C15000D8A405 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		380BC3BB1A402F100055A2B4 /* WPAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPAnnotation.h; sourceTree = "<group>"; };
+		380BC3BC1A402F100055A2B4 /* WPAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPAnnotation.m; sourceTree = "<group>"; };
+		380BC3BE1A403E720055A2B4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		38186C201A366294008B5BDF /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
 		38186C211A366294008B5BDF /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
 		381A8D1019C0348800AE4336 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -153,6 +163,9 @@
 		3892C9AA1A2AAF40006DB300 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		389B6A741A23C8E9006F15CC /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
 		389B6A751A23C8E9006F15CC /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
+		38B224261A402966004E3DF3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		38B224271A402966004E3DF3 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		38B224291A402B9E004E3DF3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		38B5902F19C6AD7E00D27644 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		38B5903019C6AD7E00D27644 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		38C6B1ED1A15B1EF0001A924 /* KandiDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KandiDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -166,6 +179,10 @@
 		38D3E9961A38F75700B0FB49 /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
 		38D3E9971A38F75700B0FB49 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
 		38E538D31A3E36BE008366AE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		38E85AD11A416E3400163235 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
+		38E85AD21A416E3500163235 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
+		38E85AD51A41703400163235 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		38E85AD61A41703400163235 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		38F509D41A3B8EA8005E9AD7 /* FbLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FbLogin.h; sourceTree = "<group>"; };
 		38F509D51A3B8EA8005E9AD7 /* FbLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FbLogin.m; sourceTree = "<group>"; };
 		38F509D71A3B924B005E9AD7 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
@@ -183,6 +200,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				380BC3BF1A403E720055A2B4 /* CoreLocation.framework in Frameworks */,
+				38B2242A1A402B9E004E3DF3 /* MapKit.framework in Frameworks */,
 				38E538D41A3E36BE008366AE /* MediaPlayer.framework in Frameworks */,
 				38FF7C861A04496200892539 /* QuartzCore.framework in Frameworks */,
 				386EAC5019E4DD09008E7C88 /* libsqlite3.0.dylib in Frameworks */,
@@ -202,6 +221,7 @@
 				388BD27C19BEB98100ED1571 /* XCTest.framework in Frameworks */,
 				388BD27E19BEB98100ED1571 /* UIKit.framework in Frameworks */,
 				388BD27D19BEB98100ED1571 /* Foundation.framework in Frameworks */,
+				802FEBDAF7F18AAE87E20994 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,8 +244,6 @@
 				3864FA0319D8CD2800AB72A7 /* KandiTableViewController.m */,
 				1AB423D019F8A8A300914ABF /* KandiTagNavigationController.h */,
 				1AB423D119F8A8A300914ABF /* KandiTagNavigationController.m */,
-				1AB423D919F8B63F00914ABF /* KandiTableViewCell.h */,
-				1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */,
 				38C6B1ED1A15B1EF0001A924 /* KandiDetailTableViewCell.h */,
 				38C6B1EE1A15B1EF0001A924 /* KandiDetailTableViewCell.m */,
 				38186C201A366294008B5BDF /* DetailTableViewController.h */,
@@ -307,6 +325,8 @@
 		388BD25B19BEB98100ED1571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				380BC3BE1A403E720055A2B4 /* CoreLocation.framework */,
+				38B224291A402B9E004E3DF3 /* MapKit.framework */,
 				38E538D31A3E36BE008366AE /* MediaPlayer.framework */,
 				38FF7C851A04496200892539 /* QuartzCore.framework */,
 				386EAC4F19E4DD09008E7C88 /* libsqlite3.0.dylib */,
@@ -325,6 +345,10 @@
 			isa = PBXGroup;
 			children = (
 				388BD26E19BEB98100ED1571 /* Main.storyboard */,
+				38E85AD41A41701900163235 /* Profile */,
+				38E85AD01A416E1C00163235 /* Feed */,
+				38DDE4801A41193100B15B9B /* Cells */,
+				38B224251A402950004E3DF3 /* Map */,
 				385255921A3BA2A400806102 /* Objects */,
 				38F509D31A3B8E8A005E9AD7 /* NewFBSetting */,
 				38495B3D1A397BD400F684AD /* NewKandiController */,
@@ -420,6 +444,17 @@
 			name = Chat;
 			sourceTree = "<group>";
 		};
+		38B224251A402950004E3DF3 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				380BC3BB1A402F100055A2B4 /* WPAnnotation.h */,
+				380BC3BC1A402F100055A2B4 /* WPAnnotation.m */,
+				38B224261A402966004E3DF3 /* MapViewController.h */,
+				38B224271A402966004E3DF3 /* MapViewController.m */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
 		38D3E98C1A38DC8700B0FB49 /* Container */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,6 +477,33 @@
 				38B5903019C6AD7E00D27644 /* SettingsViewController.m */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		38DDE4801A41193100B15B9B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1AB423D919F8B63F00914ABF /* KandiTableViewCell.h */,
+				1AB423DA19F8B63F00914ABF /* KandiTableViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		38E85AD01A416E1C00163235 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				38E85AD11A416E3400163235 /* FeedViewController.h */,
+				38E85AD21A416E3500163235 /* FeedViewController.m */,
+			);
+			name = Feed;
+			sourceTree = "<group>";
+		};
+		38E85AD41A41701900163235 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				38E85AD51A41703400163235 /* ProfileViewController.h */,
+				38E85AD61A41703400163235 /* ProfileViewController.m */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		38F509D31A3B8E8A005E9AD7 /* NewFBSetting */ = {
@@ -500,9 +562,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 388BD28E19BEB98100ED1571 /* Build configuration list for PBXNativeTarget "KandiTAGTests" */;
 			buildPhases = (
+				38F41848A80D384B90844E38 /* Check Pods Manifest.lock */,
 				388BD27619BEB98100ED1571 /* Sources */,
 				388BD27719BEB98100ED1571 /* Frameworks */,
 				388BD27819BEB98100ED1571 /* Resources */,
+				33F59BA642EAEA42CE8BFCC7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -573,6 +637,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		33F59BA642EAEA42CE8BFCC7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		38F41848A80D384B90844E38 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		390613A58B4AE6DFCC7ECA63 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -614,6 +708,7 @@
 				3892C9AB1A2AAF40006DB300 /* Message.m in Sources */,
 				1AB423D519F8AC0300914ABF /* QRScannerViewController.m in Sources */,
 				381D24221A3AC39900015BC5 /* DetailView.m in Sources */,
+				38E85AD71A41703400163235 /* ProfileViewController.m in Sources */,
 				38699DB01A2657CD00617581 /* Sender.m in Sources */,
 				389B6A761A23C8E9006F15CC /* MessageTableViewCell.m in Sources */,
 				38D3E9951A38F4CB00B0FB49 /* Interactive.m in Sources */,
@@ -621,6 +716,7 @@
 				1AB3850419FB25F600243F92 /* NetworkUtil.m in Sources */,
 				3864FA0419D8CD2800AB72A7 /* KandiTableViewController.m in Sources */,
 				1AB423DB19F8B63F00914ABF /* KandiTableViewCell.m in Sources */,
+				380BC3BD1A402F100055A2B4 /* WPAnnotation.m in Sources */,
 				38C6B1EF1A15B1EF0001A924 /* KandiDetailTableViewCell.m in Sources */,
 				387493F61A0F2B21009F77CC /* MessagesTableViewController.m in Sources */,
 				1AB3851519FCB8C400243F92 /* VersionCheck.m in Sources */,
@@ -636,6 +732,7 @@
 				388BD26D19BEB98100ED1571 /* AppDelegate.m in Sources */,
 				387578131A119E6D00B35781 /* MessageSendDelegate.m in Sources */,
 				380334A719D9C15000D8A405 /* PageViewController.m in Sources */,
+				38E85AD31A416E3500163235 /* FeedViewController.m in Sources */,
 				386422971A3C515200F37D33 /* DetailViewController.m in Sources */,
 				38D3E9921A38DC9700B0FB49 /* NavigationControllerDelegate.m in Sources */,
 				38F9FA6019C0D3E800EDA64C /* FBLoginViewController.m in Sources */,
@@ -643,6 +740,7 @@
 				38F509D91A3B924B005E9AD7 /* Settings.m in Sources */,
 				38B5903119C6AD7E00D27644 /* SettingsViewController.m in Sources */,
 				38186C221A366294008B5BDF /* DetailTableViewController.m in Sources */,
+				38B224281A402966004E3DF3 /* MapViewController.m in Sources */,
 				38905A041A327774008C6970 /* ProfilePicViewController.m in Sources */,
 				1AB423D219F8A8A300914ABF /* KandiTagNavigationController.m in Sources */,
 				386422931A3C4A2000F37D33 /* DetailPageController.m in Sources */,
@@ -700,7 +798,8 @@
 		387533A019FDAE24006325BF /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -724,7 +823,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -754,6 +853,7 @@
 		};
 		387533A219FDAE24006325BF /* Distribution */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED23E33BE0B45C4520D01844 /* Pods.distribution.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KandiTAG.app/KandiTAG";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -773,7 +873,8 @@
 		388BD28919BEB98100ED1571 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -803,7 +904,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -812,7 +913,8 @@
 		388BD28A19BEB98100ED1571 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -836,7 +938,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -888,6 +990,7 @@
 		};
 		388BD28F19BEB98100ED1571 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E597A1397B412E68635B519C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KandiTAG.app/KandiTAG";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -910,6 +1013,7 @@
 		};
 		388BD29019BEB98100ED1571 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00F27DDA763B157074281EBB /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KandiTAG.app/KandiTAG";
 				FRAMEWORK_SEARCH_PATHS = (

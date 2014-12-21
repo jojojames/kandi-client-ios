@@ -77,18 +77,17 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
-    else
-    {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-         (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
-    }
 
+    //self.locationManager = [[CLLocationManager alloc] init];
+    //self.locationManager.delegate = self;
+    //[self.locationManager requestWhenInUseAuthorization];
+    //[self.locationManager startUpdatingLocation];
+    
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.fbLogin = [[FbLogin alloc] init];
     self.window.rootViewController = self.fbLogin;
     [self.window makeKeyAndVisible];
-    
-    //pageScrollEnabled = YES;
     
     [FBLoginView class];
     [FBProfilePictureView class];
@@ -96,11 +95,13 @@
     return YES;
 }
 
+
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)device_Token {
     NSLog(@"Did Register for Remote Notifications with Device Token (%@)", device_Token);
     NSString* token = [[device_Token description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
     [defaults setObject:token forKey:@"DEVICETOKEN"];
+    NSLog(@"token: %@", token);
 }
 
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -110,7 +111,7 @@
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"Push received: %@", userInfo);
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 2;
+    //[UIApplication sharedApplication].applicationIconBadgeNumber = 2;
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{

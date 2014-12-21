@@ -16,6 +16,8 @@
 @implementation DetailView {
     BOOL isfirstTimeTransform;
     UICollectionViewCell *cell;
+    UILabel *cellLabel;
+    UILabel *nameLabel;
 }
 
 @synthesize responseData;
@@ -85,20 +87,20 @@
     collectionView.delegate = self;
     collectionView.dataSource = self;
     [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
-    collectionView.pagingEnabled = NO;
+    collectionView.pagingEnabled = YES;
     
     //[collectionView setContentInset:UIEdgeInsetsMake(0, self.view.frame.size.width / 4, 0, self.view.frame.size.width / 5)];
     
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     
     
-    [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    //[collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
     swipeGesture.direction = UISwipeGestureRecognizerDirectionUp;
-    [collectionView addGestureRecognizer:swipeGesture];
+    //[collectionView addGestureRecognizer:swipeGesture];
     
-    collectionView.center = self.view.center;
+    //collectionView.center = self.view.center;
     
 }
 
@@ -139,34 +141,34 @@
     //NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
     //NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
     
-    NSString* c_partyA = [convo objectForKey:PARTYA];
-    NSString* c_partyB = [convo objectForKey:PARTYB];
-    NSString* c_message = [convo objectForKey:MESSAGE_KT];
-    NSString* c_nameA = [convo objectForKey:NAMEA];
-    NSString* c_nameB = [convo objectForKey:NAMEB];
-
+    cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(-5, -10, 170, cell.bounds.size.height + 40)];
+    cellLabel.backgroundColor = [UIColor whiteColor];
+    cellLabel.tag = 200;
+    
+    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, cell.bounds.size.height - 5, 170, 35)];
+    nameLabel.text = c_userName;
+    nameLabel.textAlignment = NSTextAlignmentCenter;
     
     cell=[self.collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
-    
-    if (indexPath.row == 0 && isfirstTimeTransform) { // make a bool and set YES initially, this check will prevent fist load transform
-        isfirstTimeTransform = NO;
-    }else{
-        cell.transform = TRANSFORM_CELL_VALUE; // the new cell will always be transform and without animation
-    }
     
     cell.backgroundColor=[UIColor clearColor];
     cell.layer.borderColor = [UIColor whiteColor].CGColor;
     cell.layer.borderWidth = 3.0f;
-    cell.layer.cornerRadius = cell.frame.size.width/2;
-    cell.layer.masksToBounds = YES;
-    cell.clipsToBounds = YES;
     
     UIImageView *userPic = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
     NSURL *profilePictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=160&height=160", c_facebookId]];
     NSData *picData = [NSData dataWithContentsOfURL:profilePictureURL];
     userPic.image = [UIImage imageWithData:picData];
     
+    [cell.contentView addSubview:cellLabel];
+    [cell.contentView addSubview:nameLabel];
     [cell.contentView addSubview:userPic];
+    
+    if (indexPath.row == 0 && isfirstTimeTransform) { // make a bool and set YES initially, this check will prevent fist load transform
+        isfirstTimeTransform = NO;
+    }else{
+        cell.transform = TRANSFORM_CELL_VALUE; // the new cell will always be transform and without animation
+    }
     
     return cell;
 }
@@ -188,7 +190,7 @@
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
     
-    float pageWidth = 80 + 100; // width + space
+    float pageWidth = 60 + 100; // width + space
     float currentOffset = scrollView.contentOffset.x;
     float targetOffset = targetContentOffset->x;
     float newTargetOffset = 0;

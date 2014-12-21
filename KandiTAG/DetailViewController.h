@@ -13,7 +13,8 @@
 @property (nonatomic, strong) NSString* fbid;
 @property (nonatomic, strong) NSString* user_name;
 @property (nonatomic) NSInteger placement;
+@property (nonatomic, strong) UIViewController *controller;
 
--(instancetype)initWithFacebookId:(NSString*)facebookid name:(NSString*)name placement:(NSInteger)place;
+-(instancetype)initWithFacebookId:(NSString*)facebookid name:(NSString*)name placement:(NSInteger)place controller:(UIViewController*)parent;
 
 @end

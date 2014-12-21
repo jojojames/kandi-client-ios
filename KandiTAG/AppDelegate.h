@@ -10,8 +10,10 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "FbLogin.h"
 #import "NetworkUtil.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UIView *view;
@@ -31,6 +33,8 @@
 @property (strong, nonatomic) NSString* userName;
 @property (strong, nonatomic) NSString* deviceToken;
 @property (strong, nonatomic) NSString* currentQrPicId;
+
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @property (nonatomic) BOOL pageScrollEnabled;
 

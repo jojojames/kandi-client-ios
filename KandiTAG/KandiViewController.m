@@ -15,6 +15,7 @@
 #import "MessagingNavigationController.h"
 #import "DetailView.h"
 #import "DetailPageController.h"
+#import "ProfileViewController.h"
 
 @interface KandiViewController () {
     NSMutableArray *list;
@@ -34,6 +35,7 @@
     UIView *circle;
     UIButton *pullTableUp;
     DetailPageController *detailPageController;
+    ProfileViewController *profileViewController;
 }
 
 @end
@@ -72,6 +74,7 @@
 -(instancetype)initWithFlag:(DisplayType)flag {
     self = [super init];
     if (self) {
+        //NSLog(@"KandiViewController init");
         responseData = [[NSMutableData alloc] init];
         loadedDataSource = NO;
         tags = [[NSMutableArray alloc] init];
@@ -119,8 +122,8 @@
     pullTableUp.backgroundColor = [UIColor clearColor];
     [pullTableUp addTarget:self action:@selector(pullTableUp) forControlEvents:UIControlEventTouchUpInside];
     
-    self.view.layer.borderWidth = 0.25f;
-    self.view.layer.borderColor = [UIColor blackColor].CGColor;
+    //self.view.layer.borderWidth = 0.25f;
+    //self.view.layer.borderColor = [UIColor blackColor].CGColor;
     
     switch (displayType) {
         case KANDI:
@@ -128,7 +131,8 @@
             backgroundImage.image = [UIImage imageNamed:@"messageBackground"];
             //[self.view addSubview:backgroundImage];
             [self.view addSubview:white];
-            [self.view addSubview:blur];
+            [white addSubview:blur];
+            //[self.view addSubview:blur];
             title = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, self.view.frame.size.width, 50)];
             title.text = @"Kandi";
             [title setTextAlignment:NSTextAlignmentCenter];
@@ -140,14 +144,14 @@
             [self.view addSubview:title];
             [self.view addSubview:pullTableUp];
             break;
-        case TAG:
+        case FEED:
             backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
             backgroundImage.image = [UIImage imageNamed:@"tagBackground"];
             //[self.view addSubview:backgroundImage];
             [self.view addSubview:white];
-            [self.view addSubview:blur];
+            [white addSubview:blur];
             title = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, self.view.frame.size.width, 50)];
-            title.text = @"Tag";
+            title.text = @"Feed";
             [title setTextAlignment:NSTextAlignmentCenter];
             [title setFont:[UIFont fontWithName:@"Rancho" size:35]];
             title.textColor = [UIColor colorWithRed:176.0/255.0 green:224.0/255.0 blue:230.0/255.0 alpha:1];
@@ -162,7 +166,7 @@
             backgroundImage.image = [UIImage imageNamed:@"messageBackground"];
             //[self.view addSubview:backgroundImage];
             [self.view addSubview:white];
-            [self.view addSubview:blur];
+            [white addSubview:blur];
             title = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, self.view.frame.size.width, 50)];
             title.text = @"Message";
             [title setTextAlignment:NSTextAlignmentCenter];
@@ -178,7 +182,7 @@
     }
     
     //tableView = [[UITableView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height / 2.2, self.view.frame.size.width - 40, self.view.frame.size.height) style:UITableViewStyleGrouped];
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 66, self.view.frame.size.width - 10, self.view.frame.size.height) style:UITableViewStyleGrouped];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 66, self.view.frame.size.width , self.view.frame.size.height) style:UITableViewStyleGrouped];
     tableView.backgroundColor = [UIColor clearColor];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -234,6 +238,34 @@
 -(void)refreshTable {
     [self.tableView reloadData];
 }
+
+/*
+
+#pragma mark - scroll view
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSArray *rows = [self.tableView indexPathsForVisibleRows];
+    for (NSIndexPath *path in rows) {
+        KandiTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+        float percent = [self cellDistanceAsPercentageFromTableViewCenterAtRow: cell];
+        cell.layer.sublayerTransform = CATransform3DMakeScale(percent, percent, 1);
+    }
+}
+
+//Calculate distance of the cell as a percentage from the bottom of the actual visible contentView
+-(float)cellDistanceAsPercentageFromTableViewCenterAtRow:(KandiTableViewCell *)cell {
+    float position = cell.frame.origin.y;
+    
+    float offsetFromTop = self.tableView.contentOffset.y;
+    
+    float percentFromBottom = (position-offsetFromTop+ROW_HEIGHT)/self.tableView.frame.size.height;
+    percentFromBottom = MIN(MAX(percentFromBottom, 0), 1);
+    
+    return percentFromBottom;
+}
+ 
+ */
+
 
 
 #pragma mark - Table view data source
@@ -378,138 +410,51 @@
     switch (displayType) {
         case TAG:
         {
-            [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationCurveEaseOut animations:^{ [self.tableView setFrame:CGRectMake(10, self.view.frame.size.height / 2.2, self.view.frame.size.width - 10, self.view.frame.size.height)]; [white setFrame:CGRectMake(0, self.view.frame.size.height/2.2, self.view.frame.size.width, self.view.frame.size.height)];} completion:nil];
             
-            NSTimer *addDetailView = [NSTimer scheduledTimerWithTimeInterval:1.1 target:self selector:@selector(addDetailPageController) userInfo:nil repeats:NO];
             detailView = [[DetailView alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
             detailView.view.frame = CGRectMake(0, 66, self.view.frame.size.width, 190);
             detailView.view.backgroundColor = [UIColor clearColor];
             
-            detailPageController = [[DetailPageController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId andTransitionStyle:UIPageViewControllerTransitionStyleScroll];
+            detailPageController = [[DetailPageController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
             detailPageController.view.frame = CGRectMake(0, 66, self.view.frame.size.width, 190);
-            detailPageController.view.backgroundColor = [UIColor clearColor];
+            detailPageController.view.backgroundColor = [UIColor whiteColor];
             
+            NSTimer *addDetailView = [NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(addDetailPageController) userInfo:nil repeats:NO];
+
             
-            /*
-            detailTableViewController = [[DetailTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
-            
-            
-            //detailController = [[KandiTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
-            shadedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-            shadedView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:0.7];
-            [self.view addSubview:shadedView];
-            
-            dismiss = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-            [dismiss addTarget:self action:@selector(removeDetailController) forControlEvents:UIControlEventTouchUpInside];
-            dismiss.backgroundColor = [UIColor clearColor];
-            [shadedView addSubview:dismiss];
-            
-            self.tableView.scrollEnabled = NO;
-            
-            detailTableViewController.tableView.frame = CGRectInset(self.view.bounds, 40, 100);
-            detailTableViewController.tableView.backgroundColor = [UIColor whiteColor];
-            detailTableViewController.tableView.layer.cornerRadius = 10.0f;
-            detailTableViewController.tableView.layer.borderWidth = 0.0f;
-            [self.view addSubview:detailTableViewController.tableView];
-            [self addChildViewController:detailTableViewController];
-            [detailTableViewController didMoveToParentViewController:self];
-            [detailTableViewController.tableView reloadData];
-             
-             */
-            
+            [UIView animateWithDuration:0.6 delay:0.1 options:UIViewAnimationCurveEaseOut animations:^{ [self.tableView setFrame:CGRectMake(0, self.view.frame.size.height / 2.2, self.view.frame.size.width, self.view.frame.size.height - self.view.frame.size.height/2.2)]; [white setFrame:CGRectMake(0, self.view.frame.size.height/2.2, self.view.frame.size.width, self.view.frame.size.height)];} completion:nil];
+
             break;
         }
         case KANDI:
         {
             
-            [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationCurveEaseOut animations:^{ [self.tableView setFrame:CGRectMake(10, self.view.frame.size.height / 2.2, self.view.frame.size.width - 10, self.view.frame.size.height)]; [white setFrame:CGRectMake(0, self.view.frame.size.height/2.2, self.view.frame.size.width, self.view.frame.size.height)];} completion:nil];
+            profileViewController = [[ProfileViewController alloc] initWithUserName:c_userName andFbId:c_facebookId andController:self];
+            profileViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+            [self presentViewController:profileViewController animated:YES completion:nil];
             
-            NSTimer *addDetailView = [NSTimer scheduledTimerWithTimeInterval:1.1 target:self selector:@selector(addDetailPageController) userInfo:nil repeats:NO];
+            
+            /*
             detailView = [[DetailView alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
             detailView.view.frame = CGRectMake(0, 66, self.view.frame.size.width, 190);
             detailView.view.backgroundColor = [UIColor clearColor];
             
-            detailPageController = [[DetailPageController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId andTransitionStyle:UIPageViewControllerTransitionStyleScroll];
+            detailPageController = [[DetailPageController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
             detailPageController.view.frame = CGRectMake(0, 66, self.view.frame.size.width, 190);
-            detailPageController.view.backgroundColor = [UIColor clearColor];
+            detailPageController.view.backgroundColor = [UIColor whiteColor];
             
-            /*
+            NSTimer *addDetailView = [NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(addDetailPageController) userInfo:nil repeats:NO];
+
+            [UIView animateWithDuration:0.6 delay:0.1 options:UIViewAnimationCurveEaseOut animations:^{ [self.tableView setFrame:CGRectMake(0, self.view.frame.size.height / 2.2, self.view.frame.size.width, self.view.frame.size.height - self.view.frame.size.height/2.2)]; [white setFrame:CGRectMake(0, self.view.frame.size.height/2.2, self.view.frame.size.width, self.view.frame.size.height)];} completion:nil];
             
-            shadedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-            shadedView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:0.7];
-            //[self.view addSubview:shadedView];
-            dismiss = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-            [dismiss addTarget:self action:@selector(removeViewController) forControlEvents:UIControlEventTouchUpInside];
-            dismiss.backgroundColor = [UIColor clearColor];
-            //[shadedView addSubview:dismiss];
-            
-            detailTableViewController = [[DetailTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
-            detailTableViewController.tableView.frame = CGRectMake(0, 64, self.view.frame.size.width, 180);
-            detailTableViewController.tableView.backgroundColor = [UIColor clearColor];
-            detailTableViewController.tableView.scrollEnabled = NO;
-            //self.tableView.scrollEnabled = NO;
-            detailTableViewController.tableView.scrollEnabled = YES;
-            
-            [self.view addSubview:detailTableViewController.tableView];
-            
-            //detailTableViewController.tableView.backgroundColor = [UIColor blackColor];
-            detailTableViewController.transitioningDelegate = self;
-            detailTableViewController.modalPresentationStyle = UIModalPresentationCustom;
-            //[self presentViewController:detailTableViewController animated:YES completion:nil];
-             
              */
-            
-            
-            /*
-             
-             detailTableViewController = [[DetailTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
-             
-             
-             //detailController = [[KandiTableViewController alloc] initWithFlag:DETAIL andQRCode:o_qrcodeId];
-             shadedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-             shadedView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:0.7];
-             [self.view addSubview:shadedView];
-             
-             dismiss = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-             [dismiss addTarget:self action:@selector(removeDetailController) forControlEvents:UIControlEventTouchUpInside];
-             dismiss.backgroundColor = [UIColor clearColor];
-             [shadedView addSubview:dismiss];
-             
-             self.tableView.scrollEnabled = NO;
-             
-             detailTableViewController.tableView.frame = CGRectInset(self.view.bounds, 40, 100);
-             detailTableViewController.tableView.backgroundColor = [UIColor whiteColor];
-             detailTableViewController.tableView.layer.cornerRadius = 10.0f;
-             detailTableViewController.tableView.layer.borderWidth = 0.0f;
-             [self.view addSubview:detailTableViewController.tableView];
-             [self addChildViewController:detailTableViewController];
-             [detailTableViewController didMoveToParentViewController:self];
-             [detailTableViewController.tableView reloadData];
-             
-             */
-            
-            
-            /*
-             detailController.tableView.frame = CGRectInset(self.view.bounds, 40, 100);
-             //detailController.tableView.frame = self.view.frame;
-             //detailController.tableView.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:1.0];
-             detailController.tableView.backgroundColor = [UIColor whiteColor];
-             detailController.tableView.layer.cornerRadius = 10.0f;
-             detailController.tableView.layer.borderWidth = 0.0f;
-             //detailController.tableView.layer.borderColor = [UIColor blackColor].CGColor;
-             [self.view addSubview:detailController.tableView];
-             [self addChildViewController:detailController];
-             [detailController didMoveToParentViewController:self];
-             
-             [detailController.tableView reloadData];
-             
-             */
-            
             break;
         }
         case DETAIL:
         {
             chatController = [[ChatTableViewController alloc] initWithFacebookId:c_facebookId andUserName:c_userName];
+            
+            //[[AppDelegate KandiAppDelegate].network getMessageExchange:chatController withRecipient:c_facebookId];
             
             NSString *facebookId = [AppDelegate KandiAppDelegate].facebookId;
             
@@ -667,7 +612,7 @@
             
             if (loadedDataSource)
                 [tableView reloadData];
-            NSLog(@"tableView reloadData");
+            NSLog(@"KandiViewController(%u).tableView reloadData", displayType);
         } else {
             // NSString* error = [jsonResponse objectForKey:@"error"];
             //NSLog(@"%@", error);
@@ -685,19 +630,24 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)addProfileViewController {
+    [self.view addSubview:profileViewController.view];
+}
+
 -(void)removeMessagingController {
     [messagingNavController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)clear {
     [detailView.view removeFromSuperview];
+    [detailPageController.view removeFromSuperview];
 }
 
 -(void)pullTableUp {
     circle.hidden = YES;
     [detailPageController.view removeFromSuperview];
-    //[detailView.view removeFromSuperview];
-    [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationCurveEaseIn animations:^{ [self.tableView setFrame:CGRectMake(10, 66, self.view.frame.size.width - 10, self.view.frame.size.height)]; [white setFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height)];} completion:nil];
+    [detailView.view removeFromSuperview];
+    [UIView animateWithDuration:0.6 delay:0.1 options:UIViewAnimationCurveEaseIn animations:^{ [self.tableView setFrame:CGRectMake(0, 66, self.view.frame.size.width, self.view.frame.size.height)]; [white setFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height)];} completion:nil];
 }
 
 -(void)addDetailPageController {

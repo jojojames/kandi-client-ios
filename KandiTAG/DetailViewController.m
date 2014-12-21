@@ -26,17 +26,19 @@
     MessagingNavigationController *messagingNavController;
     DetailPageController *detailPageController;
     UIButton *dismiss;
+    UITapGestureRecognizer *newtap;
 }
 
 @synthesize fbid;
 @synthesize user_name;
 
--(instancetype)initWithFacebookId:(NSString *)facebookid name:(NSString *)name placement:(NSInteger)place{
+-(instancetype)initWithFacebookId:(NSString *)facebookid name:(NSString *)name placement:(NSInteger)place controller:(UIViewController *)parent{
     self = [super init];
     if (self) {
         self.fbid = facebookid;
         self.user_name = name;
         self.placement = place;
+        self.controller = parent;
     }
     return self;
 }
@@ -87,9 +89,12 @@
         
         messagingNavController = [[MessagingNavigationController alloc] init];
         
-        detailPageController = [[DetailPageController alloc] init];
+        [self presentViewController:messagingNavController animated:YES completion:nil];
+        [self.view setFrame:CGRectMake(0, 65, self.view.frame.size.width, 180)];
         
-        [self.view addSubview:detailPageController.view];
+        //detailPageController = [[DetailPageController alloc] init];
+        
+        //[self.view addSubview:detailPageController.view];
         
         [detailPageController presentViewController:messagingNavController animated:YES completion:nil];
         
@@ -105,7 +110,18 @@
 
 -(void)removeMessagingController {
     NSLog(@"removeMessagingController");
-    [detailPageController dismissViewControllerAnimated:YES completion:nil];
+    //[detailPageController dismissViewControllerAnimated:YES completion:nil];
+    //[detailPageController.view removeFromSuperview];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self.view setFrame:CGRectMake(0, 65, self.view.frame.size.width, 180)];
+    //[messagingNavController dismissViewControllerAnimated:YES completion:nil];
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"self: %@", self);
+    NSLog(@"self.presenting: %@", self.presentingViewController);
+    NSLog(@"self.presented: %@", self.presentedViewController);
+    [self.view setFrame:CGRectMake(0, 65, self.view.frame.size.width, 180)];
+
+
 }
 
 - (void)didReceiveMemoryWarning {

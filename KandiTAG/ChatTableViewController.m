@@ -16,7 +16,7 @@
 
 @interface ChatTableViewController () {
     UILabel *messageLabel;
-    UITextField *messageTextField;
+    UITextView *messageTextField;
     UIButton *send;
     NSMutableData *mutableData;
     Sender *sender;
@@ -45,6 +45,9 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 @synthesize sender;
 @synthesize messageslisted;
 
+#define FONT_SIZE 14.0f
+#define CELL_CONTENT_WIDTH 320.0f
+#define CELL_CONTENT_MARGIN 10.0f
 #define PROFILE_ICON_SIZE 30
 #define ORIGINAL @"original"
 #define CURRENT @"current"
@@ -67,11 +70,14 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         //[self.profileIcon layer].cornerRadius = 5.0f;
         //[self.profileIcon layer].masksToBounds = YES;
         
+        
         self.facebookSend = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         self.facebookSend.frame = CGRectMake(0, 0, 130, 40);
         [self.facebookSend setTitle:@"Send Message" forState:UIControlStateNormal];
 
         self.facebookId = _facebookId;
+        
+        [[AppDelegate KandiAppDelegate].network getMessageExchange:self withRecipient:self.facebookId];
         
         self.view.backgroundColor = [UIColor whiteColor];
 
@@ -97,8 +103,68 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:profileImage];
         self.navigationItem.rightBarButtonItem = item;
-
         
+        messageslisted = [[NSMutableArray alloc] init];
+        
+        NSString *myfbid = [AppDelegate KandiAppDelegate].facebookId;
+        NSString *username = [AppDelegate KandiAppDelegate].userName;
+        
+        //[[AppDelegate KandiAppDelegate].network getMessageExchange:self withRecipient:self.facebookId];
+        
+        [SIOSocket socketWithHost:@"http://kandi.jit.su/" response:^(SIOSocket *socket) {
+            self.socket = socket;
+            
+            self.socket.onConnect = ^ () {
+                NSLog(@"connected");
+                [self.socket emit:@"setChat" args:@[myfbid, username, self.facebookId, self.userName]];
+            };
+            
+            self.socket.onDisconnect = ^() {
+                NSLog(@"disconnected");
+            };
+            
+            self.socket.onError = ^(NSDictionary* error) {
+                NSLog(@"%@", error);
+            };
+            
+            [self.socket on:@"chat message" callback:^(id data) {
+                NSString *string = (NSString*)data;
+                NSLog(@"chat message:%@", string);
+            }];
+            
+            [self.socket on:@"setChat" callback:^(id data) {
+                NSMutableArray *string = (NSMutableArray*)data;
+                NSLog(@"setChat:%@", string[0]);
+                [messageslisted addObject:string[0]];
+                NSLog(@"mess: %u", messageslisted.count);
+                [tableView reloadData];
+                
+                //NSString *tempString = [self extractString:string[0] toLookFor:@"\"mssg\":" skipForwardX:0 toStopBefore:@",\"fID\""];
+                //NSLog(@"tempString: %@", tempString);
+                
+                //[messageslisted addObject:string];
+                //NSCharacterSet *trimForMessage = [NSCharacterSet characterSetWithCharactersInString:@"{\"mssg\":\"Hello\",\"fID\":\"10204530185312006\",\"tID\":\"1378441539116513\",\"date\":1418896750993}"];
+                //NSString *messageString = [string[0] stringByTrimmingCharactersInSet:trimForMessage];
+                //NSLog(@"messageString: %@", messageString);
+                
+                //NSCharacterSet *trimForFID = [NSCharacterSet characterSetWithCharactersInString:@"{\"mssg\":\"Hello\",\"fID\":\"\",\"tID\":\"1378441539116513\",\"date\":1418896750993}"];
+                //NSString *fIDString = [string[0] stringByTrimmingCharactersInSet:trimForFID];
+                //NSLog(@"fIDString: %@", fIDString);
+                
+                //NSCharacterSet *trimFortID = [NSCharacterSet characterSetWithCharactersInString:@"{\"mssg\":\"Hello\",\"fID\":\"10204530185312006\",\"tID\":\"\",\"date\":1418896750993}"];
+                //NSString *tIDString = [string[0] stringByTrimmingCharactersInSet:trimFortID];
+                //NSLog(@"tIDString: %@", tIDString);
+                
+                
+            }];
+            
+            [self.socket on:@"pm" callback:^(id data) {
+                NSString *string = (NSString*)data;
+                NSLog(@"pm:%@", string);
+            }];
+            
+            
+        }];
 
     }
     return self;
@@ -106,6 +172,12 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSLog(@"ChatTableViewController viewDidLoad");
+    
+    NSLog(@"messageslisted: %@", messageslisted);
+    
+    NSLog(@"mess: %@", messageslisted[0]);
     
     tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 104) style:UITableViewStylePlain];
     //tableView.backgroundColor = [UIColor yellowColor];
@@ -129,11 +201,11 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [send setBackgroundImage:[UIImage imageNamed:@"sent"] forState:UIControlStateHighlighted];
     [self.view addSubview:send];
     
-    messageTextField = [[UITextField alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height - 35, self.view.frame.size.width /1.32, 30)];
+    messageTextField = [[UITextView alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height - 35, self.view.frame.size.width /1.32, 30)];
     messageTextField.layer.cornerRadius = 10.0f;
     messageTextField.backgroundColor = [UIColor whiteColor];
-    messageTextField.placeholder = [NSString stringWithFormat:@" New Message"];
-    messageTextField.delegate = self;
+    //messageTextField.placeholder = [NSString stringWithFormat:@" New Message"];
+    //messageTextField.delegate = self;
     [self.view addSubview:messageTextField];
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
@@ -148,7 +220,18 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX)];
     
     [self.view addSubview:tableView];
+    
+}
 
+
+- (NSString *)extractString:(NSString *)fullString toLookFor:(NSString *)lookFor skipForwardX:(NSInteger)skipForward toStopBefore:(NSString *)stopBefore
+{
+    
+    NSRange firstRange = [fullString rangeOfString:lookFor];
+    NSRange secondRange = [[fullString substringFromIndex:firstRange.location + skipForward] rangeOfString:stopBefore];
+    NSRange finalRange = NSMakeRange(firstRange.location + skipForward, secondRange.location + [stopBefore length]);
+    
+    return [fullString substringWithRange:finalRange];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -169,28 +252,40 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 -(void)viewDidDisappear:(BOOL)animated {
     [self deregisterFromKeyboardNotifications];
     [super viewDidDisappear:animated];
+    messageslisted = nil;
 }
 
 -(void)sendMSSG {
-    NSDate *currentTime = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY MM dd, hh-mm-ss"];
-    NSString *timeString = [dateFormatter stringFromDate:currentTime];
-    NSLog(@"timeString: %@", timeString);
-    NSString *message = [NSString new];
-    message = messageTextField.text;
-    if (![sentMessages objectForKey:message]) {
-        [[AppDelegate KandiAppDelegate].network sendMessage:messageSendDelegate withMessage:message andRecipient:self.facebookId andTime:timeString];
-        [[AppDelegate KandiAppDelegate].network saveConvo:messageSendDelegate withMessage:message andRecipient:self.facebookId andName:userName];
-        [[AppDelegate KandiAppDelegate].network getMessageExchange:self withRecipient:self.facebookId];
+
+    if (messageTextField.text.length > 0) {
+        NSString *message = [NSString new];
+        message = messageTextField.text;
+        
+    
+        NSString *myfbid = [AppDelegate KandiAppDelegate].facebookId;
+        NSString *username = [AppDelegate KandiAppDelegate].userName;
+        
+        [[AppDelegate KandiAppDelegate].network saveConvo:self withMessage:message andRecipient:self.facebookId andName:self.userName];
+    
+        [self.socket emit:@"chat message" args:@[message, myfbid, self.facebookId]];
+        [self.socket emit:@"pm" args:@[message, username, myfbid, self.userName, self.facebookId]];
+    
+        [self performSelector:@selector(getMessage) withObject:nil afterDelay:1.0];
+    
+        //[messageslisted addObject:message];
+        messageTextField.text = nil;
+        
     }
-    messageTextField.text = nil;
     
-    [UIView setAnimationsEnabled:NO];
-    [tableView beginUpdates];
-    [tableView endUpdates];
-    [UIView setAnimationsEnabled:YES];
-    
+    //[UIView setAnimationsEnabled:NO];
+    //[tableView beginUpdates];
+    //[tableView reloadData];
+    //[tableView endUpdates];
+}
+
+-(void)getMessage {
+    [[AppDelegate KandiAppDelegate].network getMessageExchange:self withRecipient:self.facebookId];
+
 }
 
 -(void)registerForKeyboardNotifications {
@@ -233,6 +328,63 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 }
 
+-(void) keyPressed: (NSNotification*) notification{
+    
+    [messageTextField sizeToFit];
+    [messageTextField layoutIfNeeded];
+    // get the size of the text block so we can work our magic
+    CGSize newSize = [messageTextField.text
+                      sizeWithFont:[UIFont fontWithName:@"Rancho" size:25]
+                      constrainedToSize:CGSizeMake(222,9999)
+                      lineBreakMode:UILineBreakModeWordWrap];
+    NSInteger newSizeH = newSize.height;
+    NSInteger newSizeW = newSize.width;
+    
+    // I output the new dimensions to the console
+    // so we can see what is happening
+    NSLog(@"NEW SIZE : %d X %d", newSizeW, newSizeH);
+    if (messageTextField.hasText)
+    {
+        // if the height of our new chatbox is
+        // below 90 we can set the height
+        if (newSizeH <= 90)
+        {
+            [messageTextField scrollRectToVisible:CGRectMake(0,0,1,1) animated:NO];
+            
+            // chatbox
+            CGRect chatBoxFrame = messageTextField.frame;
+            NSInteger chatBoxH = chatBoxFrame.size.height;
+            NSInteger chatBoxW = chatBoxFrame.size.width;
+            NSLog(@"CHAT BOX SIZE : %d X %d", chatBoxW, chatBoxH);
+            chatBoxFrame.size.height = newSizeH + 12;
+            messageTextField.frame = chatBoxFrame;
+            
+            // form view
+            CGRect formFrame = tableView.frame;
+            NSInteger viewFormH = formFrame.size.height;
+            NSLog(@"FORM VIEW HEIGHT : %d", viewFormH);
+            formFrame.size.height = 30 + newSizeH;
+            formFrame.origin.y = 199 - (newSizeH - 18);
+            tableView.frame = formFrame;
+            
+            // table view
+            CGRect tableFrame = tableView.frame;
+            NSInteger viewTableH = tableFrame.size.height;
+            NSLog(@"TABLE VIEW HEIGHT : %d", viewTableH);
+            tableFrame.size.height = 199 - (newSizeH - 18);
+            tableView.frame = tableFrame;
+        }
+        
+        // if our new height is greater than 90
+        // sets not set the height or move things
+        // around and enable scrolling
+        if (newSizeH > 90)
+        {
+            messageTextField.scrollEnabled = YES;
+        }
+    }
+}
+
 
 -(void)moveControls:(NSNotification*)notification up:(BOOL)up {
     NSDictionary *userInfo = [notification userInfo];
@@ -263,9 +415,20 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [self.view endEditing:YES];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return CHAT_ROW_HEIGHT;
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //NSString *text = [messageslisted objectAtIndex:[indexPath row]];
+    
+ //   CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN *2), 20000.0f);
+    
+    //CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeCharacterWrap];
+    
+    //CGFloat height = MAX(size.height, 44.0f);
+    
+   // return height + (CELL_CONTENT_MARGIN * 2);
+    
+   // return CHAT_ROW_HEIGHT;
+//}
 
 #pragma mark - Table view data source
 
@@ -276,53 +439,59 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    if (loadedDataSource)
-        return [messages count];
-    else
-        return 0;
+    return messageslisted.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    json = [messages objectAtIndex:indexPath.row];
+    json = [messages objectAtIndex:(messages.count - indexPath.row - 1)];
     //NSDictionary* original = [json objectForKey:ORIGINAL];
     //NSDictionary* current = [json objectForKey:CURRENT];
     NSDictionary* messagehistory = [json objectForKey:MESSAGEHISTORY];
     
     NSString* mh_message = [messagehistory objectForKey:MESSAGE_KT];
-    //NSString* mh_sender = [messagehistory objectForKey:SENDER];
+    NSString* mh_sender = [messagehistory objectForKey:SENDER];
     //NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
     //NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
     
     NSString *cellIdentifier = @"ChatTableViewCell";
     
-    ChatTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ChatTableViewCell" forIndexPath:indexPath];
+    ChatTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     if (cell == nil) {
         cell = [[ChatTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
     
-    NSString *facebookID = [AppDelegate KandiAppDelegate].facebookId;
+    cell.textLabel.text = messageslisted[messageslisted.count - indexPath.row - 1];
+    [cell setImageUsingFacebookId:mh_sender];
     
+
     //cell.textLabel.text = [list objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = mh_message;
-    cell.detailTextLabel.text = [list objectAtIndex:indexPath.row];
+    
+ //   if (messageslisted.count > 0) {
+ //       cell.textLabel.text = mh_message;
+ //           for (int i = 0; i < messageslisted.count; i++) {
+  //              cell.textLabel.text = messageslisted[i];
+  //              }
+        
+   // }
+    //cell.detailTextLabel.text = [list objectAtIndex:indexPath.row];
     //[cell setImageUsingFacebookId:[list objectAtIndex:indexPath.row]];
     //[cell setImageUsingFacebookId:self.facebookId];
-    UILabel *who = [[UILabel alloc] init];
-    who.text = [list objectAtIndex:indexPath.row];
-    [cell addSubview:who];
-    who.hidden = YES;
+   // UILabel *who = [[UILabel alloc] init];
+   // who.text = [list objectAtIndex:indexPath.row];
+    //[cell addSubview:who];
+   // who.hidden = YES;
     
 
     //cell.textLabel.text = [showingMessages objectAtIndex:[showingMessages count]];
         
-    if ([who.text isEqualToString:facebookID]) {
-        cell.textLabel.textAlignment = NSTextAlignmentRight;
-    } else {
-        cell.textLabel.textAlignment = NSTextAlignmentLeft;
-    }
+   // if ([who.text isEqualToString:facebookID]) {
+   //     cell.textLabel.textAlignment = NSTextAlignmentRight;
+   // } else {
+   //     cell.textLabel.textAlignment = NSTextAlignmentLeft;
+   // }
     
     //cell.textLabel.text = mh_message;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -363,7 +532,17 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
         if ([success boolValue]) {
             NSMutableArray* jsonArray = [jsonResponse objectForKey:@"results"];
             messages = jsonArray;
-           // NSLog(@"messages: %@", messages);
+            
+            list = [[NSMutableArray alloc] init];
+            
+            for (json in messages) {
+                sender = [Sender new];
+                sender.facebookID = [[json objectForKey:MESSAGEHISTORY] objectForKey:SENDER];
+                [list addObject:sender.facebookID];
+            }
+            
+            //NSLog(@"messages: %@", messages);
+            //NSLog(@"messages.count: %u", messages.count);
             for (int i=0; i<[jsonArray count]; i++) {
                 json = [jsonArray objectAtIndex:i];
                 loadedDataSource = YES;
@@ -387,34 +566,25 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
                     //NSString* mh_recipient = [messagehistory objectForKey:RECIPIENT];
                     //NSString* mh_timestamp = [messagehistory objectForKey:TIMESTAMP];
                     
-                    list = [[NSMutableArray alloc] init];
-
-                    for (json in messages) {
-                        sender = [Sender new];
-                        sender.facebookID = [[json objectForKey:MESSAGEHISTORY] objectForKey:SENDER];
-                        [list addObject:sender.facebookID];
-                    }
-                    
-                    messageslisted = [[NSMutableArray alloc] init];
-                    
-                    for (json in messages) {
-                        messageList = [Message new];
-                        messageList.listedMessage = [[json objectForKey:MESSAGEHISTORY] objectForKey:MESSAGE_KT];
-                        [messageslisted addObject:messageList.listedMessage];
-                    }
-                   
-                    //NSLog(@"list: %@", list);
                 }
             }
             
-            if (loadedDataSource)
+            if (loadedDataSource) {
                 [self.tableView reloadData];
+                //NSRange range = NSMakeRange(0, [self numberOfSectionsInTableView:self.tableView]);
+                //NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:range];
+                //[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+                //[tableView setContentOffset:CGPointMake(0, CGFLOAT_MAX) animated:NO];
+
+                
+            NSLog(@"ChatTableViewController.tableview reloadData");
         } else {
             // NSString* error = [jsonResponse objectForKey:@"error"];
             //NSLog(@"%@", error);
         }
-    }
+        }
     
+    }
     
     //[self.refreshControl endRefreshing];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -424,49 +594,5 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

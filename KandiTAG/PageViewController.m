@@ -15,6 +15,8 @@
 #import "KandiTableViewController.h"
 #import "KandiViewController.h"
 #import "Settings.h"
+#import "MapViewController.h"
+#import "FeedViewController.h"
 
 
 @interface PageViewController () {
@@ -23,8 +25,10 @@
     UIViewController *vc1;
     KandiViewController *vc2;
     KandiViewController *vc3;
+    //FeedViewController *vc3;
     KandiViewController *vc4;
     Settings *settingsVC;
+    //MapViewController *vc3;
     UIButton *settingsgear;
     UIButton *camera;
     UIButton *camera1;
@@ -44,6 +48,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSLog(@"pageViewController viewDidLoad");
+    
     self.delegate = self;
     self.dataSource = self;
     
@@ -51,7 +57,11 @@
     
     vc2 = [[KandiViewController alloc] initWithFlag:KANDI];
     
-    vc3 = [[KandiViewController alloc] initWithFlag:TAG];
+    vc3 = [[KandiViewController alloc] initWithFlag:FEED];
+    
+    //vc3 = [[FeedViewController alloc] initWithFlag:FEED];
+    
+    //vc3 = [[MapViewController alloc] init];
     
     vc4 = [[KandiViewController alloc] initWithFlag:MESSAGE];
     

@@ -1,2 +1,3 @@
-pod "ZFDragableModalTransition"
 pod 'FMDB'
+pod 'SIOSocket', '~> 0.2.0'
+pod "SocketRocket"

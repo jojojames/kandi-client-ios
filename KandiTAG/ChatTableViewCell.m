@@ -34,7 +34,7 @@
         defaultPic.image = [UIImage imageNamed:@"OfficialKTLogo"];
         self.profileIcon.backgroundColor = [UIColor colorWithRed:255.0f/255.0 green:255.0f/255.0 blue:100.0f/255.0 alpha:0.6f];
         self.profileIcon.image = defaultPic.image;
-        //[self.contentView addSubview:self.profileIcon];
+        [self.contentView addSubview:self.profileIcon];
     }
     
     return self;
@@ -44,8 +44,8 @@
     [super layoutSubviews];
     CGRect frame = self.contentView.frame;
     self.profileIcon.frame = CGRectMake(10, frame.size.height / 2 - self.profileIcon.frame.size.height / 2, self.profileIcon.frame.size.width, self.profileIcon.frame.size.height);
-    self.textLabel.frame = CGRectMake(15, self.textLabel.frame.origin.y, 285, self.textLabel.frame.size.height);
-    //self.textLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 10, self.textLabel.frame.origin.y, 255, self.textLabel.frame.size.height);
+    //self.textLabel.frame = CGRectMake(15, self.texxtLabel.frame.origin.y, 285, self.textLabel.frame.size.height);
+    self.textLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 10, self.textLabel.frame.origin.y, 255, self.textLabel.frame.size.height);
    // self.textLabel.backgroundColor = [UIColor yellowColor];
     //self.textLabel.backgroundColor = [UIColor yellowColor];
     self.detailTextLabel.frame = CGRectMake(self.profileIcon.frame.origin.x + self.profileIcon.frame.size.width + 20, self.detailTextLabel.frame.origin.y, self.detailTextLabel.frame.size.width, self.detailTextLabel.frame.size.height);

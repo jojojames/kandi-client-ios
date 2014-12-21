@@ -10,7 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "Constants.h"
 
-@interface KandiViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, NSURLConnectionDataDelegate, FBGraphUser>
+@interface KandiViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, NSURLConnectionDataDelegate, FBGraphUser, UIScrollViewDelegate>
 
 -(instancetype)initWithFlag:(DisplayType)flag;
 -(instancetype)initWithFlag:(DisplayType)flag andQRCode:(NSString*)qrCode;

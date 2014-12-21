@@ -11,7 +11,9 @@
 #import "VersionCheck.h"
 #import "AppDelegate.h"
 
-@implementation QRCodeSaveDelegate
+@implementation QRCodeSaveDelegate {
+    UIImageView *check;
+}
 @synthesize responseData;
 @synthesize controller;
 #pragma mark - NSURLConnection Delegate
@@ -49,6 +51,7 @@
         
         if ([json objectForKey:@"success"]) {
             NSNumber* success = [json objectForKey:@"success"];
+            NSLog(@"success: %@", success);
             if ([success boolValue]) {
                 // QRCode was saved properly
                 //NSString* qrCodeId = (NSString*)[json objectForKey:@"qrcode_id"];
@@ -59,15 +62,17 @@
                 [self presentSuccess];
             } else {
                 NSString* error = (NSString*) [json objectForKey:@"error"];
-                BOOL limitReached = [json objectForKey:@"limit_reached"];
-                BOOL alreadyOwned = [json objectForKey:@"already_owned"];
-                if (limitReached) {
+                NSNumber* limitReached = [json objectForKey:@"limit_reached"];
+                NSNumber* alreadyOwned = [json objectForKey:@"already_owned"];
+                NSLog(@"limitReached: %@", limitReached);
+                NSLog(@"alreadyOwned: %@", alreadyOwned);
+                if ([limitReached boolValue]) {
                     // show an alert telling us the QR limit has been reached
                     //NSLog(@"QRCODE LIMIT REACHED");
                     [self presentFailure];
                 }
                 
-                if (alreadyOwned) {
+                if ([alreadyOwned boolValue]) {
                     [self presentAlreadyOwned];
                 }
                 
@@ -86,61 +91,103 @@
 
 -(void)presentSuccess {
     
-    /*
+    NSLog(@"presentSuccess");
     
-    if ([VersionCheck IOS8ORLater]) {
+ 
         UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Congratulations!" message:@"KandiTAG has been registered" preferredStyle:UIAlertControllerStyleAlert];
+    
+        UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   NSLog(@"OK action");
+                               }];
+    
+    [alertController addAction:okAction];
         [controller presentViewController:alertController animated:YES completion:^{
         }];
-    } else {
-     
-     */
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:@"You have registered a new KandiTAG" delegate:self cancelButtonTitle:@"Dimiss" otherButtonTitles:nil];
-        [alert show];
     
+    check = [[UIImageView alloc] initWithFrame:CGRectMake(controller.view.frame.size.width/ 3, controller.view.frame.size.height / 2.6, 0, 0)];
+    check.image = [UIImage imageNamed:@"check"];
     
-  /*  }  */
+    //[controller.view addSubview:check];
+    
+    NSTimer *removeCheck = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(removeCheck) userInfo:nil repeats:NO];
+
 }
 
 -(void)presentFailure {
     
-    /*
+    NSLog(@"presentFailure");
+
+        UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Limit Exceeded!" message:@"You can no longer register this KandiTAG" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   NSLog(@"OK action");
+                               }];
     
-    if ([VersionCheck IOS8ORLater]) {
-        UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Woah There!" message:@"You can no longer register this KandiTAG" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:okAction];
         [controller presentViewController:alertController animated:YES completion:^{
         }];
-    } else {
-     
-     */
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"You can no longer register this KandiTAG" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-        [alert show];
     
-   /* } */
+    check = [[UIImageView alloc] initWithFrame:CGRectMake(controller.view.frame.size.width/ 3, controller.view.frame.size.height / 2.6, 100, 100)];
+    check.image = [UIImage imageNamed:@"error"];
+    
+    //[controller.view addSubview:check];
+    
+    NSTimer *removeCheck = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(removeCheck) userInfo:nil repeats:NO];
+
 }
 
 -(void)presentAlreadyOwned {
     
-    /*
-     
-     if ([VersionCheck IOS8ORLater]) {
-     UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Woah There!" message:@"You can no longer register this KandiTAG" preferredStyle:UIAlertControllerStyleAlert];
+    NSLog(@"presentAlreadyOwned");
+    
+     UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Hang On!" message:@"This KandiTAG has already been registered to you" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   NSLog(@"OK action");
+                               }];
+    
+    [alertController addAction:okAction];
      [controller presentViewController:alertController animated:YES completion:^{
      }];
-     } else {
-     
-     */
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hang on a Sec!" message:@"You've already owned this KandiTAG" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-    [alert show];
-
     
-    /* } */
+    
+    check = [[UIImageView alloc] initWithFrame:CGRectMake(controller.view.frame.size.width/ 3, controller.view.frame.size.height / 2.6, 100, 100)];
+    check.image = [UIImage imageNamed:@"check"];
+    
+    //[controller.view addSubview:check];
+    
+    NSTimer *removeCheck = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(removeCheck) userInfo:nil repeats:NO];
+
 }
 
 -(void)presentServerFail {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"The server is busy, please try again later" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-    [alert show];
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Sorry" message:@"The Server is busy, please try again" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   NSLog(@"OK action");
+                               }];
+    
+    [alertController addAction:okAction];
+    [controller presentViewController:alertController animated:YES completion:^{
+    }];
 
+}
+
+-(void)removeCheck {
+    [check removeFromSuperview];
 }
 
 @end

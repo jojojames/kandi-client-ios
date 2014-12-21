@@ -24,9 +24,15 @@
 #define COCOAPODS_VERSION_MINOR_FMDB_standard 4
 #define COCOAPODS_VERSION_PATCH_FMDB_standard 0
 
-// ZFDragableModalTransition
-#define COCOAPODS_POD_AVAILABLE_ZFDragableModalTransition
-#define COCOAPODS_VERSION_MAJOR_ZFDragableModalTransition 0
-#define COCOAPODS_VERSION_MINOR_ZFDragableModalTransition 2
-#define COCOAPODS_VERSION_PATCH_ZFDragableModalTransition 0
+// SIOSocket
+#define COCOAPODS_POD_AVAILABLE_SIOSocket
+#define COCOAPODS_VERSION_MAJOR_SIOSocket 0
+#define COCOAPODS_VERSION_MINOR_SIOSocket 2
+#define COCOAPODS_VERSION_PATCH_SIOSocket 0
+
+// SocketRocket
+#define COCOAPODS_POD_AVAILABLE_SocketRocket
+#define COCOAPODS_VERSION_MAJOR_SocketRocket 0
+#define COCOAPODS_VERSION_MINOR_SocketRocket 3
+#define COCOAPODS_VERSION_PATCH_SocketRocket 1
 

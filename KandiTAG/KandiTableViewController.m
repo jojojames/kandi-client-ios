@@ -15,7 +15,6 @@
 #import "MessagingNavigationController.h"
 #import "KandiDetailTableViewCell.h"
 #import "DetailTableViewController.h"
-#import "ZFModalTransitionAnimator.h"
 #import "Animator.h"
 #import "Interactive.h"
 

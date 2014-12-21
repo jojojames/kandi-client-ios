@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MessageSendDelegate.h"
 #import "Sender.h"
+#import <SIOSocket/SIOSocket.h>
 
-@interface ChatTableViewController : UIViewController <NSURLConnectionDataDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ChatTableViewController : UIViewController <NSURLConnectionDataDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSStreamDelegate>
 
 
 -(instancetype)initWithFacebookId:(NSString*)_facebookId andUserName:(NSString *)_userName;
@@ -39,5 +40,14 @@
 @property (strong, nonatomic) Sender *sender;
 
 @property (strong, nonatomic) NSMutableArray *messageslisted;
+
+@property (strong, nonatomic) SIOSocket *socket;
+
+//
+@property (strong, nonatomic) NSInputStream *inputStream;
+@property (strong, nonatomic) NSOutputStream *outputStream;
+
+
+
 
 @end

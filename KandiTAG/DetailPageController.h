@@ -10,10 +10,10 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "Constants.h"
 
-@interface DetailPageController : UIPageViewController <NSURLConnectionDataDelegate, FBGraphUser, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface DetailPageController : UIViewController <NSURLConnectionDataDelegate, FBGraphUser, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 -(instancetype)initWithFlag:(DisplayType)flag;
--(instancetype)initWithFlag:(DisplayType)flag andQRCode:(NSString*)qrCode andTransitionStyle:(UIPageViewControllerTransitionStyle)transitionStyle;
+-(instancetype)initWithFlag:(DisplayType)flag andQRCode:(NSString*)qrCode;
 @property (strong, nonatomic) NSMutableData* responseData;
 @property (nonatomic) BOOL loadedDataSource;
 
@@ -28,5 +28,7 @@
 @property (strong, nonatomic) UIActivityIndicatorView *indicator;
 @property (strong, nonatomic) NSMutableArray *selectedIndexPaths;
 @property (strong, nonatomic) NSDictionary *json;
+
+@property (nonatomic) UIPageViewController *pageViewController;
 
 @end

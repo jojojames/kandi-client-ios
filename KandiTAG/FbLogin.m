@@ -38,7 +38,7 @@
     [super viewDidLoad];
     
     [self toggleHiddenState:NO];
-    loginButton = [[FBLoginView alloc] initWithFrame:CGRectMake(50, self.view.frame.size.height / 1.35, self.view.frame.size.width - 100, 30)];
+    loginButton = [[FBLoginView alloc] initWithFrame:CGRectMake(50, self.view.frame.size.height / 1.2, self.view.frame.size.width - 100, 30)];
     [self.view addSubview:loginButton];
     self.loginButton.readPermissions = @[@"public_profile", @"email"];
     self.loginButton.delegate = self;
@@ -129,7 +129,7 @@
         if ([success boolValue]) {
             NSString* userId = (NSString*)[json objectForKey:@"user_id"];
             [AppDelegate KandiAppDelegate].mainUserId = userId;
-            NSLog(@"FBLoginViewController: connectionDidFinishLoading: user_id: %@", userId);
+            NSLog(@"FbLogin: connectionDidFinishLoading: user_id: %@", userId);
         } else {
             // todo; show an alert that the login was not successful for whatever reason
         }

@@ -443,6 +443,8 @@
                     iconView = [[ProfilePicViewController alloc] init];
                     [iconView.view setFrame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height)];
                     
+                    /*
+                    
                     switch (tagsCount) {
                         case 1:
                             //NSLog(@"case 1");
@@ -483,6 +485,8 @@
                     [self addChildViewController:iconView];
                     [self.view addSubview:iconView.view];
                     removePicView = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(removeProfilePicViewController) userInfo:nil repeats:NO];
+                     
+                     */
             }
         }
     }

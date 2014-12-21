@@ -12,5 +12,10 @@
 
 @interface DetailCollectionViewCell : UICollectionViewCell <FBGraphUser, NSURLConnectionDataDelegate>
 
+@property (nonatomic, strong) UIImageView *profileImage;
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UIView *background;
+
+-(instancetype)init;
 
 @end

@@ -49,12 +49,14 @@
 }
 
 -(void)saveDeviceToken:(id<NSURLConnectionDataDelegate>)netdelegate {
-    NSLog(@"saveDeviceToken has been called");
+    NSLog(@"saveDeviceToken");
     NSString* token = [AppDelegate KandiAppDelegate].deviceToken;
     NSString* facebookid = [AppDelegate KandiAppDelegate].facebookId;
     NSString* userName = [AppDelegate KandiAppDelegate].userName;
     NSInteger badgeN = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     NSNumber *badgeNum = [NSNumber numberWithInteger:badgeN];
+    
+    //NSLog(@"badgeNum: %@", badgeNum);
     
     if (!token)
         return;
@@ -76,8 +78,9 @@
 }
 
 -(void)saveQrCode:(id<NSURLConnectionDataDelegate>) netdelegate withCode:(NSString*)qrCode {
-    NSLog(@"saveQrCode has been called");
+    NSLog(@"saveQrCode");
     NSString* user_id = [AppDelegate KandiAppDelegate].mainUserId;
+    NSString* user_name = [AppDelegate KandiAppDelegate].userName;
     
     if (!qrCode || !user_id)
         return;
@@ -87,6 +90,7 @@
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     [dict setObject:qrCode forKey:@"qrcode"];
     [dict setObject:user_id forKey:@"user_id"];
+    [dict setObject:user_name forKey:@"username"];
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict
                                                           options:NSJSONReadingAllowFragments
                                                             error:&error];
@@ -96,7 +100,7 @@
 }
 
 -(void)getOriginalTags:(id<NSURLConnectionDataDelegate>)netdelegate {
-    NSLog(@"getOriginalTags has been called");
+    NSLog(@"getOriginalTags");
     NSString* user_id = [AppDelegate KandiAppDelegate].mainUserId;
     
     if (!user_id)
@@ -114,7 +118,7 @@
 }
 
 -(void)getCurrentTags:(id<NSURLConnectionDataDelegate>)netdelegate {
-    NSLog(@"getCurrentTags has been called");
+    NSLog(@"getCurrentTags");
     NSString* user_id = [AppDelegate KandiAppDelegate].mainUserId;
     
     if (!user_id)
@@ -134,7 +138,7 @@
 -(void)getAllTags:(id<NSURLConnectionDataDelegate>) netdelegate withQRcode:(NSString*)code {
     if (!code)
         return;
-    NSLog(@"getAllTags has been called");
+    NSLog(@"getAllTags");
     
     NSError* error;
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
@@ -148,7 +152,7 @@
 }
 
 -(void)getPreviousOwner:(id<NSURLConnectionDataDelegate>)netdelegate withQrCode:(NSString *)code {
-    NSLog(@"getPreviousOwner has been called");
+    NSLog(@"getPreviousOwner");
     if (!code)
         return;
     
@@ -162,7 +166,7 @@
 }
 
 -(void)getPreviousUserList:(id<NSURLConnectionDataDelegate>)netdelegate withQrCode:(NSString *)code {
-    NSLog(@"getPreviousUserList has been called");
+    NSLog(@"getPreviousUserList");
     if (!code)
         return;
     NSError *error;
@@ -177,12 +181,13 @@
 
 -(void)sendMessage:(id<NSURLConnectionDataDelegate>)netdelegate withMessage:(NSString *)message andRecipient:(NSString *)recipient andTime:(NSString *)timestamp {
     NSString *user_id = [AppDelegate KandiAppDelegate].facebookId;
+    NSString *user_name = [AppDelegate KandiAppDelegate].userName;
     
     if (!message || !recipient || !timestamp) {
         return;
     }
     
-    NSLog(@"sendMessage has been called");
+    NSLog(@"sendMessage");
     
     NSError *error;
     NSMutableDictionary *dict = [NSMutableDictionary new];
@@ -190,6 +195,7 @@
     [dict setObject:user_id forKey:@"sender"];
     [dict setObject:recipient forKey:@"recipient"];
     [dict setObject:timestamp forKey:@"timestamp"];
+    [dict setObject:user_name forKey:@"username"];
 
     
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:dict
@@ -203,7 +209,7 @@
 }
 
 -(void)getAllMessages:(id<NSURLConnectionDataDelegate>)netdelegate {
-    NSLog(@"getAllMessages has been called");
+    NSLog(@"getAllMessages");
     NSString *user_id = [AppDelegate KandiAppDelegate].facebookId;
     if (!user_id) {
         return;
@@ -222,7 +228,7 @@
 }
 
 -(void)getMessageExchange:(id<NSURLConnectionDataDelegate>)netdelegate withRecipient:(NSString *)recipient {
-    NSLog(@"getMessageExchange called");
+    NSLog(@"getMessageExchange");
     if (!recipient) {
         return;
     }
@@ -246,6 +252,7 @@
     if (!message || !recipient || !name) {
         return;
     }
+    NSLog(@"saveConvo");
     
     NSString *user_id = [AppDelegate KandiAppDelegate].facebookId;
     NSString *user_name = [AppDelegate KandiAppDelegate].userName;

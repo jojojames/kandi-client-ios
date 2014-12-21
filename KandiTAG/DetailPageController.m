@@ -69,7 +69,7 @@
     return self;
 }
 
--(instancetype)initWithFlag:(DisplayType)flag andQRCode:(NSString*)qrCode andTransitionStyle:(UIPageViewControllerTransitionStyle)transitionStyle{
+-(instancetype)initWithFlag:(DisplayType)flag andQRCode:(NSString*)qrCode {
     self = [self initWithFlag:flag];
     if (self) {
         self.selectedQrCodeId = qrCode;
@@ -81,10 +81,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.delegate = self;
-    self.dataSource = self;
-
+    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    self.pageViewController.delegate = self;
+    self.pageViewController.dataSource = self;
     
+    [self.view addSubview:self.pageViewController.view];
+    self.pageViewController.view.userInteractionEnabled = YES;
 }
 
 -(UIViewController *)viewControllerAtIndex:(NSUInteger)index {
@@ -96,41 +98,35 @@
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
      viewControllerBeforeViewController:(UIViewController *)viewController {
     NSUInteger currentIndex = [profilePages indexOfObject:viewController];
-    
-    if (profilePages.count > 1) {
     --currentIndex;
     currentIndex = currentIndex % (profilePages.count);
-    
     if (currentIndex == NSNotFound) {
         
         return nil;
     }
     
+    [self.view setFrame:CGRectMake(0, 65, self.view.frame.size.width, 180)];
 
     return [profilePages objectAtIndex:currentIndex];
-    }
-    return nil;
+
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
       viewControllerAfterViewController:(UIViewController *)viewController {
     NSUInteger currentIndex = [profilePages indexOfObject:viewController];
-    
-    
-    if (profilePages.count > 1) {
+
     ++currentIndex;
     currentIndex = currentIndex % (profilePages.count);
-    
-        
     if (currentIndex == NSNotFound) {
         
         return nil;
     }
     
+    [self.view setFrame:CGRectMake(0, 65, self.view.frame.size.width, 180)];
+
 
     return [profilePages objectAtIndex:currentIndex];
-    }
-    return nil;
+
     
 }
 
@@ -178,49 +174,47 @@
             }
             
             int count = fbIdList.count;
-            NSLog(@"count: %d", count);
             
             switch (count) {
                 case 1:
-                    dvc1 = [[DetailViewController alloc] initWithFacebookId:fbIdList[0] name:nameList[0] placement:1];
+                    dvc1 = [[DetailViewController alloc] initWithFacebookId:fbIdList[0] name:nameList[0] placement:1 controller:self];
                     profilePages = @[dvc1];
-                    [self setViewControllers:@[dvc1] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+                    [self.pageViewController setViewControllers:@[dvc1] direction:(UIPageViewControllerNavigationDirectionForward | UIPageViewControllerNavigationDirectionReverse) animated:NO completion:nil];
 
                     NSLog(@"case 1");
                     break;
                 case 2:
-                    dvc1 = [[DetailViewController alloc] initWithFacebookId:fbIdList[0] name:nameList[0] placement:1];
-                    dvc2 = [[DetailViewController alloc] initWithFacebookId:fbIdList[1] name:nameList[1] placement:2];
-                    [self setViewControllers:@[dvc2] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+                    dvc1 = [[DetailViewController alloc] initWithFacebookId:fbIdList[0] name:nameList[0] placement:1 controller:self];
+                    dvc2 = [[DetailViewController alloc] initWithFacebookId:fbIdList[1] name:nameList[1] placement:2 controller:self];
                     profilePages = @[dvc1, dvc2];
+                    [self.pageViewController setViewControllers:@[dvc2] direction:(UIPageViewControllerNavigationDirectionForward | UIPageViewControllerNavigationDirectionReverse) animated:NO completion:nil];
                     NSLog(@"case 2");
                     break;
                 case 3:
-                    dvc1 = [[DetailViewController alloc] initWithFacebookId:fbIdList[0] name:nameList[0] placement:1];
-                    dvc2 = [[DetailViewController alloc] initWithFacebookId:fbIdList[1] name:nameList[1] placement:2];
-                    dvc3 = [[DetailViewController alloc] initWithFacebookId:fbIdList[2] name:nameList[2] placement:3];
-                    [self setViewControllers:@[dvc3] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
-
+                    dvc1 = [[DetailViewController alloc] initWithFacebookId:fbIdList[0] name:nameList[0] placement:1 controller:self];
+                    dvc2 = [[DetailViewController alloc] initWithFacebookId:fbIdList[1] name:nameList[1] placement:2 controller:self];
+                    dvc3 = [[DetailViewController alloc] initWithFacebookId:fbIdList[2] name:nameList[2] placement:3 controller:self];
                     profilePages = @[dvc1, dvc2, dvc3];
+                    [self.pageViewController setViewControllers:@[dvc3] direction:(UIPageViewControllerNavigationDirectionForward | UIPageViewControllerNavigationDirectionReverse) animated:NO completion:nil];
                     NSLog(@"case 3");
                     break;
                 case 4:
-                    dvc1 = [[DetailViewController alloc] initWithFacebookId:fbIdList[0] name:nameList[0] placement:1];
-                    dvc2 = [[DetailViewController alloc] initWithFacebookId:fbIdList[1] name:nameList[1] placement:2];
-                    dvc3 = [[DetailViewController alloc] initWithFacebookId:fbIdList[2] name:nameList[2] placement:3];
-                    dvc4 = [[DetailViewController alloc] initWithFacebookId:fbIdList[3] name:nameList[3] placement:4];
-                    [self setViewControllers:@[dvc4] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+                    dvc1 = [[DetailViewController alloc] initWithFacebookId:fbIdList[0] name:nameList[0] placement:1 controller:self];
+                    dvc2 = [[DetailViewController alloc] initWithFacebookId:fbIdList[1] name:nameList[1] placement:2 controller:self];
+                    dvc3 = [[DetailViewController alloc] initWithFacebookId:fbIdList[2] name:nameList[2] placement:3 controller:self];
+                    dvc4 = [[DetailViewController alloc] initWithFacebookId:fbIdList[3] name:nameList[3] placement:4 controller:self];
                     profilePages = @[dvc1, dvc2, dvc3, dvc4];
+                    [self.pageViewController setViewControllers:@[dvc4] direction:(UIPageViewControllerNavigationDirectionForward | UIPageViewControllerNavigationDirectionReverse) animated:NO completion:nil];
                     NSLog(@"case 4");
                     break;
                 case 5:
-                    dvc1 = [[DetailViewController alloc] initWithFacebookId:fbIdList[0] name:nameList[0] placement:1];
-                    dvc2 = [[DetailViewController alloc] initWithFacebookId:fbIdList[1] name:nameList[1] placement:2];
-                    dvc3 = [[DetailViewController alloc] initWithFacebookId:fbIdList[2] name:nameList[2] placement:3];
-                    dvc4 = [[DetailViewController alloc] initWithFacebookId:fbIdList[3] name:nameList[3] placement:4];
-                    dvc5 = [[DetailViewController alloc] initWithFacebookId:fbIdList[4] name:nameList[4] placement:5];
-                    [self setViewControllers:@[dvc5] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+                    dvc1 = [[DetailViewController alloc] initWithFacebookId:fbIdList[0] name:nameList[0] placement:1 controller:self];
+                    dvc2 = [[DetailViewController alloc] initWithFacebookId:fbIdList[1] name:nameList[1] placement:2 controller:self];
+                    dvc3 = [[DetailViewController alloc] initWithFacebookId:fbIdList[2] name:nameList[2] placement:3 controller:self];
+                    dvc4 = [[DetailViewController alloc] initWithFacebookId:fbIdList[3] name:nameList[3] placement:4 controller:self];
+                    dvc5 = [[DetailViewController alloc] initWithFacebookId:fbIdList[4] name:nameList[4] placement:5 controller:self];
                     profilePages = @[dvc1, dvc2, dvc3, dvc4, dvc5];
+                    [self.pageViewController setViewControllers:@[dvc5] direction:(UIPageViewControllerNavigationDirectionForward | UIPageViewControllerNavigationDirectionReverse) animated:NO completion:nil];
                     NSLog(@"case 5");
                     break;
                     
@@ -266,7 +260,7 @@
             
             if (loadedDataSource)
                 [collectionView reloadData];
-            NSLog(@"detailView tableView reloadData");
+            NSLog(@"detailView.tableView reloadData");
         } else {
             // NSString* error = [jsonResponse objectForKey:@"error"];
             //NSLog(@"%@", error);

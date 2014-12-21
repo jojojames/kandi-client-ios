@@ -17,7 +17,7 @@
 
 @synthesize hasImage;
 
-#define PROFILE_ICON_SIZE 60
+#define PROFILE_ICON_SIZE 50
 
 -(instancetype)init {
     self = [super init];
@@ -26,40 +26,40 @@
         self.transitioningDelegate = self;
         self.modalPresentationStyle = UIModalPresentationCustom;
         
-        //self.profileIcon1 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 12, self.view.frame.size.height - 120, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
-        self.profileIcon1 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width /2.45, self.view.frame.size.height /4, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
+        self.profileIcon1 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 12, self.view.frame.size.height - 120, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
+        //self.profileIcon1 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width /2.45, self.view.frame.size.height /4, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
         self.profileIcon1.layer.borderColor = [UIColor whiteColor].CGColor;
         self.profileIcon1.clipsToBounds = YES;
         self.profileIcon1.layer.cornerRadius = self.profileIcon1.frame.size.width/2;
         self.profileIcon1.layer.borderWidth = 3.0f;
         //[self.view addSubview:self.profileIcon1];
         
-        //self.profileIcon2 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 3.9, self.view.frame.size.height - 120, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
-        self.profileIcon2 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 1.5  , self.view.frame.size.height /2.9, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
+        self.profileIcon2 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 3.9, self.view.frame.size.height - 120, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
+        //self.profileIcon2 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 1.5  , self.view.frame.size.height /2.9, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
         self.profileIcon2.layer.borderColor = [UIColor whiteColor].CGColor;
         self.profileIcon2.clipsToBounds = YES;
         self.profileIcon2.layer.cornerRadius = self.profileIcon2.frame.size.width/2;
         self.profileIcon2.layer.borderWidth = 3.0f;
         //[self.view addSubview:self.profileIcon2];
         
-        //self.profileIcon3 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.35, self.view.frame.size.height - 120, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
-        self.profileIcon3 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 1.75, self.view.frame.size.height /2, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
+        self.profileIcon3 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.35, self.view.frame.size.height - 120, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
+        //self.profileIcon3 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 1.75, self.view.frame.size.height /2, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
         self.profileIcon3.layer.borderColor = [UIColor whiteColor].CGColor;
         self.profileIcon3.clipsToBounds = YES;
         self.profileIcon3.layer.cornerRadius = self.profileIcon3.frame.size.width/2;
         self.profileIcon3.layer.borderWidth = 3.0f;
         //[self.view addSubview:self.profileIcon3];
         
-        //self.profileIcon4 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 1.68, self.view.frame.size.height - 120, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
-        self.profileIcon4 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 4  , self.view.frame.size.height /2, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
+        self.profileIcon4 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 1.68, self.view.frame.size.height - 120, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
+        //self.profileIcon4 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 4  , self.view.frame.size.height /2, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
         self.profileIcon4.layer.borderColor = [UIColor whiteColor].CGColor;
         self.profileIcon4.clipsToBounds = YES;
         self.profileIcon4.layer.cornerRadius = self.profileIcon4.frame.size.width/2;
         self.profileIcon4.layer.borderWidth = 3.0f;
         //[self.view addSubview:self.profileIcon4];
         
-        //self.profileIcon5 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 1.31, self.view.frame.size.height - 120, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
-        self.profileIcon5 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 6.5 , self.view.frame.size.height /2.9, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
+        self.profileIcon5 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 1.31, self.view.frame.size.height - 120, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
+        //self.profileIcon5 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 6.5 , self.view.frame.size.height /2.9, PROFILE_ICON_SIZE, PROFILE_ICON_SIZE)];
         self.profileIcon5.layer.borderColor = [UIColor whiteColor].CGColor;
         self.profileIcon5.clipsToBounds = YES;
         self.profileIcon5.layer.cornerRadius = self.profileIcon5.frame.size.width/2;

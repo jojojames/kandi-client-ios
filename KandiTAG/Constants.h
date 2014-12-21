@@ -13,7 +13,8 @@ typedef enum {
     TAG = 1,
     KANDI,
     DETAIL,
-    MESSAGE
+    MESSAGE,
+    FEED
 } DisplayType;
 
 #define ROW_HEIGHT 70
